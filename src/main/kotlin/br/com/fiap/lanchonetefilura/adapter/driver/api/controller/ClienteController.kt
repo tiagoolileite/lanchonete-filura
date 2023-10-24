@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.shared.logger
+import br.com.fiap.lanchonetefilura.adapter.driver.api.shared.ApiHelper.logger
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import org.springframework.http.ResponseEntity
