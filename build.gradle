@@ -7,7 +7,7 @@ plugins {
 	id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
 }
 
-group = 'br.com.fiap.lanchonetefilura'
+group = 'br.com.fiap'
 version = '0.0.1-SNAPSHOT'
 
 java {
@@ -22,6 +22,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.jetbrains.kotlin:kotlin-reflect'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -1,10 +1,10 @@
-package br.com.fiap.lanchonetefilura.lanchonetefilura
+package br.com.fiap.lanchonetefilura
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class LanchoneteFiluraApplicationTests {
+class LanchonetefiluraApplicationTests {
 
 	@Test
 	fun contextLoads() {

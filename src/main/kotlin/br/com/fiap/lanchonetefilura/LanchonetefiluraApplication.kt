@@ -1,11 +1,11 @@
-package br.com.fiap.lanchonetefilura.lanchonetefilura
+package br.com.fiap.lanchonetefilura
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class LanchoneteFiluraApplication
+class LanchonetefiluraApplication
 
 fun main(args: Array<String>) {
-	runApplication<LanchoneteFiluraApplication>(*args)
+	runApplication<LanchonetefiluraApplication>(*args)
 }
