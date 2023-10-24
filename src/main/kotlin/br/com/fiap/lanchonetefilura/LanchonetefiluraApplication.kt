@@ -11,7 +11,6 @@ import org.springframework.context.annotation.ComponentScan
 @EntityScan
 @EnableAutoConfiguration
 class LanchonetefiluraApplication
-
 fun main(args: Array<String>) {
 	runApplication<LanchonetefiluraApplication>(*args)
 }

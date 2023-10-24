@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class ClienteUseCaseImpl (private val repository: ClienteRepository) : ClienteUseCase {
     override fun getClientes(): ArrayList<ClienteModel> {
+
         return repository.getClientes()
     }
 }
