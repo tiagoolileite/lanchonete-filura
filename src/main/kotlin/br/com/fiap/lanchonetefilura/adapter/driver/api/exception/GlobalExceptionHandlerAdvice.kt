@@ -1,5 +1,7 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.exception
 
+import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteJaExisteException
+import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteNaoEncontradoException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -36,6 +38,17 @@ class GlobalExceptionHandlerAdvice {
                 entity = exception.entity?.let { exception.entity }
             ),
             HttpStatus.ALREADY_REPORTED)
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Cliente Não foi localizado!")
+    @ExceptionHandler
+    fun clienteNaoEncontrado(exception: ClienteNaoEncontradoException): ResponseEntity<ApiError> {
+        return ResponseEntity(
+            ApiError(
+                status = HttpStatus.NOT_FOUND.value(),
+                message = "Cliente Não foi localizado!"
+            ),
+            HttpStatus.NOT_FOUND)
     }
 
 }
