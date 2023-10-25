@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.input.ClienteInput
+import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.adapter.driver.api.shared.ApiHelper.logger
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RestController
 class ClienteController (private val useCase: ClienteUseCase) {
 
     @GetMapping
-    fun getClientes(): ResponseEntity<ArrayList<ClienteModel>> {
+    fun findAllClientes(): ResponseEntity<ArrayList<ClienteModel>> {
 
-        val clientes = useCase.getClientes()
+        val clientes = useCase.findAllClientes()
 
         logger.info("Lista de clientes requisitada com sucesso")
 
@@ -31,9 +31,9 @@ class ClienteController (private val useCase: ClienteUseCase) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun createCliente(@RequestBody @Valid clienteInput: ClienteInput): ResponseEntity<ClienteModel> {
+    fun saveCliente(@RequestBody @Valid clienteRequest: ClienteRequest): ResponseEntity<ClienteModel> {
 
-        val cliente = useCase.createCliente(clienteInput)
+        val cliente = useCase.saveCliente(clienteRequest)
 
         return ResponseEntity.ok(cliente)
     }
