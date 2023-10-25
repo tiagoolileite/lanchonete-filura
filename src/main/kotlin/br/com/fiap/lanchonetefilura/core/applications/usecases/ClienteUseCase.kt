@@ -6,5 +6,7 @@ import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 interface ClienteUseCase {
     fun findAllClientes(): ArrayList<ClienteModel>
 
+    fun findClienteByCpf(cpf: String): ClienteModel?
+
     fun saveCliente(clienteRequest: ClienteRequest): ClienteModel
 }
