@@ -27,3 +27,12 @@ In this file, the following services have been defined:
 
 Please review the tags of the used images and set them to the same as you're running in production.
 
+### Guides
+The following guides illustrate how to use some features concretely:
+
+* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+
+
+### Spring DOC OpenAPI
+
+* https://springdoc.org/
