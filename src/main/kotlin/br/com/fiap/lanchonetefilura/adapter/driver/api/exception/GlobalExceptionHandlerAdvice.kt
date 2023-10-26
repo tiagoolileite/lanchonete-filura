@@ -2,6 +2,7 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.exception
 
 import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteJaExisteException
 import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.produto.ProdutoNaoEncontradoException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
@@ -47,6 +48,28 @@ class GlobalExceptionHandlerAdvice {
             ApiError(
                 status = HttpStatus.NOT_FOUND.value(),
                 message = "Cliente Não foi localizado!"
+            ),
+            HttpStatus.NOT_FOUND)
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Produto Não foi localizado!")
+    @ExceptionHandler
+    fun produtoNaoEncontrado(exception: ProdutoNaoEncontradoException): ResponseEntity<ApiError> {
+        return ResponseEntity(
+            ApiError(
+                status = HttpStatus.NOT_FOUND.value(),
+                message = "Produto Não foi localizado!"
+            ),
+            HttpStatus.NOT_FOUND)
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Produto Não foi localizado!")
+    @ExceptionHandler
+    fun objetoNaoEncontrado(exception: NoSuchElementException): ResponseEntity<ApiError> {
+        return ResponseEntity(
+            ApiError(
+                status = HttpStatus.NOT_FOUND.value(),
+                message = "Objeto Não foi localizado!"
             ),
             HttpStatus.NOT_FOUND)
     }

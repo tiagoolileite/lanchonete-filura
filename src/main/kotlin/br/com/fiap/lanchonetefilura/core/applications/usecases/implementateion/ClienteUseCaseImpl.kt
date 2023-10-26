@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.converters.converterClienteInputToClienteModel
+import br.com.fiap.lanchonetefilura.adapter.driver.api.converters.converterClienterequestToClienteModel
 import br.com.fiap.lanchonetefilura.adapter.driver.api.converters.converterFindAllClientesToArrayList
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
@@ -41,6 +41,6 @@ class ClienteUseCaseImpl (private val repository: ClienteRepository) : ClienteUs
             throw ClienteJaExisteException(it)
         }
 
-        return repository.save(converterClienteInputToClienteModel(clienteRequest))
+        return repository.save(converterClienterequestToClienteModel(clienteRequest))
     }
 }
