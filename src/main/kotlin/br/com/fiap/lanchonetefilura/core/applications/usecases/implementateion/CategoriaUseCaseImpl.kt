@@ -8,12 +8,14 @@ import br.com.fiap.lanchonetefilura.adapter.driver.api.request.CategoriaRequest
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import org.springframework.stereotype.Component
+import java.util.UUID
+import kotlin.collections.ArrayList
 
 @Component
 class CategoriaUseCaseImpl (
     private val categoriaRepository: CategoriaRepository
 ) : CategoriaUseCase {
-    override fun findById(id: Int): CategoriaModel? {
+    override fun findById(id: UUID): CategoriaModel? {
 
         return categoriaRepository.findById(id).get()
     }

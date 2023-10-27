@@ -10,7 +10,7 @@ interface ProdutoUseCase {
 
     fun findProdutoById(id: UUID): ProdutoModel?
 
-    fun findProdutosByCategoria(id: Int): ArrayList<ProdutoModel>?
+    fun findProdutosByCategoria(id: UUID): ArrayList<ProdutoModel>?
 
     fun findAllProdutos(): ArrayList<ProdutoModel>?
     fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaModel?): ProdutoModel?

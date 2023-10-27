@@ -8,7 +8,7 @@ import java.util.*
 @Repository
 interface ProdutoRepository : JpaRepository<ProdutoModel, UUID> {
 
-    fun findAllByCategoriaId(id: Int): ArrayList<ProdutoModel> {
+    fun findAllByCategoriaId(id: UUID): ArrayList<ProdutoModel> {
         return findAllByCategoriaId(id)
     }
 }

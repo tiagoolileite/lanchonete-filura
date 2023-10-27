@@ -2,6 +2,7 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.request
 
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
+import java.util.UUID
 
 data class ProdutoRequest (
     @NotNull(message = "nome não pode estar vazio")
@@ -15,5 +16,5 @@ data class ProdutoRequest (
     val preco: Double,
     @NotNull(message = "categoria não pode estar vazio")
     @NotEmpty(message = "categoria não pode estar vazio")
-    val categoria: Int
+    val categoria: UUID
 )
