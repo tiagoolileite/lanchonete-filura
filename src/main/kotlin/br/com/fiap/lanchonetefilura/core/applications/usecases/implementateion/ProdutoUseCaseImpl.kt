@@ -8,7 +8,7 @@ import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.UUID
 
 @Component
 class ProdutoUseCaseImpl (
@@ -22,6 +22,11 @@ class ProdutoUseCaseImpl (
     override fun findProdutoById(id: UUID): ProdutoModel? {
         return produtoRepository.findById(id).get()
     }
+
+    override fun findProdutosByCategoria(id: UUID): ArrayList<ProdutoModel>? {
+        return produtoRepository.findAllByCategoriaId(id)
+    }
+
 
     override fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaModel?): ProdutoModel {
 

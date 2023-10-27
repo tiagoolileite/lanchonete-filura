@@ -1,7 +1,15 @@
 package br.com.fiap.lanchonetefilura.core.domain.model
 
-import jakarta.persistence.*
-import java.util.*
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import jakarta.persistence.Id
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Column
+import jakarta.persistence.GenerationType
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import java.util.UUID
 
 @Entity
 @Table(name="produto")
