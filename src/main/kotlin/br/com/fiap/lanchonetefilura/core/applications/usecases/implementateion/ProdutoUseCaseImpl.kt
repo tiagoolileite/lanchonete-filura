@@ -23,6 +23,11 @@ class ProdutoUseCaseImpl (
         return produtoRepository.findById(id).get()
     }
 
+    override fun findProdutosByCategoria(id: Int): ArrayList<ProdutoModel>? {
+        return produtoRepository.findAllByCategoriaId(id)
+    }
+
+
     override fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaModel?): ProdutoModel {
 
         return produtoRepository.save(converterProdutorequestToProdutoModel(produtoRequest, categoria))

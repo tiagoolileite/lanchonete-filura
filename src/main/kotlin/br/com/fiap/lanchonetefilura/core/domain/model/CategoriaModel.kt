@@ -9,5 +9,6 @@ data class CategoriaModel(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "categoria_id")
     val id: Int? = null,
+    @Column(unique = true)
     val descricao: String? = null,
 )

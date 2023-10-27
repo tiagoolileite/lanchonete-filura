@@ -18,10 +18,16 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     fun findAllProdutos(): ResponseEntity<ArrayList<ProdutoModel>> {
-
-        val produto = produtoUseCase.findAllProdutos()
-
         return ResponseEntity.ok(produtoUseCase.findAllProdutos())
+    }
+
+    @GetMapping("/categoria")
+    @ResponseStatus(HttpStatus.OK)
+    fun findProdutosByCategoria(@RequestParam id: Int): ResponseEntity<ArrayList<ProdutoModel>> {
+
+        val produto = produtoUseCase.findProdutosByCategoria(id)
+
+        return ResponseEntity.ok(produto)
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.converters
 
+import br.com.fiap.lanchonetefilura.adapter.driver.api.request.CategoriaRequest
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequest
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
@@ -12,6 +13,10 @@ fun converterClienterequestToClienteModel(clienteRequest: ClienteRequest): Clien
         nome = clienteRequest.nome,
         email = clienteRequest.email
     )
+}
+
+fun converterCategoriaRequestToCategoriaModel(categoria: CategoriaRequest): CategoriaModel {
+    return CategoriaModel(descricao = categoria.descricao)
 }
 
 fun converterFindAllClientesToArrayList(clientesIterable: Iterable<ClienteModel>): ArrayList<ClienteModel> {
@@ -35,4 +40,11 @@ fun converterFindAllProdutosToArrayList(produtosIterable: Iterable<ProdutoModel>
     produtosIterable.forEach { produtos.add(it) }
 
     return produtos
+}
+
+fun converterFindAllCategoriasToArrayList(categoriaIterable: List<CategoriaModel>): ArrayList<CategoriaModel>? {
+    val categorias = arrayListOf<CategoriaModel>()
+    categoriaIterable.forEach { categorias.add(it) }
+
+    return categorias
 }
