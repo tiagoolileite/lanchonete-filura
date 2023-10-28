@@ -1,12 +1,12 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequest
-import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
+import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
 
 interface ClienteUseCase {
-    fun findAllClientes(): ArrayList<ClienteModel>
+    fun getClientes(): List<ClienteDTO>?
 
-    fun findClienteByCpf(cpf: String): ClienteModel?
+    fun getClienteByCpf(cpf: String): ClienteDTO?
 
-    fun saveCliente(clienteRequest: ClienteRequest): ClienteModel
+    fun saveCliente(clienteRequest: ClienteRequest): ClienteDTO?
 }
