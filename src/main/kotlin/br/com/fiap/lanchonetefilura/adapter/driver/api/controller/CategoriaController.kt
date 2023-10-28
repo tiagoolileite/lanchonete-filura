@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("api/categoria")
 class CategoriaController (private val useCase: CategoriaUseCase) {
 
-    @GetMapping
+    @GetMapping("/categorias")
     fun findAllCategorias(): ResponseEntity<ArrayList<CategoriaModel>> {
         return ResponseEntity.ok(useCase.findAll())
     }

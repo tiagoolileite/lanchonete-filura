@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.*
 import java.util.UUID
 
 @RestController
-@RequestMapping("/produtos")
+@RequestMapping("api/produto")
 class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val categoriaUseCase: CategoriaUseCase) {
 
-    @GetMapping
+    @GetMapping("/produtos")
     @ResponseStatus(HttpStatus.OK)
     fun findAllProdutos(): ResponseEntity<ArrayList<ProdutoModel>> {
         return ResponseEntity.ok(produtoUseCase.findAllProdutos())
     }
 
-    @GetMapping("/categoria")
+    @GetMapping("/produtos/categoria")
     @ResponseStatus(HttpStatus.OK)
     fun findProdutosByCategoria(@RequestParam id: UUID): ResponseEntity<ArrayList<ProdutoModel>> {
 
@@ -36,7 +36,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         @RequestBody @Valid produtoRequest: ProdutoRequest
     ): ResponseEntity<ProdutoModel> {
 
-        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoria)
+        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoriaId)
 
         val produto: ProdutoModel? = produtoUseCase.saveProduto(produtoRequest, categoria)
 
@@ -50,7 +50,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         @RequestParam id: UUID
     ): ResponseEntity<ProdutoModel> {
 
-        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoria)
+        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoriaId)
 
         val produto: ProdutoModel? = produtoUseCase.updateProduto(produtoRequest, id, categoria)
 

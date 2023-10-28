@@ -10,10 +10,10 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("api/cliente")
 class ClienteController (private val useCase: ClienteUseCase) {
 
-    @GetMapping
+    @GetMapping("/clientes")
     fun findAllClientes(): ResponseEntity<ArrayList<ClienteModel>> {
 
         val clientes = useCase.findAllClientes()
@@ -24,7 +24,7 @@ class ClienteController (private val useCase: ClienteUseCase) {
 
     }
 
-    @GetMapping("/cliente")
+    @GetMapping
     fun findClienteByCpf(@RequestParam cpf: String): ResponseEntity<ClienteModel> {
 
         val cliente = useCase.findClienteByCpf(cpf)

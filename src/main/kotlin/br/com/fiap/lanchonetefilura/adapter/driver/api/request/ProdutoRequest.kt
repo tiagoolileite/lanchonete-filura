@@ -16,5 +16,5 @@ data class ProdutoRequest (
     val preco: Double,
     @NotNull(message = "categoria não pode estar vazio")
     @NotEmpty(message = "categoria não pode estar vazio")
-    val categoria: UUID
+    val categoriaId: UUID
 )
