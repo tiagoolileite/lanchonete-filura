@@ -5,12 +5,14 @@ import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria.Categ
 import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteJaExisteException
 import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteNaoEncontradoException
 import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.produto.ProdutoNaoEncontradoException
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
+import java.sql.SQLException
 
 @ControllerAdvice
 class GlobalExceptionHandlerAdvice {
@@ -29,6 +31,14 @@ class GlobalExceptionHandlerAdvice {
         return ResponseEntity(
             ApiError(status = HttpStatus.BAD_GATEWAY.value(), message = "Erro ao processar solicitação"),
             HttpStatus.BAD_GATEWAY)
+    }
+
+    @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE, reason = "Falha ao conectar com Banco de Dados")
+    @ExceptionHandler
+    fun genericSqlError(exception: SQLException): ResponseEntity<ApiError> {
+        return ResponseEntity(
+            ApiError(status = HttpStatus.SERVICE_UNAVAILABLE.value(), message = "Falha ao conectar com Banco de Dados"),
+            HttpStatus.SERVICE_UNAVAILABLE)
     }
 
     @ResponseStatus(value = HttpStatus.ALREADY_REPORTED, reason = "Cliente já existe na base")
