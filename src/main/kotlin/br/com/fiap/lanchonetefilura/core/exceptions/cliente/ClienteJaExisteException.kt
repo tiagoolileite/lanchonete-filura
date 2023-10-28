@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente
+package br.com.fiap.lanchonetefilura.core.exceptions.cliente
 
 import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
 import jakarta.persistence.EntityExistsException

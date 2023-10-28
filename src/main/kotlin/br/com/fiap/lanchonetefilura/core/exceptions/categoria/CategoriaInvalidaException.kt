@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria
+package br.com.fiap.lanchonetefilura.core.exceptions.categoria
 
 class CategoriaInvalidaException : Exception() {
     override val message: String

@@ -3,7 +3,7 @@ package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterCategoriaRequestToCategoriaModel
 import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterFindAllCategoriasToArrayList
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria.CategoriaInvalidaException
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.CategoriaRequest
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel

@@ -8,5 +8,7 @@ import java.util.UUID
 @Repository
 interface ClienteJpaRepository : JpaRepository<ClienteModel, UUID> {
 
-    fun findClienteByCpf(cpf: String): ClienteModel?
+    fun findClienteByCpf(cpf: String): ClienteModel? {
+        return this.findClienteByCpf(cpf)
+    }
 }

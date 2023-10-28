@@ -53,13 +53,13 @@ class ClienteController (private val useCase: ClienteUseCase) {
     @ResponseStatus(HttpStatus.CREATED)
     fun saveCliente(@RequestBody @Valid clienteRequest: ClienteRequestImpl): ResponseEntity<ClienteResponse> {
 
-        logger.info("[FILURA]: Buscando cliente pelo CPF")
+        logger.info("[FILURA]: Salvando Cliente")
         val clienteDTO = useCase.saveCliente(clienteRequest)
 
         val clienteResponse = clienteDTO.converterClienteDtoToClienteResponse()
 
         return ResponseEntity.ok(clienteResponse).let { response ->
-            logger.info("[FILURA]: Busca por cliente pelo CPF realizada com sucesso")
+            logger.info("[FILURA]: Cliente salvo com sucesso")
             response
         }
     }

@@ -1,11 +1,10 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.exception
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria.CategoriaInvalidaException
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria.CategoriaJaExisteException
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteJaExisteException
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.cliente.ClienteNaoEncontradoException
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.produto.ProdutoNaoEncontradoException
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
+import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteJaExisteException
+import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.core.exceptions.produto.ProdutoNaoEncontradoException
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException

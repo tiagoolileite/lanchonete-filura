@@ -4,6 +4,9 @@ import br.com.fiap.lanchonetefilura.core.applications.repository.ClienteReposito
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
 import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
+import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteJaExisteException
+import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Component
 
 @Component
@@ -15,19 +18,21 @@ class ClienteUseCaseImpl (private val repository: ClienteRepository) : ClienteUs
 
     override fun getClienteByCpf(cpf: String): ClienteDTO? {
 
-        /* TODO response?.let {} ?: throw ClienteNaoEncontradoException() */
+        val cliente: ClienteDTO? = repository.getClienteByCpf(cpf = cpf)
 
-        return repository.getClienteByCpf(cpf = cpf)
+        cliente?.let {} ?: throw ClienteNaoEncontradoException()
+
+        return cliente
     }
 
     override fun saveCliente(clienteRequest: ClienteRequest): ClienteDTO? {
 
-        val cliente: ClienteDTO? = repository.getClienteByCpf(clienteRequest.cpf)
+        val clienteByCpf: ClienteDTO? = repository.getClienteByCpf(cpf = clienteRequest.cpf)
 
-        /* TODO cliente?.let {
-            logger.error("Cliente Já Cadastrado")
+        clienteByCpf?.let {
+            logger.error("Cliente já estava cadastrado na base")
             throw ClienteJaExisteException(it)
-        }*/
+        }
 
         return repository.saveCliente(clienteRequest)
     }

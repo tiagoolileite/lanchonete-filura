@@ -17,7 +17,7 @@ data class ClienteModel(
     @Column(name = "cliente_id")
     val id: UUID = UUID.randomUUID(),
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     override val cpf: String? = null,
 
     @Column(nullable = false)
