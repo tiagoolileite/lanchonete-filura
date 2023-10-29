@@ -3,6 +3,7 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequest
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
+import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import jakarta.validation.Valid
@@ -36,7 +37,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         @RequestBody @Valid produtoRequest: ProdutoRequest
     ): ResponseEntity<ProdutoModel> {
 
-        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoriaId)
+        val categoria: CategoriaDTO? = categoriaUseCase.getCategoriaById(produtoRequest.categoriaId)
 
         val produto: ProdutoModel? = produtoUseCase.saveProduto(produtoRequest, categoria)
 
@@ -50,9 +51,9 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         @RequestParam id: UUID
     ): ResponseEntity<ProdutoModel> {
 
-        val categoria: CategoriaModel? = categoriaUseCase.findById(produtoRequest.categoriaId)
+        //val categoria: CategoriaModel? = null /* categoriaUseCase.getCategoriaById(produtoRequest.categoriaId)*/
 
-        val produto: ProdutoModel? = produtoUseCase.updateProduto(produtoRequest, id, categoria)
+        val produto: ProdutoModel? = produtoUseCase.updateProduto(produtoRequest, id, CategoriaModel())
 
         return ResponseEntity.ok(produto)
     }

@@ -1,12 +1,14 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
 import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.ProdutoRepository
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterFindAllProdutosToArrayList
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterProdutorequestToProdutoModel
+
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequest
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
+import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
+import br.com.fiap.lanchonetefilura.core.extensions.converterFindAllProdutosToArrayList
+import br.com.fiap.lanchonetefilura.core.extensions.converterProdutorequestToProdutoModel
 import org.springframework.stereotype.Component
 import java.util.UUID
 
@@ -28,7 +30,7 @@ class ProdutoUseCaseImpl (
     }
 
 
-    override fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaModel?): ProdutoModel {
+    override fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaDTO?): ProdutoModel {
 
         return produtoRepository.save(converterProdutorequestToProdutoModel(produtoRequest, categoria))
     }

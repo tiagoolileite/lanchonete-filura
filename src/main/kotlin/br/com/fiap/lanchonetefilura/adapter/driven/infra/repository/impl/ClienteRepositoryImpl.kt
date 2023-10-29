@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
 
+import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterClienteRequestToClienteDTO
 import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.ClienteJpaRepository
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterClienteRequestToClienteDTO
 import br.com.fiap.lanchonetefilura.core.applications.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
