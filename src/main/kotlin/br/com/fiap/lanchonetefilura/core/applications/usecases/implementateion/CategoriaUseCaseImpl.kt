@@ -2,7 +2,7 @@ package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
 import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
-import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
@@ -17,36 +17,36 @@ class CategoriaUseCaseImpl (
     private val categoriaRepository: CategoriaRepository
 ) : CategoriaUseCase {
 
-    override fun getCategorias(): List<CategoriaDTO>? {
+    override fun getCategorias(): List<CategoriaModel>? {
 
         return categoriaRepository.getCategorias()
     }
 
-    override fun getCategoriaById(id: UUID): CategoriaDTO? {
+    override fun getCategoriaById(id: UUID): CategoriaModel? {
 
-        val categoria: CategoriaDTO? = categoriaRepository.getCategoriaById(id = id)
-
-        categoria?.let {} ?: throw CategoriaNaoEncontradaException()
-
-        return categoria
-    }
-
-    override fun getCategoriaByDescricao(descricao: String): CategoriaDTO? {
-
-        val categoria: CategoriaDTO? = categoriaRepository.getCategoriaByDescricao(descricao = descricao)
+        val categoria: CategoriaModel? = categoriaRepository.getCategoriaById(id = id)
 
         categoria?.let {} ?: throw CategoriaNaoEncontradaException()
 
         return categoria
     }
 
-    override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaDTO? {
+    override fun getCategoriaByDescricao(descricao: String): CategoriaModel? {
+
+        val categoria: CategoriaModel? = categoriaRepository.getCategoriaByDescricao(descricao = descricao)
+
+        categoria?.let {} ?: throw CategoriaNaoEncontradaException()
+
+        return categoria
+    }
+
+    override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaModel? {
 
         if (!categoriasPossiveis.contains(categoriaRequest.descricao?.lowercase())) {
             throw CategoriaInvalidaException()
         }
 
-        val categoria: CategoriaDTO? =
+        val categoria: CategoriaModel? =
             categoriaRequest.descricao?.let { categoriaRepository.getCategoriaByDescricao(descricao = it) }
 
         categoria?.let {

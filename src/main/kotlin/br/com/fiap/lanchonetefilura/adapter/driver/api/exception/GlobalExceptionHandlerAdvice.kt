@@ -28,6 +28,17 @@ class GlobalExceptionHandlerAdvice {
             HttpStatus.BAD_REQUEST)
     }
 
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Verifique se informou todos os campos obrigatórios")
+    @ExceptionHandler
+    fun genericNullPointerError(exception: NullPointerException): ResponseEntity<ApiError> {
+
+        logger.error("[Filura]: Exception", exception)
+
+        return ResponseEntity(
+            ApiError(status = HttpStatus.BAD_REQUEST.value(), message = "Verifique se informou todos os campos obrigatório"),
+            HttpStatus.BAD_REQUEST)
+    }
+
     @ResponseStatus(value = HttpStatus.BAD_GATEWAY, reason = "Falha ao processar solicitação")
     @ExceptionHandler
     fun genericError(exception: Exception): ResponseEntity<ApiError> {

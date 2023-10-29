@@ -2,8 +2,10 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.extensions
 
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.CategoriaResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
-import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
 import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
+import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 
 fun ClienteDTO?.converterClienteDtoToClienteResponse(): ClienteResponse {
     return ClienteResponse(
@@ -32,26 +34,57 @@ fun List<ClienteDTO?>?.converterListaClienteDtoToListaClienteResponse(): List<Cl
     return clientes
 }
 
-fun List<CategoriaDTO?>?.converterListaCategoriasDtoToListaCategoriasResponse(): List<CategoriaResponse> {
+fun List<CategoriaModel?>?.converterListaCategoriasDtoToListaCategoriasResponse(): List<CategoriaResponse> {
 
     val categorias: ArrayList<CategoriaResponse> = arrayListOf()
 
     this?.forEach { categoria ->
-        val categoriaResponse = CategoriaResponse(
-            id = categoria?.id,
-            descricao = categoria?.descricao,
+        categoria?.id?.let {
+            categorias.add(
+                CategoriaResponse(
+                id = it,
+                descricao = categoria.descricao,
 
-        )
-
-        categorias.add(categoriaResponse)
+            )
+            )
+        }
     }
 
     return categorias
 }
 
-fun CategoriaDTO?.converterCategoriaDtoToCategoriaResponse(): CategoriaResponse {
+fun CategoriaModel?.converterCategoriaDtoToCategoriaResponse(): CategoriaResponse {
     return CategoriaResponse(
         id = this?.id,
         descricao = this?.descricao
+    )
+}
+
+fun List<ProdutoModel?>?.converterListaProdutosDtoToListaProdutosResponse(): List<ProdutoResponse> {
+
+    val produtos: ArrayList<ProdutoResponse> = arrayListOf()
+
+    this?.forEach { produto ->
+        val produtoResponse = ProdutoResponse(
+            id = produto?.id,
+            nome = produto?.nome,
+            descricao = produto?.descricao,
+            preco = produto?.preco,
+            categoria = produto?.categoria
+        )
+
+        produtos.add(produtoResponse)
+    }
+
+    return produtos
+}
+
+fun ProdutoModel?.converterProdutoDtoToProdutoResponse(): ProdutoResponse {
+    return ProdutoResponse(
+        id = this?.id,
+        nome = this?.nome,
+        descricao = this?.descricao,
+        preco = this?.preco,
+        categoria = this?.categoria
     )
 }

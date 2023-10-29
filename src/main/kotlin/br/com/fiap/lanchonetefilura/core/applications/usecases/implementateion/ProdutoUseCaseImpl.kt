@@ -1,64 +1,70 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.ProdutoRepository
-
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequest
+import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterProdutoRequestToProdutoDTO
+import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
+import br.com.fiap.lanchonetefilura.core.applications.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import br.com.fiap.lanchonetefilura.core.extensions.converterFindAllProdutosToArrayList
-import br.com.fiap.lanchonetefilura.core.extensions.converterProdutorequestToProdutoModel
+import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
+import br.com.fiap.lanchonetefilura.core.exceptions.produto.ProdutoNaoDeletadoException
+import br.com.fiap.lanchonetefilura.core.exceptions.produto.ProdutoNaoEncontradoException
+import br.com.fiap.lanchonetefilura.core.extensions.editCategoriaModel
 import org.springframework.stereotype.Component
-import java.util.UUID
+import java.util.*
 
 @Component
 class ProdutoUseCaseImpl (
-    private val produtoRepository: ProdutoRepository
+    private val produtoRepository: ProdutoRepository,
+    private val categoriaRepository: CategoriaRepository
 ) : ProdutoUseCase {
 
-    override fun findAllProdutos(): ArrayList<ProdutoModel>? {
-        return converterFindAllProdutosToArrayList(produtoRepository.findAll())
+    override fun getProdutos(): List<ProdutoModel>? {
+
+        return  produtoRepository.getProdutos()
     }
 
-    override fun findProdutoById(id: UUID): ProdutoModel? {
-        return produtoRepository.findById(id).get()
+    override fun getProdutosByCategoria(categoriaId: UUID): List<ProdutoModel>? {
+
+        return produtoRepository.getProdutosByCategoria(categoriaId = categoriaId)
     }
 
-    override fun findProdutosByCategoria(id: UUID): ArrayList<ProdutoModel>? {
-        return produtoRepository.findAllByCategoriaId(id)
+    override fun saveProduto(produtoRequest: ProdutoRequest): ProdutoModel? {
+
+        val categoriaModel = produtoRequest.categoriaId?.let { categoriaRepository.getCategoriaById(it) }
+
+        categoriaModel?.let {} ?: throw CategoriaInvalidaException()
+
+        val produto = produtoRequest.converterProdutoRequestToProdutoDTO(categoriaModel = categoriaModel)
+
+        val produtoModel = produto.editCategoriaModel(categoriaModel)
+
+        return produtoRepository.saveProduto(produtoModel = produtoModel)
     }
 
+    override fun updateProduto(produtoRequest: ProdutoRequest, produtoId: UUID): ProdutoModel? {
 
-    override fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaDTO?): ProdutoModel {
+        val produto = produtoRepository.getProdutoById(produtoId)
 
-        return produtoRepository.save(converterProdutorequestToProdutoModel(produtoRequest, categoria))
-    }
+        produto?.let {} ?: throw ProdutoNaoEncontradoException()
 
-    override fun updateProduto(produtoRequest: ProdutoRequest, id: UUID, categoria: CategoriaModel?): ProdutoModel? {
-        val produto = produtoRepository.findById(id).get()
+        val categoriaModel = produtoRequest.categoriaId?.let { categoriaRepository.getCategoriaById(it) }
 
-        atualizaProdutoComRequest(produtoRequest, produto, categoria)
+        categoriaModel?.let {} ?: throw CategoriaInvalidaException()
 
-        return produtoRepository.save(produto)
+        val produtoModel = produto.editCategoriaModel(categoriaModel)
+
+        return produtoRepository.updateProduto(produtoModel = produtoModel)
     }
 
     override fun deleteProduto(id: UUID) {
-        produtoRepository.findById(id).get()
+        val produto = produtoRepository.getProdutoById(id)
 
-        produtoRepository.deleteById(id)
+        produto?.let {} ?: throw ProdutoNaoEncontradoException()
+
+        try {
+            produtoRepository.deleteProduto(id = id)
+        } catch (ex: Exception) { throw ProdutoNaoDeletadoException() }
     }
-
-    private fun atualizaProdutoComRequest(
-        produtoRequest: ProdutoRequest,
-        produto: ProdutoModel,
-        categoria: CategoriaModel?
-    ) {
-        produto.nome = produtoRequest.nome
-        produto.descricao = produtoRequest.descricao
-        produto.preco = produtoRequest.preco
-        produto.categoria = categoria
-    }
-
 
 }

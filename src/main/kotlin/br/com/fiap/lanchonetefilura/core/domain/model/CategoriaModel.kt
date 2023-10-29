@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.core.domain.model
 
-import br.com.fiap.lanchonetefilura.core.domain.dto.CategoriaDTO
 import jakarta.persistence.Entity
 import jakarta.persistence.Table
 import jakarta.persistence.Id
@@ -16,9 +15,9 @@ data class CategoriaModel(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
-    override val id: UUID? = UUID.randomUUID(),
+    val id: UUID = UUID.randomUUID(),
 
     @Column(unique = true, nullable = false)
-    override val descricao: String? = null
+    val descricao: String? = null
 
-) : CategoriaDTO
+)
