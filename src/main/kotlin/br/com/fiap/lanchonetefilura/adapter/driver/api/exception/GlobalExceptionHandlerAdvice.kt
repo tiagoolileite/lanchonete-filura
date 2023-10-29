@@ -12,6 +12,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
+import java.net.ConnectException
 import java.sql.SQLException
 
 @ControllerAdvice
@@ -55,6 +56,17 @@ class GlobalExceptionHandlerAdvice {
     fun genericSqlError(exception: SQLException): ResponseEntity<ApiError> {
 
         logger.error("[Filura]: SQL", exception)
+
+        return ResponseEntity(
+            ApiError(status = HttpStatus.SERVICE_UNAVAILABLE.value(), message = "Falha ao conectar com Banco de Dados"),
+            HttpStatus.SERVICE_UNAVAILABLE)
+    }
+
+    @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE, reason = "Falha ao conectar com Banco de Dados")
+    @ExceptionHandler
+    fun genericSqlConnectionError(exception: ConnectException): ResponseEntity<ApiError> {
+
+        logger.error("[Filura]: SQL Connection", exception)
 
         return ResponseEntity(
             ApiError(status = HttpStatus.SERVICE_UNAVAILABLE.value(), message = "Falha ao conectar com Banco de Dados"),
