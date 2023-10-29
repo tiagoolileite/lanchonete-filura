@@ -42,12 +42,12 @@ class CategoriaUseCaseImpl (
 
     override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaDTO? {
 
-        if (!categoriasPossiveis.contains(categoriaRequest.descricao)) {
+        if (!categoriasPossiveis.contains(categoriaRequest.descricao?.lowercase())) {
             throw CategoriaInvalidaException()
         }
 
         val categoria: CategoriaDTO? =
-            categoriaRepository.getCategoriaByDescricao(descricao = categoriaRequest.descricao)
+            categoriaRequest.descricao?.let { categoriaRepository.getCategoriaByDescricao(descricao = it) }
 
         categoria?.let {
             logger.error("Categoria já foi cadastrada anteriormente")
