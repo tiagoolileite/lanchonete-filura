@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterCategoriaDtoToCategoriaResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaCategoriasDtoToListaCategoriasResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterCategoriaModelToCategoriaResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaCategoriasModelToListaCategoriasResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.CategoriaRequestImpl
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.CategoriaResponse
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
@@ -19,7 +19,7 @@ class CategoriaController (private val useCase: CategoriaUseCase) {
     fun getCategorias(): ResponseEntity<List<CategoriaResponse>> {
 
         logger.info("[FILURA]: Listando categorias")
-        val categoriasResponse = useCase.getCategorias()?.converterListaCategoriasDtoToListaCategoriasResponse()
+        val categoriasResponse = useCase.getCategorias()?.converterListaCategoriasModelToListaCategoriasResponse()
 
         return ResponseEntity.ok(categoriasResponse).let {
             logger.info("[FILURA]: Categorias listadas com sucesso")
@@ -33,7 +33,7 @@ class CategoriaController (private val useCase: CategoriaUseCase) {
 
         logger.info("[FILURA]: Salvando categoria")
         val categoriaResponse =
-            useCase.saveCategoria(categoriaRequest = categoriaRequest)?.converterCategoriaDtoToCategoriaResponse()
+            useCase.saveCategoria(categoriaRequest = categoriaRequest)?.converterCategoriaModelToCategoriaResponse()
 
         return ResponseEntity.ok(categoriaResponse).let {
             logger.info("[FILURA]: Categoria Salva com sucesso!")

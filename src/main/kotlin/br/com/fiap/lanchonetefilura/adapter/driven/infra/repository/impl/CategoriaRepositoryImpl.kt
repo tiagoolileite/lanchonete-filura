@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterCategoriaRequestToCategoriaDTO
+import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterCategoriaRequestToCategoriaModel
 import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.CategoriaJpaRepository
 import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
@@ -44,7 +44,7 @@ class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : 
 
     override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaModel? {
 
-        val categoria = categoriaRequest.converterCategoriaRequestToCategoriaDTO()
+        val categoria = categoriaRequest.converterCategoriaRequestToCategoriaModel()
 
         return repository.save(categoria)
     }

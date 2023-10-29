@@ -7,7 +7,7 @@ import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
 
-fun ClienteRequest.converterClienteRequestToClienteDTO(): ClienteModel {
+fun ClienteRequest.converterClienteRequestToClienteModel(): ClienteModel {
     return ClienteModel(
         cpf = this.cpf,
         nome = this.nome,
@@ -15,13 +15,13 @@ fun ClienteRequest.converterClienteRequestToClienteDTO(): ClienteModel {
     )
 }
 
-fun CategoriaRequest.converterCategoriaRequestToCategoriaDTO(): CategoriaModel {
+fun CategoriaRequest.converterCategoriaRequestToCategoriaModel(): CategoriaModel {
     return CategoriaModel (
         descricao = this.descricao
     )
 }
 
-fun ProdutoRequest.converterProdutoRequestToProdutoDTO(categoriaModel: CategoriaModel): ProdutoModel {
+fun ProdutoRequest.converterProdutoRequestToProdutoModel(categoriaModel: CategoriaModel): ProdutoModel {
     return ProdutoModel(
         nome = this.nome,
         descricao = this.descricao,
