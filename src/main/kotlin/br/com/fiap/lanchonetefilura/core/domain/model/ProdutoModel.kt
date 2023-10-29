@@ -25,8 +25,8 @@ data class ProdutoModel (
 
     @Column(nullable = false)
     var descricao: String? = null,
-    @Column(nullable = false)
 
+    @Column(nullable = false)
     var preco: Double? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
