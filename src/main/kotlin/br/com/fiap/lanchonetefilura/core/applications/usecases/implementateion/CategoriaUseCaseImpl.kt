@@ -1,12 +1,13 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.CategoriaRepository
-import br.com.fiap.lanchonetefilura.adapter.driver.api.converters.converterCategoriaRequestToCategoriaModel
-import br.com.fiap.lanchonetefilura.adapter.driver.api.converters.converterFindAllCategoriasToArrayList
-import br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria.CategoriaInvalidaException
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.CategoriaRequest
+import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
+import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
+import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaNaoEncontradaException
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Component
 import java.util.UUID
 import kotlin.collections.ArrayList
@@ -15,21 +16,45 @@ import kotlin.collections.ArrayList
 class CategoriaUseCaseImpl (
     private val categoriaRepository: CategoriaRepository
 ) : CategoriaUseCase {
-    override fun findById(id: UUID): CategoriaModel? {
 
-        return categoriaRepository.findById(id).get()
+    override fun getCategorias(): List<CategoriaModel>? {
+
+        return categoriaRepository.getCategorias()
     }
 
-    override fun findAll(): ArrayList<CategoriaModel>? {
-        return converterFindAllCategoriasToArrayList(categoriaRepository.findAll())
+    override fun getCategoriaById(id: UUID): CategoriaModel? {
+
+        val categoria: CategoriaModel? = categoriaRepository.getCategoriaById(id = id)
+
+        categoria?.let {} ?: throw CategoriaNaoEncontradaException()
+
+        return categoria
     }
 
-    override fun save(categoria: CategoriaRequest): CategoriaModel? {
-        if (!categoriasPossiveis.contains(categoria.descricao?.lowercase())) {
+    override fun getCategoriaByDescricao(descricao: String): CategoriaModel? {
+
+        val categoria: CategoriaModel? = categoriaRepository.getCategoriaByDescricao(descricao = descricao)
+
+        categoria?.let {} ?: throw CategoriaNaoEncontradaException()
+
+        return categoria
+    }
+
+    override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaModel? {
+
+        if (!categoriasPossiveis.contains(categoriaRequest.descricao?.lowercase())) {
             throw CategoriaInvalidaException()
         }
 
-        return categoriaRepository.save(converterCategoriaRequestToCategoriaModel(categoria))
+        val categoria: CategoriaModel? =
+            categoriaRequest.descricao?.let { categoriaRepository.getCategoriaByDescricao(descricao = it) }
+
+        categoria?.let {
+            logger.error("Categoria já foi cadastrada anteriormente")
+            throw CategoriaJaExisteException()
+        }
+
+        return categoriaRepository.saveCategoria(categoriaRequest)
     }
 
     private val categoriasPossiveis: ArrayList<String> = arrayListOf(

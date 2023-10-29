@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.exception.produto
+package br.com.fiap.lanchonetefilura.core.exceptions.produto
 
 import jakarta.persistence.EntityNotFoundException
 

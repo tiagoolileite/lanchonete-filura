@@ -11,10 +11,13 @@ import java.util.UUID
 @Entity
 @Table(name="categoria")
 data class CategoriaModel(
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
-    val id: UUID? = null,
-    @Column(unique = true)
-    val descricao: String? = null,
+    val id: UUID = UUID.randomUUID(),
+
+    @Column(unique = true, nullable = false)
+    val descricao: String? = null
+
 )

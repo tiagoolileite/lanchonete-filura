@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.exception.categoria
+package br.com.fiap.lanchonetefilura.core.exceptions.categoria
 
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import jakarta.persistence.EntityExistsException

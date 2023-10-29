@@ -14,15 +14,19 @@ import java.util.UUID
 @Entity
 @Table(name="produto")
 data class ProdutoModel (
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "produto_id")
     var id: UUID? = UUID.randomUUID(),
+
     @Column(nullable = false)
     var nome: String? = null,
+
     @Column(nullable = false)
     var descricao: String? = null,
     @Column(nullable = false)
+
     var preco: Double? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,46 +1,66 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequest
-import br.com.fiap.lanchonetefilura.adapter.driver.api.shared.ApiHelper.logger
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterClienteDtoToClienteResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaClienteDtoToListaClienteResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ClienteRequestImpl
+import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
-import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
-@RequestMapping("/clientes")
+@RequestMapping("api/cliente")
 class ClienteController (private val useCase: ClienteUseCase) {
 
-    @GetMapping
-    fun findAllClientes(): ResponseEntity<ArrayList<ClienteModel>> {
+    @GetMapping("/clientes")
+    fun getClientes(): ResponseEntity<List<ClienteResponse>> {
 
-        val clientes = useCase.findAllClientes()
+        logger.info("[FILURA]: Listando clientes")
+        val clientes = useCase.getClientes()
 
-        logger.info("Lista de clientes requisitada com sucesso")
+        val clientesResponse = clientes?.converterListaClienteDtoToListaClienteResponse()
 
-        return ResponseEntity.ok(clientes)
-
+        return ResponseEntity.ok(clientesResponse).let { response ->
+            logger.info("[FILURA]: Busca por clientes realizada com sucesso")
+            response
+        }
     }
 
-    @GetMapping("/cliente")
-    fun findClienteByCpf(@RequestParam cpf: String): ResponseEntity<ClienteModel> {
+    @GetMapping
+    fun getClienteByCpf(@RequestParam cpf: String): ResponseEntity<ClienteResponse> {
 
-        val cliente = useCase.findClienteByCpf(cpf)
+        logger.info("[FILURA]: Buscando cliente pelo CPF")
+        val clienteDTO = useCase.getClienteByCpf(cpf)
 
-        logger.info("Sucesso na consulta do Cliente!")
+        val clienteResponse = clienteDTO.converterClienteDtoToClienteResponse()
 
-        return ResponseEntity.ok(cliente)
-
+        return ResponseEntity.ok(clienteResponse).let { response ->
+            logger.info("[FILURA]: Busca por cliente pelo CPF realizada com sucesso")
+            response
+        }
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun saveCliente(@RequestBody @Valid clienteRequest: ClienteRequest): ResponseEntity<ClienteModel> {
+    fun saveCliente(@RequestBody @Valid clienteRequest: ClienteRequestImpl): ResponseEntity<ClienteResponse> {
 
-        val cliente = useCase.saveCliente(clienteRequest)
+        logger.info("[FILURA]: Salvando Cliente")
+        val clienteDTO = useCase.saveCliente(clienteRequest)
 
-        return ResponseEntity.ok(cliente)
+        val clienteResponse = clienteDTO.converterClienteDtoToClienteResponse()
+
+        return ResponseEntity.ok(clienteResponse).let { response ->
+            logger.info("[FILURA]: Cliente salvo com sucesso")
+            response
+        }
     }
 }

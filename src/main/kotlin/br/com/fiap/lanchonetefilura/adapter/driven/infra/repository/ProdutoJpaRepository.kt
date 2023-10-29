@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-interface ProdutoRepository : JpaRepository<ProdutoModel, UUID> {
+interface ProdutoJpaRepository : JpaRepository<ProdutoModel, UUID> {
 
     fun findAllByCategoriaId(id: UUID): ArrayList<ProdutoModel> {
         return findAllByCategoriaId(id)
