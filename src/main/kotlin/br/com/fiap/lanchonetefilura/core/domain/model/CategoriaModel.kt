@@ -1,13 +1,23 @@
 package br.com.fiap.lanchonetefilura.core.domain.model
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import jakarta.persistence.Id
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Column
+import jakarta.persistence.GenerationType
+import java.util.UUID
 
 @Entity
 @Table(name="categoria")
 data class CategoriaModel(
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
-    val id: Int? = null,
-    val descricao: String? = null,
+    val id: UUID = UUID.randomUUID(),
+
+    @Column(unique = true, nullable = false)
+    val descricao: String? = null
+
 )
