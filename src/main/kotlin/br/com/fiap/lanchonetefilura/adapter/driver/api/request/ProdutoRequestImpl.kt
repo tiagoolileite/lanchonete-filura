@@ -7,15 +7,19 @@ import jakarta.validation.constraints.NotNull
 import java.util.UUID
 
 data class ProdutoRequestImpl (
+
     @NotNull(message = "nome não pode estar vazio")
     @NotEmpty(message = "nome não pode estar vazio")
     override val nome: String,
+
     @NotNull(message = "descricao não pode estar vazia")
     @NotEmpty(message = "descricao não pode estar vazia")
     override val descricao: String,
+
     @NotNull(message = "preco não pode estar vazio")
     @NotEmpty(message = "preco não pode estar vazio")
     override val preco: Double,
+
     @NotNull(message = "categoria não pode estar vazio")
     @NotEmpty(message = "categoria não pode estar vazio")
     @JsonProperty("categoria_id")

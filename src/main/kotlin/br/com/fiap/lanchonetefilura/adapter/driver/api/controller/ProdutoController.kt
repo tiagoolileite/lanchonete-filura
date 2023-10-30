@@ -37,7 +37,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
 
     @GetMapping("/produtos/categoria")
     @ResponseStatus(HttpStatus.OK)
-    fun findProdutosByCategoria(
+    fun getProdutosByCategoria(
         @RequestParam("categoria_id") categoriaId: UUID
     ): ResponseEntity<List<ProdutoResponse>> {
 

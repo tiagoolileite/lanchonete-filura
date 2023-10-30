@@ -2,9 +2,11 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.extensions
 
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.CategoriaResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.response.PedidoResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
+import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 
 fun ClienteModel?.converterClienteModelToClienteResponse(): ClienteResponse {
@@ -86,5 +88,36 @@ fun ProdutoModel?.converterProdutoModelToProdutoResponse(): ProdutoResponse {
         descricao = this?.descricao,
         preco = this?.preco,
         categoria = this?.categoria
+    )
+}
+
+fun List<PedidoModel>?.converterListaPedidosModelToListaPedidosResponse(): List<PedidoResponse> {
+
+    val pedidos: ArrayList<PedidoResponse> = arrayListOf()
+
+    this?.forEach { pedido ->
+        val pedidoResponse = PedidoResponse(
+            id = pedido.id,
+            senha = pedido.senha,
+            etapa = pedido.etapa,
+            cliente = pedido.cliente,
+            produtos = pedido.produtos,
+            pago = pedido.pago
+        )
+
+        pedidos.add(pedidoResponse)
+    }
+
+    return pedidos
+}
+
+fun PedidoModel.converterPedidoModelToPedidoResponse(): PedidoResponse {
+    return PedidoResponse(
+        id = this.id,
+        senha = this.senha,
+        etapa = this.etapa,
+        cliente = this.cliente,
+        produtos = this.produtos,
+        pago = this.pago
     )
 }

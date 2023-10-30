@@ -8,6 +8,7 @@ import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
 import java.lang.Exception
+import java.util.*
 
 @Repository
 class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
@@ -24,6 +25,19 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
            cliente = repository.findClienteByCpf(cpf = cpf)
         } catch (ex: Exception) {
             logger.info("Cliente não localizado na base pelo cpf")
+        }
+
+        return cliente
+    }
+
+    override fun getClienteById(id: UUID): ClienteModel? {
+
+        var cliente: ClienteModel? = null
+
+        try {
+            cliente = repository.findById(id).get()
+        } catch (ex: Exception) {
+            logger.info("Cliente não localizado na base pelo id")
         }
 
         return cliente

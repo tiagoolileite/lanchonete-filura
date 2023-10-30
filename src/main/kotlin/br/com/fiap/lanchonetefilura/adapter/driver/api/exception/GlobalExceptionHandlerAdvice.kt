@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaE
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.core.exceptions.pedido.PedidoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.core.exceptions.produto.ProdutoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.http.HttpStatus
@@ -95,6 +96,20 @@ class GlobalExceptionHandlerAdvice {
             ApiError(
                 status = HttpStatus.NOT_FOUND.value(),
                 message = "Cliente Não foi localizado!"
+            ),
+            HttpStatus.NOT_FOUND)
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Pedido Não foi localizado!")
+    @ExceptionHandler
+    fun pedidoNaoEncontrado(exception: PedidoNaoEncontradoException): ResponseEntity<ApiError> {
+
+        logger.error("[Filura]: Pedido", exception)
+
+        return ResponseEntity(
+            ApiError(
+                status = HttpStatus.NOT_FOUND.value(),
+                message = "Pedido Não foi localizado!"
             ),
             HttpStatus.NOT_FOUND)
     }
