@@ -1,10 +1,12 @@
 package br.com.fiap.lanchonetefilura.core.domain.model
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.UUID
 
 @Entity
 @Table(name = "pedido")
+@JsonIgnoreProperties
 data class PedidoModel (
 
     @Id
@@ -23,7 +25,12 @@ data class PedidoModel (
     @JoinColumn(name = "cliente_id", nullable = true)
     val cliente: ClienteModel? = null,
 
-    @OneToMany //Converter para Many to Many
+    @ManyToMany
+    @JoinTable(
+        name = "pedidos_produtos",
+        joinColumns = arrayOf(JoinColumn(name = "pedido_id")),
+        inverseJoinColumns = arrayOf(JoinColumn(name = "produto_id"))
+    )
     val produtos: List<ProdutoModel> = arrayListOf(),
 
     @Column(name = "pago", nullable = false)

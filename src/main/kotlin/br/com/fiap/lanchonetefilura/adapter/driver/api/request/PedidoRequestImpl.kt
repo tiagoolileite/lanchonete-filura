@@ -7,7 +7,7 @@ import java.util.*
 
 class PedidoRequestImpl(
 
-    @JsonProperty("categoria_id")
+    @JsonProperty("cliente_id")
     override val clienteId: UUID? = null,
 
     @NotNull(message = "Lista de pedidos não pode estar nula")
