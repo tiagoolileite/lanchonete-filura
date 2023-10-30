@@ -29,3 +29,4 @@ services:
       - SPRINGDOC_SWAGGER-UI_PATH=/swagger-ui.html
       - SERVER_ERROR_INCLUDE-STACKTRACE=never
       - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      - SPRING.JPA.DATABASE-PLATFORM=org.hibernate.dialect.MariaDBDialect
