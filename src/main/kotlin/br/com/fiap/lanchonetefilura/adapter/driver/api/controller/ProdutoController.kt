@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaProdutosDtoToListaProdutosResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterProdutoDtoToProdutoResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaProdutosModelToListaProdutosResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterProdutoModelToProdutoResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequestImpl
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
@@ -10,7 +10,6 @@ import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import br.com.fiap.lanchonetefilura.core.extensions.editCategoriaModel
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
-import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -28,7 +27,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         logger.info("[FILURA]: Listando produtos")
         val produtos = produtoUseCase.getProdutos()
 
-        val produtosResponse = produtos?.converterListaProdutosDtoToListaProdutosResponse()
+        val produtosResponse = produtos?.converterListaProdutosModelToListaProdutosResponse()
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             logger.info("[FILURA]: Busca por produtos realizada com sucesso")
@@ -38,14 +37,14 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
 
     @GetMapping("/produtos/categoria")
     @ResponseStatus(HttpStatus.OK)
-    fun findProdutosByCategoria(
+    fun getProdutosByCategoria(
         @RequestParam("categoria_id") categoriaId: UUID
     ): ResponseEntity<List<ProdutoResponse>> {
 
         logger.info("[FILURA]: Iniciando Busca de produtos por categoria")
         val produtos = produtoUseCase.getProdutosByCategoria(categoriaId = categoriaId)
 
-        val produtosResponse = produtos?.converterListaProdutosDtoToListaProdutosResponse()
+        val produtosResponse = produtos?.converterListaProdutosModelToListaProdutosResponse()
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             logger.info("[FILURA]: Busca de produtos por categoria realizada com sucesso!")
@@ -60,12 +59,12 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
     ): ResponseEntity<ProdutoResponse> {
 
         logger.info("[FILURA]: Salvando Produto")
-        val categoria: CategoriaModel? = produtoRequest.categoriaId?.let { categoriaUseCase.getCategoriaById(id = it) }
+        val categoria: CategoriaModel? = produtoRequest.categoriaId.let { categoriaUseCase.getCategoriaById(id = it) }
 
         val produto: ProdutoModel? =
             categoria?.let { produtoUseCase.saveProduto(produtoRequest)?.editCategoriaModel(categoriaModel = it) }
 
-        val produtoResponse: ProdutoResponse = produto.converterProdutoDtoToProdutoResponse()
+        val produtoResponse: ProdutoResponse = produto.converterProdutoModelToProdutoResponse()
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             logger.info("[FILURA]: Produto salvo com sucesso")
@@ -81,7 +80,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
     ): ResponseEntity<ProdutoResponse> {
 
         logger.info("[FILURA]: Atualização do produto iniciado")
-        val categoriaModel: CategoriaModel? = produtoRequest.categoriaId?.let { categoriaUseCase.getCategoriaById(id = it) }
+        val categoriaModel: CategoriaModel? = produtoRequest.categoriaId.let { categoriaUseCase.getCategoriaById(id = it) }
 
         val produto: ProdutoModel? = categoriaModel?.let {
             produtoUseCase.updateProduto(
@@ -90,7 +89,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
             )?.editCategoriaModel(categoriaModel = it)
         }
 
-        val produtoResponse = produto.converterProdutoDtoToProdutoResponse()
+        val produtoResponse = produto.converterProdutoModelToProdutoResponse()
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             logger.info("[FILURA]: Produto atualizado com sucesso")

@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterProdutoRequestToProdutoDTO
+import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterProdutoRequestToProdutoModel
 import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.applications.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
@@ -31,11 +31,11 @@ class ProdutoUseCaseImpl (
 
     override fun saveProduto(produtoRequest: ProdutoRequest): ProdutoModel? {
 
-        val categoriaModel = produtoRequest.categoriaId?.let { categoriaRepository.getCategoriaById(it) }
+        val categoriaModel = produtoRequest.categoriaId.let { categoriaRepository.getCategoriaById(it) }
 
         categoriaModel?.let {} ?: throw CategoriaInvalidaException()
 
-        val produto = produtoRequest.converterProdutoRequestToProdutoDTO(categoriaModel = categoriaModel)
+        val produto = produtoRequest.converterProdutoRequestToProdutoModel(categoriaModel = categoriaModel)
 
         val produtoModel = produto.editCategoriaModel(categoriaModel)
 
@@ -48,7 +48,7 @@ class ProdutoUseCaseImpl (
 
         produto?.let {} ?: throw ProdutoNaoEncontradoException()
 
-        val categoriaModel = produtoRequest.categoriaId?.let { categoriaRepository.getCategoriaById(it) }
+        val categoriaModel = produtoRequest.categoriaId.let { categoriaRepository.getCategoriaById(it) }
 
         categoriaModel?.let {} ?: throw CategoriaInvalidaException()
 

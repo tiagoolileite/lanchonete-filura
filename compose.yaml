@@ -1,5 +1,6 @@
 services:
   mariadb:
+    container_name: "Filura-MariaDB"
     image: 'mariadb:latest'
     environment:
       - 'MARIADB_DATABASE=mydatabase'
@@ -8,3 +9,23 @@ services:
       - 'MARIADB_USER=myuser'
     ports:
       - '3306:3306'
+  spring-boot-app:
+    container_name: "Filura-APP"
+    image: 'leittia/lanchonete-filura:latest'
+    build:
+      context: .
+    depends_on:
+      - mariadb
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://mariadb:3306/mydatabase
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=secret
+      - SPRING_DATASOURCE_DRIVER-CLASS-NAME=org.mariadb.jdbc.Driver
+      - SPRING_JPA_SHOW-SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL=true
+      - SPRINGDOC_API-DOCS_PATH=/api-docs
+      - SPRINGDOC_SWAGGER-UI_PATH=/swagger-ui.html
+      - SERVER_ERROR_INCLUDE-STACKTRACE=never
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update

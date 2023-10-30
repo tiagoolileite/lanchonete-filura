@@ -8,11 +8,7 @@ import java.util.UUID
 @Repository
 interface CategoriaJpaRepository : JpaRepository<CategoriaModel, UUID> {
 
-    fun findCategoriaById(id: UUID): CategoriaModel /*{
-        return this.findCategoriaById(id = id)
-    }*/
+    fun findCategoriaById(id: UUID): CategoriaModel
 
-    fun findCategoriaByDescricao(descricao: String): CategoriaModel /*{
-        return this.findCategoriaById(id = id)
-    }*/
+    fun findCategoriaByDescricao(descricao: String): CategoriaModel
 }

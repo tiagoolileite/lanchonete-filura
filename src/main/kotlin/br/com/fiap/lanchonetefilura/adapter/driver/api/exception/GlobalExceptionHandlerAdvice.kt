@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaE
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.core.exceptions.pedido.PedidoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.core.exceptions.produto.ProdutoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.http.HttpStatus
@@ -12,6 +13,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
+import java.net.ConnectException
 import java.sql.SQLException
 
 @ControllerAdvice
@@ -61,6 +63,17 @@ class GlobalExceptionHandlerAdvice {
             HttpStatus.SERVICE_UNAVAILABLE)
     }
 
+    @ResponseStatus(value = HttpStatus.SERVICE_UNAVAILABLE, reason = "Falha ao conectar com Banco de Dados")
+    @ExceptionHandler
+    fun genericSqlConnectionError(exception: ConnectException): ResponseEntity<ApiError> {
+
+        logger.error("[Filura]: SQL Connection", exception)
+
+        return ResponseEntity(
+            ApiError(status = HttpStatus.SERVICE_UNAVAILABLE.value(), message = "Falha ao conectar com Banco de Dados"),
+            HttpStatus.SERVICE_UNAVAILABLE)
+    }
+
     @ResponseStatus(value = HttpStatus.ALREADY_REPORTED, reason = "Cliente já existe na base")
     @ExceptionHandler
     fun clienteJaExisteError(exception: ClienteJaExisteException): ResponseEntity<ApiError> {
@@ -83,6 +96,20 @@ class GlobalExceptionHandlerAdvice {
             ApiError(
                 status = HttpStatus.NOT_FOUND.value(),
                 message = "Cliente Não foi localizado!"
+            ),
+            HttpStatus.NOT_FOUND)
+    }
+
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Pedido Não foi localizado!")
+    @ExceptionHandler
+    fun pedidoNaoEncontrado(exception: PedidoNaoEncontradoException): ResponseEntity<ApiError> {
+
+        logger.error("[Filura]: Pedido", exception)
+
+        return ResponseEntity(
+            ApiError(
+                status = HttpStatus.NOT_FOUND.value(),
+                message = "Pedido Não foi localizado!"
             ),
             HttpStatus.NOT_FOUND)
     }

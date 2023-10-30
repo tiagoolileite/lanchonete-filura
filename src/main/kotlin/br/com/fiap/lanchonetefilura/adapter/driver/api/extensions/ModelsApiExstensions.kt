@@ -2,12 +2,14 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.extensions
 
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.CategoriaResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
+import br.com.fiap.lanchonetefilura.adapter.driver.api.response.PedidoResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
-import br.com.fiap.lanchonetefilura.core.domain.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
+import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
+import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 
-fun ClienteDTO?.converterClienteDtoToClienteResponse(): ClienteResponse {
+fun ClienteModel?.converterClienteModelToClienteResponse(): ClienteResponse {
     return ClienteResponse(
         id = this?.id,
         cpf = this?.cpf,
@@ -16,7 +18,7 @@ fun ClienteDTO?.converterClienteDtoToClienteResponse(): ClienteResponse {
     )
 }
 
-fun List<ClienteDTO?>?.converterListaClienteDtoToListaClienteResponse(): List<ClienteResponse> {
+fun List<ClienteModel?>?.converterListaClienteModelToListaClienteResponse(): List<ClienteResponse> {
 
     val clientes: ArrayList<ClienteResponse> = arrayListOf()
 
@@ -34,7 +36,7 @@ fun List<ClienteDTO?>?.converterListaClienteDtoToListaClienteResponse(): List<Cl
     return clientes
 }
 
-fun List<CategoriaModel?>?.converterListaCategoriasDtoToListaCategoriasResponse(): List<CategoriaResponse> {
+fun List<CategoriaModel?>?.converterListaCategoriasModelToListaCategoriasResponse(): List<CategoriaResponse> {
 
     val categorias: ArrayList<CategoriaResponse> = arrayListOf()
 
@@ -53,14 +55,14 @@ fun List<CategoriaModel?>?.converterListaCategoriasDtoToListaCategoriasResponse(
     return categorias
 }
 
-fun CategoriaModel?.converterCategoriaDtoToCategoriaResponse(): CategoriaResponse {
+fun CategoriaModel?.converterCategoriaModelToCategoriaResponse(): CategoriaResponse {
     return CategoriaResponse(
         id = this?.id,
         descricao = this?.descricao
     )
 }
 
-fun List<ProdutoModel?>?.converterListaProdutosDtoToListaProdutosResponse(): List<ProdutoResponse> {
+fun List<ProdutoModel?>?.converterListaProdutosModelToListaProdutosResponse(): List<ProdutoResponse> {
 
     val produtos: ArrayList<ProdutoResponse> = arrayListOf()
 
@@ -79,12 +81,43 @@ fun List<ProdutoModel?>?.converterListaProdutosDtoToListaProdutosResponse(): Lis
     return produtos
 }
 
-fun ProdutoModel?.converterProdutoDtoToProdutoResponse(): ProdutoResponse {
+fun ProdutoModel?.converterProdutoModelToProdutoResponse(): ProdutoResponse {
     return ProdutoResponse(
         id = this?.id,
         nome = this?.nome,
         descricao = this?.descricao,
         preco = this?.preco,
         categoria = this?.categoria
+    )
+}
+
+fun List<PedidoModel>?.converterListaPedidosModelToListaPedidosResponse(): List<PedidoResponse> {
+
+    val pedidos: ArrayList<PedidoResponse> = arrayListOf()
+
+    this?.forEach { pedido ->
+        val pedidoResponse = PedidoResponse(
+            id = pedido.id,
+            senha = pedido.senha,
+            etapa = pedido.etapa,
+            cliente = pedido.cliente,
+            produtos = pedido.produtos,
+            pago = pedido.pago
+        )
+
+        pedidos.add(pedidoResponse)
+    }
+
+    return pedidos
+}
+
+fun PedidoModel.converterPedidoModelToPedidoResponse(): PedidoResponse {
+    return PedidoResponse(
+        id = this.id,
+        senha = this.senha,
+        etapa = this.etapa,
+        cliente = this.cliente,
+        produtos = this.produtos,
+        pago = this.pago
     )
 }
