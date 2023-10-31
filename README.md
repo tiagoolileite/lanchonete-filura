@@ -8,7 +8,28 @@ Documenteção principal do projeto: https://rightful-jupiter-cbe.notion.site/Fa
 
 # Getting Started
 
-* Versão do Java: 17
+Pre-requisito: Ter o docker instalado na mácina e estar com o serviço em execução - https://www.docker.com/get-started/
+
+* Para rodar o projeto, utilizar o arquivo compose.yaml localizado na pasta raiz do projeto:
+
+Com seu terminal, navegue até a raiz desse projeto e rode o comando:
+
+docker-compose up
+
+# Swagger
+
+Para testar a api localmente, utilize o caminho: http://localhost:8080/swagger-ui/index.html
+
+Lembre-se:
+
+Para cadastrar um produto, precisa cadastrar primeiro as categorias. Para as categorias serão aceitas as seguintes descrições:
+
+"lanche"
+"acompanhamento"
+"bebida"
+
+Para cadastrar um pedido, necessário cadastrar os produtos primeiro para vincula-los ao pedido. Identificação do cliente no pedido é opcional
+
 
 ### Reference Documentation
 For further reference, please consider the following sections:
