@@ -3,3 +3,5 @@
 gradle/wrapper/*.jar
 build/*
 *.DS_Store
+
+/bin/*
