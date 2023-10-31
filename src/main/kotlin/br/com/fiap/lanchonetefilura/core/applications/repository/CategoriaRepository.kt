@@ -1,10 +1,11 @@
-package br.com.fiap.lanchonetefilura.core.applications.usecases
+package br.com.fiap.lanchonetefilura.core.applications.repository
 
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
 import java.util.UUID
 
-interface CategoriaUseCase {
+interface CategoriaRepository {
+
     fun getCategorias(): List<CategoriaModel>?
 
     fun getCategoriaById(id: UUID): CategoriaModel?

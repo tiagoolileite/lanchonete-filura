@@ -1,19 +1,18 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequest
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import java.util.*
-import kotlin.collections.ArrayList
+import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
+import java.util.UUID
 
 interface ProdutoUseCase {
 
-    fun findProdutoById(id: UUID): ProdutoModel?
+    fun getProdutos(): List<ProdutoModel>?
 
-    fun findAllProdutos(): ArrayList<ProdutoModel>?
-    fun saveProduto(produtoRequest: ProdutoRequest, categoria: CategoriaModel?): ProdutoModel?
+    fun getProdutosByCategoria(categoriaId: UUID): List<ProdutoModel>?
 
-    fun updateProduto(produtoRequest: ProdutoRequest, id: UUID, categoria: CategoriaModel?): ProdutoModel?
+    fun saveProduto(produtoRequest: ProdutoRequest): ProdutoModel?
+
+    fun updateProduto(produtoRequest: ProdutoRequest, produtoId: UUID): ProdutoModel?
 
     fun deleteProduto(id: UUID)
 }
