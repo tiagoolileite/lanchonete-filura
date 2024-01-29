@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class CategoriaGatewayImpl(val repository: CategoriaRepository) : CategoriaGateway {
@@ -13,5 +14,9 @@ class CategoriaGatewayImpl(val repository: CategoriaRepository) : CategoriaGatew
 
     override fun listarCategorias(): List<CategoriaDTO> {
         return repository.listarCategorias()
+    }
+
+    override fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO? {
+        return repository.buscarCategoriaPeloId(categoriaId)
     }
 }

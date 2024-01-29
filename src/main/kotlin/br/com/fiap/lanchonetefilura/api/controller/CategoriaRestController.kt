@@ -15,7 +15,7 @@ class CategoriaRestController(val controller: CategoriaController) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun cadastrarCaregoria(@RequestBody @Valid categoriaRequest: CategoriaRequest): ResponseEntity<CategoriaResponse> {
+    fun cadastrarCategoria(@RequestBody @Valid categoriaRequest: CategoriaRequest): ResponseEntity<CategoriaResponse> {
 
         LoggerHelper.logger.info("[FILURA]: Salvando categoria: ${categoriaRequest.descricao}")
         val categoriaResponse: CategoriaResponse? =
@@ -32,7 +32,7 @@ class CategoriaRestController(val controller: CategoriaController) {
 
         LoggerHelper.logger.info("[FILURA]: Listando categorias")
         val categoriasResponse: List<CategoriaResponse> =
-            controller.listarCaregorias()
+            controller.listarCategorias()
 
         return ResponseEntity.ok(categoriasResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Categorias listadas com sucesso")

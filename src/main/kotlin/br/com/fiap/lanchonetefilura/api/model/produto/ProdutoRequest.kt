@@ -1,27 +1,26 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.request
+package br.com.fiap.lanchonetefilura.api.model.produto
 
-import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
+import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequestOld
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 import java.util.*
 
-data class ProdutoRequestImpl (
-
+class ProdutoRequest {
     @NotNull(message = "nome não pode estar vazio")
     @NotEmpty(message = "nome não pode estar vazio")
-    override val nome: String,
+    val nome: String? = null
 
     @NotNull(message = "descricao não pode estar vazia")
     @NotEmpty(message = "descricao não pode estar vazia")
-    override val descricao: String,
+    val descricao: String? = null
 
     @NotNull(message = "preco não pode estar vazio")
     @NotEmpty(message = "preco não pode estar vazio")
-    override val preco: Double,
+    val preco: Double? = null
 
     @NotNull(message = "categoria não pode estar vazio")
     @NotEmpty(message = "categoria não pode estar vazio")
     @JsonProperty("categoria_id")
-    override val categoriaId: UUID
-) : ProdutoRequest
+    val categoriaId: UUID? = null
+}

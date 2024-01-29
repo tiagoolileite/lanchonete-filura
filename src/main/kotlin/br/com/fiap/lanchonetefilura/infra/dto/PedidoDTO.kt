@@ -13,7 +13,7 @@ data class PedidoDTO (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "pedido_id")
+    @Column(name = "pedido_id", columnDefinition = "UUID")
     val id: UUID = UUID.randomUUID(),
 
     @Column(name = "senha", nullable = false)

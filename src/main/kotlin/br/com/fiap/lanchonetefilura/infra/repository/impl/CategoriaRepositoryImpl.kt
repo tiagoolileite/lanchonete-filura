@@ -3,8 +3,11 @@ package br.com.fiap.lanchonetefilura.infra.repository.impl
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.CategoriaJpaRepository
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
+import java.lang.Error
+import java.util.*
 
 @Repository
 class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : CategoriaRepository {
@@ -51,5 +54,14 @@ class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : 
 
     override fun listarCategorias(): List<CategoriaDTO> {
         return repository.findAll()
+    }
+
+    override fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO? {
+        var categoria: CategoriaDTO? = null
+
+        logger.info("Procurando pela categoria de id: ${categoria?.id}")
+        categoria = categoriaId?.let { repository.findCategoriaById(id = it) }
+
+        return categoria
     }
 }

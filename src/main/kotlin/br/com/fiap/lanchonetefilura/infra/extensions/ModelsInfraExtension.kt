@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
-import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
+import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequestOld
 
 fun ClienteRequest.converterClienteRequestToClienteModel(): ClienteModel {
     return ClienteModel(
@@ -14,7 +14,7 @@ fun ClienteRequest.converterClienteRequestToClienteModel(): ClienteModel {
     )
 }
 
-fun ProdutoRequest.converterProdutoRequestToProdutoModel(categoriaModel: CategoriaModel): ProdutoModel {
+fun ProdutoRequestOld.converterProdutoRequestToProdutoModel(categoriaModel: CategoriaModel): ProdutoModel {
     return ProdutoModel(
         nome = this.nome,
         descricao = this.descricao,

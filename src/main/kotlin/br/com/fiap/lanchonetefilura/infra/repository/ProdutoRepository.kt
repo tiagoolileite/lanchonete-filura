@@ -7,4 +7,8 @@ import java.util.*
 interface ProdutoRepository {
 
     fun listarProdutos(): List<ProdutoDTO>
+
+    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
+
+    fun cadastrarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
 }

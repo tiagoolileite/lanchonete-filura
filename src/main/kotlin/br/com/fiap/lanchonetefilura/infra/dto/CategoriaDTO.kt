@@ -9,7 +9,7 @@ data class CategoriaDTO(
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "categoria_id")
+    @Column(name = "categoria_id", columnDefinition = "UUID")
     val id: UUID = UUID.randomUUID(),
 
     @Column(unique = true, nullable = false)

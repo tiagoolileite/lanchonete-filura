@@ -5,6 +5,8 @@ import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import org.springframework.stereotype.Component
+import java.lang.Error
+import java.util.*
 
 @Component
 class CategoriaUseCaseImpl(val gateway: CategoriaGateway) : CategoriaUseCase {
@@ -19,5 +21,16 @@ class CategoriaUseCaseImpl(val gateway: CategoriaGateway) : CategoriaUseCase {
 
     override fun listarCategorias(): List<CategoriaDTO> {
         return gateway.listarCategorias()
+    }
+
+    override fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO? {
+
+        val categoria = gateway.buscarCategoriaPeloId(categoriaId)
+
+        if (categoria == null || categoria?.id == null) {
+            throw Error("Categoria não localizada")
+        }
+
+        return categoria
     }
 }

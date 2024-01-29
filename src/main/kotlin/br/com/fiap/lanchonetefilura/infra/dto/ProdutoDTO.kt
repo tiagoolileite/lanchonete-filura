@@ -10,7 +10,7 @@ data class ProdutoDTO (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "produto_id")
+    @Column(name = "produto_id", columnDefinition = "UUID")
     var id: UUID? = UUID.randomUUID(),
 
     @Column(nullable = false)

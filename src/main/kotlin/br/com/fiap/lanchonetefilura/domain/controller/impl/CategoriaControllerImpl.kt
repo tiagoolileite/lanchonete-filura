@@ -17,7 +17,7 @@ class CategoriaControllerImpl(
         return CategoriaResponse(categoriaDTO.id, categoriaDTO.descricao)
     }
 
-    override fun listarCaregorias(): List<CategoriaResponse> {
+    override fun listarCategorias(): List<CategoriaResponse> {
 
         val categoriasDTO: List<CategoriaDTO> = useCase.listarCategorias()
 

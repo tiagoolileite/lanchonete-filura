@@ -1,19 +1,5 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaPedidosModelToListaPedidosResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterPedidoModelToPedidoResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.PedidoRequestImpl
-import br.com.fiap.lanchonetefilura.adapter.driver.api.response.PedidoResponse
-import br.com.fiap.lanchonetefilura.core.applications.usecases.PedidoUseCase
-import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
-import br.com.fiap.lanchonetefilura.core.extensions.updateEtapaPedidoModel
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
-import jakarta.validation.Valid
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
-import java.util.*
-
 /*
 @RestController
 @RequestMapping("api/pedido")
