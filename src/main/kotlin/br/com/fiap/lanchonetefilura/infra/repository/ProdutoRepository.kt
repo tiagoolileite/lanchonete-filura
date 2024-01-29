@@ -1,19 +1,10 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import java.util.UUID
+import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import java.util.*
 
 interface ProdutoRepository {
 
-    fun getProdutos(): List<ProdutoModel>?
-
-    fun getProdutoById(id: UUID): ProdutoModel?
-
-    fun getProdutosByCategoria(categoriaId: UUID): List<ProdutoModel>?
-
-    fun saveProduto(produtoModel: ProdutoModel): ProdutoModel?
-
-    fun updateProduto(produtoModel: ProdutoModel): ProdutoModel?
-
-    fun deleteProduto(id: UUID)
+    fun listarProdutos(): List<ProdutoDTO>
 }

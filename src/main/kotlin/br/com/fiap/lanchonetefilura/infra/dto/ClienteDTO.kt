@@ -1,11 +1,11 @@
-package br.com.fiap.lanchonetefilura.core.domain.model
+package br.com.fiap.lanchonetefilura.infra.dto
 
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name = "cliente_old")
-data class ClienteModel(
+@Table(name = "cliente")
+data class ClienteDTO(
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

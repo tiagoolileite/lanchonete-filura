@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases
 
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import java.util.UUID
+import java.util.*
 
 interface CategoriaUseCaseOld {
     fun getCategorias(): List<CategoriaModel>?

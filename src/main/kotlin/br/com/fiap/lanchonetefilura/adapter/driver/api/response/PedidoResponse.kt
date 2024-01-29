@@ -2,7 +2,7 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.response
 
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import java.util.UUID
+import java.util.*
 
 data class PedidoResponse (
     val id: UUID,

@@ -1,12 +1,12 @@
-package br.com.fiap.lanchonetefilura.core.domain.model
+package br.com.fiap.lanchonetefilura.infra.dto
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name="produto_old")
-data class ProdutoModel (
+@Table(name="produto")
+data class ProdutoDTO (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -24,9 +24,9 @@ data class ProdutoModel (
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    var categoria: CategoriaModel? = null,
+    var categoria: CategoriaDTO? = null,
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore
-    val pedidos: List<PedidoModel>? = null
+    val pedidos: List<PedidoDTO>? = null
 )

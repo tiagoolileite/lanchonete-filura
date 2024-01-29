@@ -1,42 +1,16 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
-import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
+import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
+import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
 import org.springframework.stereotype.Repository
-import java.util.UUID
+import java.util.*
 
 @Repository
 class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : ProdutoRepository {
-    override fun getProdutos(): List<ProdutoModel>? {
+    override fun listarProdutos(): List<ProdutoDTO> {
 
         return repository.findAll()
-    }
-
-    override fun getProdutoById(id: UUID): ProdutoModel? {
-
-        return repository.findById(id).get()
-    }
-
-    override fun getProdutosByCategoria(categoriaId: UUID): List<ProdutoModel>? {
-
-        return repository.findAllByCategoriaId(id = categoriaId)
-    }
-
-    override fun saveProduto(produtoModel: ProdutoModel): ProdutoModel? {
-
-        return repository.save(produtoModel)
-    }
-
-    override fun updateProduto(
-        produtoModel: ProdutoModel
-    ): ProdutoModel? {
-
-        return repository.save(produtoModel)
-    }
-
-    override fun deleteProduto(id: UUID) {
-
-        return repository.deleteById(id)
     }
 }

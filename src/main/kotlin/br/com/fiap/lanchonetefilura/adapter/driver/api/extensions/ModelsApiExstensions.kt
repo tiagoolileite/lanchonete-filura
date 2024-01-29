@@ -2,7 +2,7 @@ package br.com.fiap.lanchonetefilura.adapter.driver.api.extensions
 
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.PedidoResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
+import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
@@ -34,7 +34,7 @@ fun List<ClienteModel?>?.converterListaClienteModelToListaClienteResponse(): Lis
     return clientes
 }
 
-fun List<ProdutoModel?>?.converterListaProdutosModelToListaProdutosResponse(): List<ProdutoResponse> {
+/*fun List<ProdutoModel?>?.converterListaProdutosModelToListaProdutosResponse(): List<ProdutoResponse> {
 
     val produtos: ArrayList<ProdutoResponse> = arrayListOf()
 
@@ -51,8 +51,9 @@ fun List<ProdutoModel?>?.converterListaProdutosModelToListaProdutosResponse(): L
     }
 
     return produtos
-}
+}*/
 
+/*
 fun ProdutoModel?.converterProdutoModelToProdutoResponse(): ProdutoResponse {
     return ProdutoResponse(
         id = this?.id,
@@ -62,6 +63,7 @@ fun ProdutoModel?.converterProdutoModelToProdutoResponse(): ProdutoResponse {
         categoria = this?.categoria
     )
 }
+*/
 
 fun List<PedidoModel>?.converterListaPedidosModelToListaPedidosResponse(): List<PedidoResponse> {
 

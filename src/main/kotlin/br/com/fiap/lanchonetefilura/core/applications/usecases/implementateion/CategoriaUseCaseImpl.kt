@@ -1,13 +1,5 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
-import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCaseOld
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaNaoEncontradaException
-import org.springframework.stereotype.Component
-import java.util.UUID
-import kotlin.collections.ArrayList
-
 /*
 @Component
 class CategoriaUseCaseImpl (

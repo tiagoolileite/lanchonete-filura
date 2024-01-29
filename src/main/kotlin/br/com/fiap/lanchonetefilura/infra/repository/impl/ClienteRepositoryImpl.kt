@@ -1,13 +1,12 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.extensions.converterClienteRequestToClienteModel
-import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
-import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
+import br.com.fiap.lanchonetefilura.infra.extensions.converterClienteRequestToClienteModel
+import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
+import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
-import java.lang.Exception
 import java.util.*
 
 @Repository

@@ -1,48 +1,46 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.controller
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterListaProdutosModelToListaProdutosResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterProdutoModelToProdutoResponse
-import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequestImpl
-import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
-import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCaseOld
-import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import br.com.fiap.lanchonetefilura.core.extensions.editCategoriaModel
+import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
+import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCaseOld
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
-import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
+import java.util.*
 
+/*
 @RestController
 @RequestMapping("api/produto")
-class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private val categoriaUseCase: CategoriaUseCaseOld*/) {
+class ProdutoControllerOld (private val produtoUseCaseOld: ProdutoUseCaseOld, */
+/*private val categoriaUseCase: CategoriaUseCaseOld*//*
+) {
 
-    @GetMapping("/produtos")
+    */
+/*@GetMapping("/produtos")
     @ResponseStatus(HttpStatus.OK)
     fun getProdutos(): ResponseEntity<List<ProdutoResponse>> {
 
         logger.info("[FILURA]: Listando produtos")
-        val produtos = produtoUseCase.getProdutos()
+        val produtos = produtoUseCaseOld.getProdutos()
 
-        val produtosResponse = produtos?.converterListaProdutosModelToListaProdutosResponse()
+        //val produtosResponse = produtos?.converterListaProdutosModelToListaProdutosResponse()
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             logger.info("[FILURA]: Busca por produtos realizada com sucesso")
             response
         }
-    }
+    }*//*
 
-    @GetMapping("/produtos/categoria")
+
+    */
+/*@GetMapping("/produtos/categoria")
     @ResponseStatus(HttpStatus.OK)
     fun getProdutosByCategoria(
         @RequestParam("categoria_id") categoriaId: UUID
     ): ResponseEntity<List<ProdutoResponse>> {
 
         logger.info("[FILURA]: Iniciando Busca de produtos por categoria")
-        val produtos = produtoUseCase.getProdutosByCategoria(categoriaId = categoriaId)
+        val produtos = produtoUseCaseOld.getProdutosByCategoria(categoriaId = categoriaId)
 
         val produtosResponse = produtos?.converterListaProdutosModelToListaProdutosResponse()
 
@@ -50,8 +48,10 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private v
             logger.info("[FILURA]: Busca de produtos por categoria realizada com sucesso!")
             response
         }
-    }
+    }*//*
 
+
+*/
 /*    @PostMapping
     @ResponseStatus(HttpStatus.OK)
     fun saveProduto(
@@ -70,8 +70,10 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private v
             logger.info("[FILURA]: Produto salvo com sucesso")
             response
         }
-    }*/
+    }*//*
 
+
+*/
 /*    @PutMapping
     @ResponseStatus(HttpStatus.OK)
     fun updateProduto(
@@ -95,7 +97,8 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private v
             logger.info("[FILURA]: Produto atualizado com sucesso")
             response
         }
-    }*/
+    }*//*
+
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
@@ -104,7 +107,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private v
     ): ResponseEntity<String> {
 
         logger.info("[FILURA]: Apagando Produto")
-        produtoUseCase.deleteProduto(id = id)
+        produtoUseCaseOld.deleteProduto(id = id)
 
         return ResponseEntity.ok("Produto deletado com sucesso").let { response ->
             logger.info("[FILURA]: Produto Apagado com sucesso")
@@ -112,3 +115,4 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private v
         }
     }
 }
+*/

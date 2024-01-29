@@ -1,13 +1,15 @@
-package br.com.fiap.lanchonetefilura.core.domain.model
+package br.com.fiap.lanchonetefilura.infra.dto
 
+import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
+import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
-@Table(name = "pedido_old")
+@Table(name = "pedido")
 @JsonIgnoreProperties
-data class PedidoModel (
+data class PedidoDTO (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,7 +25,7 @@ data class PedidoModel (
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteModel? = null,
+    val cliente: ClienteDTO? = null,
 
     @ManyToMany
     @JoinTable(
@@ -31,7 +33,7 @@ data class PedidoModel (
         joinColumns = arrayOf(JoinColumn(name = "pedido_id")),
         inverseJoinColumns = arrayOf(JoinColumn(name = "produto_id"))
     )
-    val produtos: List<ProdutoModel> = arrayListOf(),
+    val produtos: List<ProdutoDTO> = arrayListOf(),
 
     @Column(name = "pago", nullable = false)
     var pago: Boolean = false

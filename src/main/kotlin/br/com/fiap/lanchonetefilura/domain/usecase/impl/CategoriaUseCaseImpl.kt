@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase

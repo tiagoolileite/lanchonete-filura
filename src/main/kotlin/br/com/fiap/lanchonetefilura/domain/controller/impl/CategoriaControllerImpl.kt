@@ -2,7 +2,6 @@ package br.com.fiap.lanchonetefilura.domain.controller.impl
 
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.domain.controller.CategoriaController
-import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import org.springframework.stereotype.Component

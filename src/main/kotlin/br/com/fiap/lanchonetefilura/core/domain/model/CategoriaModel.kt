@@ -1,12 +1,7 @@
 package br.com.fiap.lanchonetefilura.core.domain.model
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Table
-import jakarta.persistence.Id
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Column
-import jakarta.persistence.GenerationType
-import java.util.UUID
+import jakarta.persistence.*
+import java.util.*
 
 @Entity
 @Table(name="categoria_old")

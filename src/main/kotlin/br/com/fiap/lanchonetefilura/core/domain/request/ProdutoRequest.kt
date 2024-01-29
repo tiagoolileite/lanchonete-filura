@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.core.domain.request
 
-import java.util.UUID
+import java.util.*
 
 interface ProdutoRequest {
      val nome: String

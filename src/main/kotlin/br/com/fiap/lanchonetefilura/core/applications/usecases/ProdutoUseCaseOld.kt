@@ -1,10 +1,9 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases
 
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
-import java.util.UUID
+import java.util.*
 
-interface ProdutoUseCase {
+interface ProdutoUseCaseOld {
 
     fun getProdutos(): List<ProdutoModel>?
 

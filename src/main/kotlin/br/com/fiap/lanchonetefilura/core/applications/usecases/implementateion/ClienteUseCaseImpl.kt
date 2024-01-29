@@ -1,11 +1,11 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.cliente.ClienteNaoEncontradoException
+import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Component
 
