@@ -1,9 +1,7 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
-import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequestOld
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid

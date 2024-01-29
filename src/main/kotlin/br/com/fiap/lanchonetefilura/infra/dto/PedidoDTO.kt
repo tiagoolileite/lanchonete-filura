@@ -1,7 +1,5 @@
 package br.com.fiap.lanchonetefilura.infra.dto
 
-import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
-import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
