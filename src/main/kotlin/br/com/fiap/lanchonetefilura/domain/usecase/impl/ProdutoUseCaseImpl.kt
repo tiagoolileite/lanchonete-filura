@@ -60,4 +60,11 @@ class ProdutoUseCaseImpl(val gateway: ProdutoGateway) : ProdutoUseCase {
     override fun deletarProdutoPeloId(id: UUID) {
         gateway.deletarProdutoPeloId(id)
     }
+
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDTO> {
+
+        val produtos: MutableList<ProdutoDTO> = gateway.listarProdutosPorListaDeIds(produtosId)
+
+        return produtos.toList()
+    }
 }

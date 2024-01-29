@@ -12,7 +12,7 @@ data class ClienteDTO(
     @Column(name = "cliente_id", columnDefinition = "UUID")
     val id: UUID = UUID.randomUUID(),
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     val cpf: String? = null,
 
     @Column(nullable = false)

@@ -1,6 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import java.util.*
 
 interface ClienteGateway {
     fun listarClientes(): List<ClienteDTO>
@@ -9,4 +10,5 @@ interface ClienteGateway {
 
     fun buscarClientePeloCpf(cpf: String): ClienteDTO?
 
+    fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO>
 }

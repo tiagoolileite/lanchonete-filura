@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class ClienteUseCaseImpl(val gateway: ClienteGateway) : ClienteUseCase {
@@ -24,5 +25,15 @@ class ClienteUseCaseImpl(val gateway: ClienteGateway) : ClienteUseCase {
         throw Exception("Cliente näo foi localizado")
 
         return cliente
+    }
+
+    override fun buscarClientePeloId(clienteId: UUID): ClienteDTO? {
+
+        val cliente: Optional<ClienteDTO> = gateway.buscarClientePeloId(clienteId)
+
+        if (cliente.isEmpty)
+            throw Exception("Cliente näo foi localizado")
+
+        return cliente.get()
     }
 }

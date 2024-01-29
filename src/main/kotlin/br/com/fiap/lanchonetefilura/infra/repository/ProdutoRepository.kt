@@ -16,4 +16,6 @@ interface ProdutoRepository {
     fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
 
     fun deletarProdutoPeloId(id: UUID)
+
+    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO>
 }

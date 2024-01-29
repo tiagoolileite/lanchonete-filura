@@ -42,4 +42,9 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
 
         return repository.deleteById(id)
     }
+
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
+        return produtosId?.let { repository.findAllById(it) } ?:
+        throw Error("Produtos não localizados ou invalidos")
+    }
 }

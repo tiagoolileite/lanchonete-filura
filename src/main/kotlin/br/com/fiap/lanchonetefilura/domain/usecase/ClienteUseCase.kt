@@ -1,6 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import java.util.*
 
 interface ClienteUseCase {
     fun listarClientes(): List<ClienteDTO>
@@ -8,4 +9,6 @@ interface ClienteUseCase {
     fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTO
 
     fun buscarClientePeloCpf(cpf: String): ClienteDTO
+
+    fun buscarClientePeloId(clienteId: UUID): ClienteDTO?
 }

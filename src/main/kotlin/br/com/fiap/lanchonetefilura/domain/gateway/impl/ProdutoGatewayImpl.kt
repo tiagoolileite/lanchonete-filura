@@ -43,4 +43,8 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
     override fun deletarProdutoPeloId(id: UUID) {
         repository.deletarProdutoPeloId(id)
     }
+
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
+        return  repository.listarProdutosPorListaDeIds(produtosId)
+    }
 }

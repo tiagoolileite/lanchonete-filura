@@ -7,6 +7,7 @@ import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -67,11 +68,18 @@ class ProdutoControllerImpl(
         nome: String?,
         preco: Double?
     ): ProdutoResponse {
+
+        LoggerHelper.logger.info("[FILURA]: categoriaId teste: ${categoriaId}")
+
         val categoriaDTO: CategoriaDTO? =
             categoriaUseCase.buscarCategoriaPeloId(categoriaId)
 
+        LoggerHelper.logger.info("[FILURA]: categoriaId teste2: ${categoriaDTO?.id}")
+
         val produtoDTO: ProdutoDTO? =
             categoriaDTO?.let { produtoUseCase.cadastrarProduto(it, descricao, nome, preco) }
+
+        LoggerHelper.logger.info("[FILURA]: categoriaId teste3: ${produtoDTO?.categoria?.id}")
 
         return  ProdutoResponse(
             id = produtoDTO?.id,

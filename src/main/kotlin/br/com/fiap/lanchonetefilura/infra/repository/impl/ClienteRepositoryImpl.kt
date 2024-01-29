@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
 class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
@@ -59,5 +60,10 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
     override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {
 
         return repository.findClienteByCpf(cpf)
+    }
+
+    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO> {
+
+        return repository.findById(clienteId)
     }
 }

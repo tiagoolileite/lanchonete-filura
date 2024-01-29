@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class ClienteGatewayImpl(val repository: ClienteRepository) : ClienteGateway {
@@ -20,5 +21,9 @@ class ClienteGatewayImpl(val repository: ClienteRepository) : ClienteGateway {
 
     override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {
         return repository.buscarClientePeloCpf(cpf)
+    }
+
+    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO> {
+        return repository.buscarClientePeloId(clienteId)
     }
 }
