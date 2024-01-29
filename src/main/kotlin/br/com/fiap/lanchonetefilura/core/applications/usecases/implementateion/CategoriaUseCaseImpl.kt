@@ -3,7 +3,7 @@ package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
+import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequestOld
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaNaoEncontradaException
@@ -40,7 +40,7 @@ class CategoriaUseCaseImpl (
         return categoria
     }
 
-    override fun saveCategoria(categoriaRequest: CategoriaRequest): CategoriaModel? {
+    override fun saveCategoria(categoriaRequest: CategoriaRequestOld): CategoriaModel? {
 
         if (!categoriasPossiveis.contains(categoriaRequest.descricao?.lowercase())) {
             throw CategoriaInvalidaException()

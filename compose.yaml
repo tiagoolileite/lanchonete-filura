@@ -11,7 +11,7 @@ services:
       - '3306:3306'
   spring-boot-app:
     container_name: "Filura-APP"
-    image: 'leittia/lanchonete-filura:latest'
+    image: 'lanchonete-filura:latest'
     build:
       context: .
     depends_on:

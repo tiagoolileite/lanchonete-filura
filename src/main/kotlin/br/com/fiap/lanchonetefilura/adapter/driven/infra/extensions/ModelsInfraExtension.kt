@@ -3,7 +3,7 @@ package br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
-import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequest
+import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequestOld
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest
 import br.com.fiap.lanchonetefilura.core.domain.request.ProdutoRequest
 
@@ -15,7 +15,7 @@ fun ClienteRequest.converterClienteRequestToClienteModel(): ClienteModel {
     )
 }
 
-fun CategoriaRequest.converterCategoriaRequestToCategoriaModel(): CategoriaModel {
+fun CategoriaRequestOld.converterCategoriaRequestToCategoriaModel(): CategoriaModel {
     return CategoriaModel (
         descricao = this.descricao
     )

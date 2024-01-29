@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driver.api.response
+package br.com.fiap.lanchonetefilura.api.model.categoria
 
 import java.util.*
 

@@ -1,10 +1,8 @@
 package br.com.fiap.lanchonetefilura.adapter.driver.api.extensions
 
-import br.com.fiap.lanchonetefilura.adapter.driver.api.response.CategoriaResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ClienteResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.PedidoResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
@@ -34,32 +32,6 @@ fun List<ClienteModel?>?.converterListaClienteModelToListaClienteResponse(): Lis
     }
 
     return clientes
-}
-
-fun List<CategoriaModel?>?.converterListaCategoriasModelToListaCategoriasResponse(): List<CategoriaResponse> {
-
-    val categorias: ArrayList<CategoriaResponse> = arrayListOf()
-
-    this?.forEach { categoria ->
-        categoria?.id?.let {
-            categorias.add(
-                CategoriaResponse(
-                id = it,
-                descricao = categoria.descricao,
-
-            )
-            )
-        }
-    }
-
-    return categorias
-}
-
-fun CategoriaModel?.converterCategoriaModelToCategoriaResponse(): CategoriaResponse {
-    return CategoriaResponse(
-        id = this?.id,
-        descricao = this?.descricao
-    )
 }
 
 fun List<ProdutoModel?>?.converterListaProdutosModelToListaProdutosResponse(): List<ProdutoResponse> {

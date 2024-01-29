@@ -1,5 +1,5 @@
 package br.com.fiap.lanchonetefilura.core.domain.request
 
-interface CategoriaRequest {
+interface CategoriaRequestOld {
      val descricao: String?
 }
