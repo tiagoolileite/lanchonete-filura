@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterLista
 import br.com.fiap.lanchonetefilura.adapter.driver.api.extensions.converterProdutoModelToProdutoResponse
 import br.com.fiap.lanchonetefilura.adapter.driver.api.request.ProdutoRequestImpl
 import br.com.fiap.lanchonetefilura.adapter.driver.api.response.ProdutoResponse
-import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
+import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCaseOld
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ProdutoUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
@@ -18,7 +18,7 @@ import java.util.UUID
 
 @RestController
 @RequestMapping("api/produto")
-class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val categoriaUseCase: CategoriaUseCase) {
+class ProdutoController (private val produtoUseCase: ProdutoUseCase, /*private val categoriaUseCase: CategoriaUseCaseOld*/) {
 
     @GetMapping("/produtos")
     @ResponseStatus(HttpStatus.OK)
@@ -52,7 +52,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
         }
     }
 
-    @PostMapping
+/*    @PostMapping
     @ResponseStatus(HttpStatus.OK)
     fun saveProduto(
         @RequestBody @Valid produtoRequest: ProdutoRequestImpl
@@ -70,9 +70,9 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
             logger.info("[FILURA]: Produto salvo com sucesso")
             response
         }
-    }
+    }*/
 
-    @PutMapping
+/*    @PutMapping
     @ResponseStatus(HttpStatus.OK)
     fun updateProduto(
         @RequestBody @Valid produtoRequest: ProdutoRequestImpl,
@@ -95,7 +95,7 @@ class ProdutoController (private val produtoUseCase: ProdutoUseCase, private val
             logger.info("[FILURA]: Produto atualizado com sucesso")
             response
         }
-    }
+    }*/
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)

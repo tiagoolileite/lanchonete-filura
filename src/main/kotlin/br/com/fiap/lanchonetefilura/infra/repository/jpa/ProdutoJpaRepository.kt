@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository
+package br.com.fiap.lanchonetefilura.infra.repository.jpa
 
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import org.springframework.data.jpa.repository.JpaRepository

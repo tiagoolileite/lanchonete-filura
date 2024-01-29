@@ -10,9 +10,9 @@ interface ProdutoUseCase {
 
     fun getProdutosByCategoria(categoriaId: UUID): List<ProdutoModel>?
 
-    fun saveProduto(produtoRequest: ProdutoRequest): ProdutoModel?
+    //fun saveProduto(produtoRequest: ProdutoRequest): ProdutoModel?
 
-    fun updateProduto(produtoRequest: ProdutoRequest, produtoId: UUID): ProdutoModel?
+    //fun updateProduto(produtoRequest: ProdutoRequest, produtoId: UUID): ProdutoModel?
 
     fun deleteProduto(id: UUID)
 }

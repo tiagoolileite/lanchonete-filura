@@ -18,8 +18,8 @@ class CategoriaRestController(val controller: CategoriaController) {
     fun cadastrarCaregoria(@RequestBody @Valid categoriaRequest: CategoriaRequest): ResponseEntity<CategoriaResponse> {
 
         LoggerHelper.logger.info("[FILURA]: Salvando categoria: ${categoriaRequest.descricao}")
-        val categoriaResponse: CategoriaResponse =
-            controller.cadastrarCategoria(categoriaRequest.descricao)
+        val categoriaResponse: CategoriaResponse? =
+            categoriaRequest.descricao?.let { controller.cadastrarCategoria(it) }
 
         return ResponseEntity.ok(categoriaResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Categoria ${categoriaRequest.descricao} Salva com sucesso!")

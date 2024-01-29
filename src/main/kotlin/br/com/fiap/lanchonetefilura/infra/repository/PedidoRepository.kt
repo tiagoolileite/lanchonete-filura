@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.core.applications.repository
+package br.com.fiap.lanchonetefilura.infra.repository
 
 import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import java.util.UUID

@@ -1,15 +1,16 @@
-package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
+package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.CategoriaJpaRepository
-import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
-import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
+import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
+import br.com.fiap.lanchonetefilura.infra.repository.jpa.CategoriaJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
-import java.util.UUID
 
 @Repository
 class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : CategoriaRepository {
-    override fun getCategorias(): List<CategoriaModel>? {
+
+
+    /*override fun getCategorias(): List<CategoriaModel>? {
 
         return repository.findAll()
     }
@@ -38,5 +39,17 @@ class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : 
         }
 
         return categoria
+    }*/
+    override fun cadastrarCategoria(descricao: String): CategoriaDTO {
+
+        val categoriaDTO = CategoriaDTO(descricao = descricao)
+
+        logger.info("Descrição: ${categoriaDTO.descricao} \n ID: ${categoriaDTO.id}")
+
+        return repository.save(categoriaDTO)
+    }
+
+    override fun listarCategorias(): List<CategoriaDTO> {
+        return repository.findAll()
     }
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType
 import java.util.UUID
 
 @Entity
-@Table(name="categoria")
+@Table(name="categoria_old")
 data class CategoriaModel(
 
     @Id

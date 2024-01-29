@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions
+package br.com.fiap.lanchonetefilura.infra.extensions
 
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel

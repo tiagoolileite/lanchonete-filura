@@ -1,7 +1,7 @@
-package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
+package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.ProdutoJpaRepository
-import br.com.fiap.lanchonetefilura.core.applications.repository.ProdutoRepository
+import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
+import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.ProdutoModel
 import org.springframework.stereotype.Repository
 import java.util.UUID

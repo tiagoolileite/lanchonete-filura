@@ -1,7 +1,7 @@
-package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
+package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.PedidoJpaRepository
-import br.com.fiap.lanchonetefilura.core.applications.repository.PedidoRepository
+import br.com.fiap.lanchonetefilura.infra.repository.jpa.PedidoJpaRepository
+import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.PedidoModel
 import org.springframework.stereotype.Repository
 import java.util.*

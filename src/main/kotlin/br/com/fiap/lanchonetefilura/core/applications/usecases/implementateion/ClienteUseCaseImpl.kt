@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.core.applications.repository.ClienteRepository
+import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.core.applications.usecases.ClienteUseCase
 import br.com.fiap.lanchonetefilura.core.domain.model.ClienteModel
 import br.com.fiap.lanchonetefilura.core.domain.request.ClienteRequest

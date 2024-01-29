@@ -1,23 +1,21 @@
 package br.com.fiap.lanchonetefilura.core.applications.usecases.implementateion
 
-import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
-import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCase
+import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
+import br.com.fiap.lanchonetefilura.core.applications.usecases.CategoriaUseCaseOld
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequestOld
-import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaInvalidaException
-import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaJaExisteException
 import br.com.fiap.lanchonetefilura.core.exceptions.categoria.CategoriaNaoEncontradaException
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Component
 import java.util.UUID
 import kotlin.collections.ArrayList
 
+/*
 @Component
 class CategoriaUseCaseImpl (
     private val categoriaRepository: CategoriaRepository
-) : CategoriaUseCase {
+) : CategoriaUseCaseOld {
 
-    override fun getCategorias(): List<CategoriaModel>? {
+    */
+/*override fun getCategorias(): List<CategoriaModel>? {
 
         return categoriaRepository.getCategorias()
     }
@@ -48,5 +46,6 @@ class CategoriaUseCaseImpl (
 
     enum class CategoriaDescricaoEnum {
         Lanche, Acompanhamento, Bebida
-    }
-}
+    }*//*
+
+}*/
