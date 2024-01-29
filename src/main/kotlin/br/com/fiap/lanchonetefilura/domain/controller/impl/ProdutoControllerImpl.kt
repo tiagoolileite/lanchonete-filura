@@ -9,7 +9,6 @@ import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import org.springframework.stereotype.Component
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Component
 class ProdutoControllerImpl(

@@ -1,12 +1,12 @@
-package br.com.fiap.lanchonetefilura.infra.repository
+package br.com.fiap.lanchonetefilura.domain.gateway
 
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 
-interface ClienteRepository {
-
+interface ClienteGateway {
     fun listarClientes(): List<ClienteDTO>
 
     fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTO
 
     fun buscarClientePeloCpf(cpf: String): ClienteDTO?
+
 }

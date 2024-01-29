@@ -5,7 +5,6 @@ import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import org.springframework.stereotype.Component
-import java.lang.Error
 import java.util.*
 
 @Component

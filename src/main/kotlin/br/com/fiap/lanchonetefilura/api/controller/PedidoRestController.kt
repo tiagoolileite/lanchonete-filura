@@ -1,4 +1,7 @@
-package br.com.fiap.lanchonetefilura.adapter
+package br.com.fiap.lanchonetefilura.api.controller
+
+class PedidoRestController {
+}
 
 /*
 @RestController

@@ -3,10 +3,8 @@ package br.com.fiap.lanchonetefilura.infra.repository.impl
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.CategoriaJpaRepository
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
-import java.lang.Error
 import java.util.*
 
 @Repository

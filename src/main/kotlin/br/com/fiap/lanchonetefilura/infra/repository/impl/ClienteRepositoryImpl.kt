@@ -1,16 +1,13 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteRequest
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
-    override fun getClientes(): List<ClienteDTO>? {
+    /*override fun getClientes(): List<ClienteDTO>? {
 
         return repository.findAll()
     }
@@ -45,5 +42,22 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
 
 
         return repository.save(ClienteDTO())
+    }*/
+
+    override fun listarClientes(): List<ClienteDTO> {
+
+        return repository.findAll()
+    }
+
+    override fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTO {
+
+        return repository.save(ClienteDTO(
+            email = email, nome = nome, cpf = cpf
+        ))
+    }
+
+    override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {
+
+        return repository.findClienteByCpf(cpf)
     }
 }
