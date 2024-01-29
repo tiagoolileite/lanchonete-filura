@@ -40,23 +40,6 @@ class CategoriaUseCaseImpl (
         return categoria
     }
 
-    override fun saveCategoria(categoriaRequest: CategoriaRequestOld): CategoriaModel? {
-
-        if (!categoriasPossiveis.contains(categoriaRequest.descricao?.lowercase())) {
-            throw CategoriaInvalidaException()
-        }
-
-        val categoria: CategoriaModel? =
-            categoriaRequest.descricao?.let { categoriaRepository.getCategoriaByDescricao(descricao = it) }
-
-        categoria?.let {
-            logger.error("Categoria já foi cadastrada anteriormente")
-            throw CategoriaJaExisteException()
-        }
-
-        return categoriaRepository.saveCategoria(categoriaRequest)
-    }
-
     private val categoriasPossiveis: ArrayList<String> = arrayListOf(
         CategoriaDescricaoEnum.Lanche.toString().lowercase(),
         CategoriaDescricaoEnum.Acompanhamento.toString().lowercase(),

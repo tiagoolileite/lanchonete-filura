@@ -12,5 +12,4 @@ interface CategoriaRepository {
 
     fun getCategoriaByDescricao(descricao: String): CategoriaModel?
 
-    fun saveCategoria(categoriaRequest: CategoriaRequestOld): CategoriaModel?
 }

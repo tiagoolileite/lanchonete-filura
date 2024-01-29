@@ -15,12 +15,6 @@ fun ClienteRequest.converterClienteRequestToClienteModel(): ClienteModel {
     )
 }
 
-fun CategoriaRequestOld.converterCategoriaRequestToCategoriaModel(): CategoriaModel {
-    return CategoriaModel (
-        descricao = this.descricao
-    )
-}
-
 fun ProdutoRequest.converterProdutoRequestToProdutoModel(categoriaModel: CategoriaModel): ProdutoModel {
     return ProdutoModel(
         nome = this.nome,

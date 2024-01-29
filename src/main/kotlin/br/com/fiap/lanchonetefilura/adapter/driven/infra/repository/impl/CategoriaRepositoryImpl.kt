@@ -1,10 +1,8 @@
 package br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.adapter.driven.infra.extensions.converterCategoriaRequestToCategoriaModel
 import br.com.fiap.lanchonetefilura.adapter.driven.infra.repository.CategoriaJpaRepository
 import br.com.fiap.lanchonetefilura.core.applications.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.core.domain.model.CategoriaModel
-import br.com.fiap.lanchonetefilura.core.domain.request.CategoriaRequestOld
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Repository
 import java.util.UUID
@@ -40,12 +38,5 @@ class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : 
         }
 
         return categoria
-    }
-
-    override fun saveCategoria(categoriaRequest: CategoriaRequestOld): CategoriaModel? {
-
-        val categoria = categoriaRequest.converterCategoriaRequestToCategoriaModel()
-
-        return repository.save(categoria)
     }
 }

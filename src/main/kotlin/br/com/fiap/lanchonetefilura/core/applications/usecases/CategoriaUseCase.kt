@@ -10,6 +10,4 @@ interface CategoriaUseCase {
     fun getCategoriaById(id: UUID): CategoriaModel?
 
     fun getCategoriaByDescricao(descricao: String): CategoriaModel?
-
-    fun saveCategoria(categoriaRequest: CategoriaRequestOld): CategoriaModel?
 }
