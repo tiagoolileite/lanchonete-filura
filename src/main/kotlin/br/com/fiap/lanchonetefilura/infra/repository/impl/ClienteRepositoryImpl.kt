@@ -1,6 +1,7 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.extensions.converterClienteRequestToClienteModel
+import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteRequest
+import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
@@ -9,14 +10,14 @@ import java.util.*
 
 @Repository
 class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
-    override fun getClientes(): List<ClienteModel>? {
+    override fun getClientes(): List<ClienteDTO>? {
 
         return repository.findAll()
     }
 
-    override fun getClienteByCpf(cpf: String): ClienteModel? {
+    override fun getClienteByCpf(cpf: String): ClienteDTO? {
 
-        var cliente: ClienteModel? = null
+        var cliente: ClienteDTO? = null
 
         try {
            cliente = repository.findClienteByCpf(cpf = cpf)
@@ -27,9 +28,9 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
         return cliente
     }
 
-    override fun getClienteById(id: UUID): ClienteModel? {
+    override fun getClienteById(id: UUID): ClienteDTO? {
 
-        var cliente: ClienteModel? = null
+        var cliente: ClienteDTO? = null
 
         try {
             cliente = repository.findById(id).get()
@@ -40,10 +41,9 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
         return cliente
     }
 
-    override fun saveCliente(clienteRequest: ClienteRequest): ClienteModel? {
+    override fun saveCliente(clienteRequest: ClienteRequest): ClienteDTO? {
 
-        val cliente = clienteRequest.converterClienteRequestToClienteModel()
 
-        return repository.save(cliente)
+        return repository.save(ClienteDTO())
     }
 }

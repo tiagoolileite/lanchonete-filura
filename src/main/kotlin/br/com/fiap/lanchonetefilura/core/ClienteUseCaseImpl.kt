@@ -6,6 +6,7 @@ import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.stereotype.Component
 
+/*
 @Component
 class ClienteUseCaseImpl (private val repository: ClienteRepository) : ClienteUseCase {
     override fun getClientes(): List<ClienteModel>? {
@@ -33,4 +34,4 @@ class ClienteUseCaseImpl (private val repository: ClienteRepository) : ClienteUs
 
         return repository.saveCliente(clienteRequest)
     }
-}
+}*/

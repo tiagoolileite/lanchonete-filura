@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.api.model.produto
+package br.com.fiap.lanchonetefilura.api.model.pedido
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotNull
