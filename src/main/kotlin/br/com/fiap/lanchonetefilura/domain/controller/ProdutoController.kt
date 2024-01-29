@@ -15,4 +15,12 @@ interface ProdutoController {
         preco: Double?
     ): ProdutoResponse
 
+    fun atualizaProduto(
+        id: UUID,
+        nome: String?,
+        categoriaId: UUID?,
+        preco: Double?,
+        descricao: String?
+    ): ProdutoResponse?
+
 }

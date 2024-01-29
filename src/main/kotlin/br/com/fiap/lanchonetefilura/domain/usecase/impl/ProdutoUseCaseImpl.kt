@@ -30,4 +30,30 @@ class ProdutoUseCaseImpl(val gateway: ProdutoGateway) : ProdutoUseCase {
             preco = preco
         )
     }
+
+    override fun buscarProdutoPeloId(id: UUID): ProdutoDTO? {
+
+        val produto = gateway.buscarProdutoPeloId(id)
+
+        if (produto.isEmpty) {
+            throw Exception("Não foi localizado produto para atualização")
+        }
+
+        return produto.get()
+    }
+
+    override fun atualizarProduto(
+        produtoDTO: ProdutoDTO,
+        nome: String?,
+        categoriaId: UUID?,
+        preco: Double?,
+        descricao: String?
+    ): ProdutoDTO {
+        produtoDTO.nome = nome
+        categoriaId?.let { produtoDTO.categoria?.id = categoriaId }
+        produtoDTO.preco = preco
+        produtoDTO.descricao = descricao
+
+        return gateway.atualizarProduto(produtoDTO)
+    }
 }

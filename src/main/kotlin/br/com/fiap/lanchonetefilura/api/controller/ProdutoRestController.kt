@@ -47,7 +47,7 @@ class ProdutoRestController(val controller: ProdutoController) {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     fun saveProduto(
         @RequestBody @Valid produtoRequest: ProdutoRequest
     ): ResponseEntity<ProdutoResponse> {
@@ -67,6 +67,29 @@ class ProdutoRestController(val controller: ProdutoController) {
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Produto salvo com sucesso")
+            response
+        }
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    fun updateProduto(
+        @RequestBody @Valid produtoRequest: ProdutoRequest,
+        @RequestParam("produto_id") produtoId: UUID
+    ): ResponseEntity<ProdutoResponse> {
+
+        LoggerHelper.logger.info("[FILURA]: Atualização do produto iniciado")
+        val produtoResponse: ProdutoResponse? =
+            controller.atualizaProduto(
+                id = produtoId,
+                nome = produtoRequest.nome,
+                categoriaId = produtoRequest.categoriaId,
+                preco = produtoRequest.preco,
+                descricao = produtoRequest.descricao
+            )
+
+        return ResponseEntity.ok(produtoResponse).let { response ->
+            LoggerHelper.logger.info("[FILURA]: Produto atualizado com sucesso")
             response
         }
     }

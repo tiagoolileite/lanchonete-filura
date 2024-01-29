@@ -10,4 +10,14 @@ interface ProdutoUseCase {
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
 
     fun cadastrarProduto(categoria: CategoriaDTO, descricao: String?, nome: String?, preco: Double?): ProdutoDTO
+
+    fun buscarProdutoPeloId(id: UUID): ProdutoDTO?
+
+    fun atualizarProduto(
+        produtoDTO: ProdutoDTO,
+        nome: String?,
+        categoriaId: UUID?,
+        preco: Double?,
+        descricao: String?
+    ): ProdutoDTO
 }

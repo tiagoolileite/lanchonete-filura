@@ -16,4 +16,8 @@ interface ProdutoGateway {
         preco: Double?
     ): ProdutoDTO
 
+    fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO>
+
+    fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
+
 }

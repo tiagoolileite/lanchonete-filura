@@ -31,4 +31,12 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
             categoria = categoria
         ))
     }
+
+    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {
+        return repository.buscarProdutoPeloId(id)
+    }
+
+    override fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO {
+        return repository.atualizarProduto(produtoDTO)
+    }
 }

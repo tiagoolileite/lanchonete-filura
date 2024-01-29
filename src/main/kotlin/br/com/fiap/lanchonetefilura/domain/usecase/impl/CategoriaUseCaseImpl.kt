@@ -27,7 +27,7 @@ class CategoriaUseCaseImpl(val gateway: CategoriaGateway) : CategoriaUseCase {
 
         val categoria = gateway.buscarCategoriaPeloId(categoriaId)
 
-        if (categoria == null || categoria?.id == null) {
+        if (categoria?.id == null) {
             throw Error("Categoria não localizada")
         }
 

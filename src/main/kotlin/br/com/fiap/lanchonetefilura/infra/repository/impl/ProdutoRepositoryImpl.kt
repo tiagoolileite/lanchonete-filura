@@ -28,4 +28,14 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
 
         return repository.save(produtoDTO)
     }
+
+    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {
+
+        return repository.findById(id)
+    }
+
+    override fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO {
+
+        return repository.save(produtoDTO)
+    }
 }

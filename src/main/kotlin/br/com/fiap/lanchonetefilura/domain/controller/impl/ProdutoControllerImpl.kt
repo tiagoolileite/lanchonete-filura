@@ -85,4 +85,33 @@ class ProdutoControllerImpl(
                 )
         )
     }
+
+    override fun atualizaProduto(
+        id: UUID,
+        nome: String?,
+        categoriaId: UUID?,
+        preco: Double?,
+        descricao: String?
+    ): ProdutoResponse? {
+        val produtoDTO: ProdutoDTO? =
+            produtoUseCase.buscarProdutoPeloId(id)
+
+        if (produtoDTO?.id == null) {
+            throw Exception("Produto não localizado para atualização")
+        }
+
+        val produtoAtualizadoDTO: ProdutoDTO =
+            produtoUseCase.atualizarProduto(produtoDTO, nome, categoriaId, preco, descricao)
+
+        return  ProdutoResponse(
+            id = produtoAtualizadoDTO.id,
+            nome = produtoAtualizadoDTO.nome,
+            descricao = produtoAtualizadoDTO.descricao,
+            preco = produtoAtualizadoDTO.preco,
+            categoria = CategoriaResponse(
+                id = produtoAtualizadoDTO.categoria?.id,
+                descricao = produtoAtualizadoDTO.categoria?.descricao
+            )
+        )
+    }
 }
