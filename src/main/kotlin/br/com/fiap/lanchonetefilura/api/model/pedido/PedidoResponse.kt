@@ -10,5 +10,6 @@ data class PedidoResponse (
     val etapa: String,
     val cliente: ClienteResponse? = null,
     val produtos: List<ProdutoResponse>,
+    val preco: Double? = 0.0,
     val pago: Boolean
 )

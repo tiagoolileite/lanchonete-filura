@@ -1,27 +1,38 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
-class PedidoRestController {
-}
+import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
+import br.com.fiap.lanchonetefilura.domain.controller.PedidoController
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 
-/*
 @RestController
 @RequestMapping("api/pedido")
-class PedidoController (private val pedidoUseCase: PedidoUseCase) {
+class PedidoRestController(val controller: PedidoController) {
 
     @GetMapping("/pedidos")
     @ResponseStatus(HttpStatus.OK)
-    fun getPedidos(): ResponseEntity<List<PedidoResponse>> {
+    fun listarPedidos(): ResponseEntity<List<PedidoResponse>> {
 
-        logger.info("[FILURA]: Listando pedidos")
-        val pedidos = pedidoUseCase.getPedidos()
-
-        val pedidosResponse = pedidos?.converterListaPedidosModelToListaPedidosResponse()
+        LoggerHelper.logger.info("[FILURA]: Listando pedidos")
+        val pedidosResponse: List<PedidoResponse> = controller.listarPedidos()
 
         return ResponseEntity.ok(pedidosResponse).let { response ->
-            logger.info("[FILURA]: Busca por pedidos realizada com sucesso")
+            LoggerHelper.logger.info("[FILURA]: Busca por pedidos realizada com sucesso")
             response
         }
     }
+}
+
+/*
+
+class PedidoController (private val pedidoUseCase: PedidoUseCase) {
+
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

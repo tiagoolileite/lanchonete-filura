@@ -4,11 +4,10 @@ import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.PedidoJpaRepository
 import org.springframework.stereotype.Repository
-import java.util.*
 
 @Repository
 class PedidoRepositoryImpl(private val repository: PedidoJpaRepository) : PedidoRepository {
-    override fun getPedidos(): List<PedidoDTO>? {
+    /*override fun getPedidos(): List<PedidoDTO>? {
 
         return repository.findAll()
     }
@@ -31,5 +30,8 @@ class PedidoRepositoryImpl(private val repository: PedidoJpaRepository) : Pedido
     override fun updateStatusPagamentoPedido(pedidoModel: PedidoDTO): PedidoDTO? {
 
         return repository.save(pedidoModel)
+    }*/
+    override fun listarPedidos(): List<PedidoDTO> {
+        return repository.findAll()
     }
 }

@@ -33,6 +33,9 @@ data class PedidoDTO (
     )
     val produtos: List<ProdutoDTO> = arrayListOf(),
 
+    @Column(name = "preco", nullable = false)
+    var preco: Double = 0.0,
+
     @Column(name = "pago", nullable = false)
     var pago: Boolean = false
 )
