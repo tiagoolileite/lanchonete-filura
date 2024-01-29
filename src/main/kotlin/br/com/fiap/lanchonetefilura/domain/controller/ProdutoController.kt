@@ -9,7 +9,7 @@ interface ProdutoController {
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoResponse>
 
     fun cadastrarProduto(
-        categoriaId: UUID?,
+        categoriaId: UUID,
         descricao: String?,
         nome: String?,
         preco: Double?

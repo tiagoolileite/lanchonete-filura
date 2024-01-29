@@ -21,5 +21,5 @@ class ProdutoRequest {
     @NotNull(message = "categoria não pode estar vazio")
     @NotEmpty(message = "categoria não pode estar vazio")
     @JsonProperty("categoria_id")
-    val categoriaId: UUID? = null
+    lateinit var categoriaId: UUID
 }

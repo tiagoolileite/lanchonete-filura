@@ -8,6 +8,6 @@ interface CategoriaRepository {
 
     fun listarCategorias(): List<CategoriaDTO>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO?
+    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTO
 
 }

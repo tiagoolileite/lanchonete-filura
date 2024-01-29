@@ -16,7 +16,8 @@ class CategoriaGatewayImpl(val repository: CategoriaRepository) : CategoriaGatew
         return repository.listarCategorias()
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO? {
+    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTO {
+
         return repository.buscarCategoriaPeloId(categoriaId)
     }
 }

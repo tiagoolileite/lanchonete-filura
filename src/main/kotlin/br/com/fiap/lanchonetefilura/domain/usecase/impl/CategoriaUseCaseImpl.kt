@@ -22,13 +22,9 @@ class CategoriaUseCaseImpl(val gateway: CategoriaGateway) : CategoriaUseCase {
         return gateway.listarCategorias()
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO? {
+    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTO {
 
         val categoria = gateway.buscarCategoriaPeloId(categoriaId)
-
-        if (categoria?.id == null) {
-            throw Error("Categoria não localizada")
-        }
 
         return categoria
     }

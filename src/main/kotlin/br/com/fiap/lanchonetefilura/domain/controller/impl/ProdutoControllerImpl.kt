@@ -63,7 +63,7 @@ class ProdutoControllerImpl(
     }
 
     override fun cadastrarProduto(
-        categoriaId: UUID?,
+        categoriaId: UUID,
         descricao: String?,
         nome: String?,
         preco: Double?
@@ -71,24 +71,24 @@ class ProdutoControllerImpl(
 
         LoggerHelper.logger.info("[FILURA]: categoriaId teste: ${categoriaId}")
 
-        val categoriaDTO: CategoriaDTO? =
+        val categoriaDTO: CategoriaDTO =
             categoriaUseCase.buscarCategoriaPeloId(categoriaId)
 
-        LoggerHelper.logger.info("[FILURA]: categoriaId teste2: ${categoriaDTO?.id}")
+        LoggerHelper.logger.info("[FILURA]: categoriaId teste2: ${categoriaDTO.id}")
 
-        val produtoDTO: ProdutoDTO? =
-            categoriaDTO?.let { produtoUseCase.cadastrarProduto(it, descricao, nome, preco) }
+        val produtoDTO: ProdutoDTO =
+            categoriaDTO.let { produtoUseCase.cadastrarProduto(it, descricao, nome, preco) }
 
-        LoggerHelper.logger.info("[FILURA]: categoriaId teste3: ${produtoDTO?.categoria?.id}")
+        LoggerHelper.logger.info("[FILURA]: categoriaId teste3: ${produtoDTO.categoria?.id}")
 
         return  ProdutoResponse(
-            id = produtoDTO?.id,
-            nome = produtoDTO?.nome,
-            descricao = produtoDTO?.descricao,
-            preco = produtoDTO?.preco,
+            id = produtoDTO.id,
+            nome = produtoDTO.nome,
+            descricao = produtoDTO.descricao,
+            preco = produtoDTO.preco,
             categoria = CategoriaResponse(
-                id = produtoDTO?.categoria?.id,
-                descricao = produtoDTO?.categoria?.descricao
+                id = produtoDTO.categoria?.id,
+                descricao = produtoDTO.categoria?.descricao
                 )
         )
     }

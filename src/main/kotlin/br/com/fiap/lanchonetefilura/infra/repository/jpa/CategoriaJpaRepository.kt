@@ -9,6 +9,4 @@ import java.util.*
 interface CategoriaJpaRepository : JpaRepository<CategoriaDTO, UUID> {
 
     fun findCategoriaById(id: UUID): CategoriaDTO
-
-    fun findCategoriaByDescricao(descricao: String): CategoriaDTO
 }

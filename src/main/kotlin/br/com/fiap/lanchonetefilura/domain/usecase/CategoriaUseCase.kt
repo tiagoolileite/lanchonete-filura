@@ -7,5 +7,5 @@ interface CategoriaUseCase {
     fun cadastrarCategoria(descricao: String): CategoriaDTO
     fun listarCategorias(): List<CategoriaDTO>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID?): CategoriaDTO?
+    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTO
 }
