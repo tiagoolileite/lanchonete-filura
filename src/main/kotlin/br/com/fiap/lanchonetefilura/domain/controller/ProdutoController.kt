@@ -23,4 +23,6 @@ interface ProdutoController {
         descricao: String?
     ): ProdutoResponse?
 
+    fun deletarProdutoPeloId(id: UUID)
+
 }

@@ -56,4 +56,8 @@ class ProdutoUseCaseImpl(val gateway: ProdutoGateway) : ProdutoUseCase {
 
         return gateway.atualizarProduto(produtoDTO)
     }
+
+    override fun deletarProdutoPeloId(id: UUID) {
+        gateway.deletarProdutoPeloId(id)
+    }
 }

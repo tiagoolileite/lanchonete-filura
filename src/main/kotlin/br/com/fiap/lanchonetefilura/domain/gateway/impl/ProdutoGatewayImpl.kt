@@ -39,4 +39,8 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
     override fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO {
         return repository.atualizarProduto(produtoDTO)
     }
+
+    override fun deletarProdutoPeloId(id: UUID) {
+        repository.deletarProdutoPeloId(id)
+    }
 }

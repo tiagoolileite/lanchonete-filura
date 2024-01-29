@@ -20,4 +20,6 @@ interface ProdutoUseCase {
         preco: Double?,
         descricao: String?
     ): ProdutoDTO
+
+    fun deletarProdutoPeloId(id: UUID)
 }

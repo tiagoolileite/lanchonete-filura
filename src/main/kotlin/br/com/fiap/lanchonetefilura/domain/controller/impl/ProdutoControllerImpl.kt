@@ -114,4 +114,8 @@ class ProdutoControllerImpl(
             )
         )
     }
+
+    override fun deletarProdutoPeloId(id: UUID) {
+        produtoUseCase.deletarProdutoPeloId(id)
+    }
 }

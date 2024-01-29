@@ -20,4 +20,5 @@ interface ProdutoGateway {
 
     fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
 
+    fun deletarProdutoPeloId(id: UUID)
 }

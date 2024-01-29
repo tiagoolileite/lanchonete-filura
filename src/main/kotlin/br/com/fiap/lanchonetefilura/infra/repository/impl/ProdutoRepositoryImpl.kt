@@ -38,4 +38,9 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
 
         return repository.save(produtoDTO)
     }
+
+    override fun deletarProdutoPeloId(id: UUID) {
+
+        return repository.deleteById(id)
+    }
 }

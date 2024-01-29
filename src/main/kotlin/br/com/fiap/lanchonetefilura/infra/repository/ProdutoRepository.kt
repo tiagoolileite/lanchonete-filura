@@ -15,4 +15,6 @@ interface ProdutoRepository {
     fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO>
 
     fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
+
+    fun deletarProdutoPeloId(id: UUID)
 }

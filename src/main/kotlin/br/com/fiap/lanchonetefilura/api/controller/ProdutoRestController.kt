@@ -48,7 +48,7 @@ class ProdutoRestController(val controller: ProdutoController) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun saveProduto(
+    fun cadastrarProduto(
         @RequestBody @Valid produtoRequest: ProdutoRequest
     ): ResponseEntity<ProdutoResponse> {
 
@@ -73,7 +73,7 @@ class ProdutoRestController(val controller: ProdutoController) {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    fun updateProduto(
+    fun atualizarProduto(
         @RequestBody @Valid produtoRequest: ProdutoRequest,
         @RequestParam("produto_id") produtoId: UUID
     ): ResponseEntity<ProdutoResponse> {
@@ -90,6 +90,21 @@ class ProdutoRestController(val controller: ProdutoController) {
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Produto atualizado com sucesso")
+            response
+        }
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    fun deletarProdutoPeloId(
+        @RequestParam id: UUID
+    ): ResponseEntity<String> {
+
+        LoggerHelper.logger.info("[FILURA]: Apagando Produto")
+        controller.deletarProdutoPeloId(id = id)
+
+        return ResponseEntity.ok("Produto deletado com sucesso").let { response ->
+            LoggerHelper.logger.info("[FILURA]: Produto Apagado com sucesso")
             response
         }
     }
