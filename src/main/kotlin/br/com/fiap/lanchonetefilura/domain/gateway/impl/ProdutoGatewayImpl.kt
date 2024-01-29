@@ -19,7 +19,7 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
     }
 
     override fun cadastrarProduto(
-        categoria: CategoriaDTO?,
+        categoria: CategoriaDTO,
         descricao: String?,
         nome: String?,
         preco: Double?

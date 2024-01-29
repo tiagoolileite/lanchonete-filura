@@ -10,7 +10,7 @@ interface ProdutoGateway {
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
 
     fun cadastrarProduto(
-        categoria: CategoriaDTO?,
+        categoria: CategoriaDTO,
         descricao: String?,
         nome: String?,
         preco: Double?
