@@ -44,6 +44,6 @@ spec:
                   key: database-username
             - name: DB_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: mariadb-configmap
-                  key: database-password
+                secretKeyRef:
+                  name: mariadb-secrets
+                  key: mariadb-password

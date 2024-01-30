@@ -17,13 +17,25 @@ spec:
           image: mariadb:latest
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: rootpassword
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secrets
+                  key: mariadb-rootpassword
             - name: MYSQL_DATABASE
-              value: mydatabase
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-configmap
+                  key: database-name
             - name: MYSQL_USER
-              value: myuser
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-configmap
+                  key: database-username
             - name: MYSQL_PASSWORD
-              value: secret
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secrets
+                  key: mariadb-password
           ports:
             - containerPort: 3306
           volumeMounts:

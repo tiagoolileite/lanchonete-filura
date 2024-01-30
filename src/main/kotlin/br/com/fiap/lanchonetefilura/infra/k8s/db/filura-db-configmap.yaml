@@ -5,4 +5,4 @@ metadata:
 data:
   database-url: jdbc:mariadb://mariadb-service:3306/mydatabase
   database-username: myuser
-  database-password: secret
+  database-name: mydatabase
