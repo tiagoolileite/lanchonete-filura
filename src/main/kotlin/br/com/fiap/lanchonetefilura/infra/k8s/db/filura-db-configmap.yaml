@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-configmap
+data:
+  database-url: jdbc:mariadb://mariadb-service:3306/mydatabase
+  database-username: myuser
+  database-password: secret
