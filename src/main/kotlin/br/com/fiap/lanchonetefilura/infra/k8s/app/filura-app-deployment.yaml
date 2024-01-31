@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: filura-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: filura-app-deployment
+  template:
+    metadata:
+      labels:
+        app: filura-app-deployment
+    spec:
+      containers:
+        - name: filura-app-deployment
+          image: leittia/lanchonete-filura:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 120
+            periodSeconds: 60
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "200m"
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-configmap
+                  key: database-url
+            - name: DB_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: mariadb-configmap
+                  key: database-username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb-secrets
+                  key: mariadb-password

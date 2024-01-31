@@ -1,0 +1,10 @@
+package br.com.fiap.lanchonetefilura.domain.adapter
+
+import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
+import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+
+interface ClienteAdapter {
+    fun adaptarListaDeCliente(clientesDTO: List<ClienteDTO>): List<ClienteResponse>
+
+    fun adaptarCliente(clienteDTO: ClienteDTO?): ClienteResponse
+}

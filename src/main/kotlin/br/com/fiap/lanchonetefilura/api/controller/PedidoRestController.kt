@@ -53,7 +53,7 @@ class PedidoRestController(val controller: PedidoController) {
 
         LoggerHelper.logger.info("[FILURA]: Atualização status do pagamento do pedido")
 
-        val pedidoResponse: PedidoResponse = controller.pagarPedido(pedidoId)
+        val pedidoResponse: PedidoResponse? = controller.pagarPedido(pedidoId)
 
         return ResponseEntity.ok(pedidoResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Status do pagamento do pedido atualizado com sucesso")

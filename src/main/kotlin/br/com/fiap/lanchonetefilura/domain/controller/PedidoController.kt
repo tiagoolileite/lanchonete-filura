@@ -8,5 +8,5 @@ interface PedidoController {
 
     fun criarPedido(clienteId: UUID?, produtosId: List<UUID>?): PedidoResponse?
 
-    fun pagarPedido(pedidoId: UUID): PedidoResponse
+    fun pagarPedido(pedidoId: UUID): PedidoResponse?
 }
