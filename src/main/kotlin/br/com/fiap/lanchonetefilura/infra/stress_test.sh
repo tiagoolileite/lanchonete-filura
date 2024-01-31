@@ -1,4 +1,4 @@
-for i in {1..10000}; do
+for i in {1..500}; do
   curl localhost:8080/api/pedido/pedidos
-  sleep $1
+  sleep 1
 done

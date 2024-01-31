@@ -31,7 +31,11 @@ spec:
             periodSeconds: 60
           resources:
             requests:
-              cpu: 20m
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "512Mi"
+              cpu: "200m"
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: "prod"
