@@ -2,13 +2,13 @@ package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
@@ -34,7 +34,7 @@ class ProdutoUseCaseImpl(
         preco: Double?
     ): ProdutoDomainDTO {
 
-        val categoriaDTO: CategoriaDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId)
+        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId)
 
         val categoria = Categoria(categoriaDTO?.descricao)
 
@@ -47,7 +47,7 @@ class ProdutoUseCaseImpl(
 
         val produtoDTO: ProdutoDomainDTO = adapter.adaptarProdutoParaProdutoDTO(
             produto = produto,
-            categoriaDTO = categoriaDTO
+            categoriaDomainDTO = categoriaDTO
         )
 
         return gateway.cadastrarProduto(produtoDTO)
@@ -76,7 +76,7 @@ class ProdutoUseCaseImpl(
         descricao: String?
     ): ProdutoDomainDTO {
 
-        val categoriaDTO: CategoriaDTOImpl? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
+        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
 
         val categoria = Categoria(categoriaDTO?.descricao)
 
@@ -94,7 +94,7 @@ class ProdutoUseCaseImpl(
             adapter.adaptarProdutoParaProdutoDTOExistente(
                 produto = produto,
                 id = it,
-                categoriaDTO = categoriaDTO
+                categoriaDomainDTO = categoriaDTO
             )
         }
 

@@ -9,12 +9,12 @@ interface ProdutoGateway {
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO>
 
     fun cadastrarProduto(
-        produtoDTO: ProdutoDomainDTO
+        produtoDomainDTO: ProdutoDomainDTO
     ): ProdutoDomainDTO
 
     fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDomainDTO>
 
-    fun atualizarProduto(produtoDTO: ProdutoDomainDTO): ProdutoDomainDTO
+    fun atualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDomainDTO
 
     fun deletarProdutoPeloId(produtoId: UUID)
 

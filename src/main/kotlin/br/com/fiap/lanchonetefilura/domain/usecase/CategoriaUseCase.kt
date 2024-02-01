@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
 import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import java.util.*
 
 interface CategoriaUseCase {
@@ -9,5 +9,5 @@ interface CategoriaUseCase {
 
     fun listarCategorias(): List<CategoriaDomainDTO>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTOImpl?
+    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDomainDTOImpl?
 }

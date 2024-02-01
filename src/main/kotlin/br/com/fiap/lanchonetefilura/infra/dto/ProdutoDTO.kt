@@ -1,10 +1,11 @@
-package br.com.fiap.lanchonetefilura.domain.dto
+package br.com.fiap.lanchonetefilura.infra.dto
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import java.util.*
 
-interface ProdutoDomainDTO {
+interface ProdutoDTO {
+
     var id: UUID?
 
     var nome: String?
@@ -13,7 +14,7 @@ interface ProdutoDomainDTO {
 
     var preco: Double?
 
-    var categoria: CategoriaDomainDTOImpl?
+    var categoria: CategoriaDTOImpl?
 
     val pedidos: List<PedidoDTO>?
 }

@@ -2,6 +2,7 @@ package br.com.fiap.lanchonetefilura.infra.repository.impl
 
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
@@ -12,30 +13,34 @@ import java.util.*
 
 @Repository
 class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : ProdutoRepository {
-    override fun listarProdutos(): List<ProdutoDomainDTO> {
-
+    override fun listarProdutos(): List<ProdutoDTO> {
         return repository.findAll()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
 
-        return repository.findAllByCategoriaId(categoriaId)
+        return repository.findAllByCategoriaId(categoriaId).toList()
     }
 
-    override fun cadastrarOuAtualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDomainDTO {
+    override fun cadastrarOuAtualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDTO {
 
         val produtoDTO = ProdutoDTOImpl(
             id = produtoDomainDTO.id,
             nome = produtoDomainDTO.nome,
             descricao = produtoDomainDTO.descricao,
             preco = produtoDomainDTO.preco,
-            categoria = produtoDomainDTO.categoria
+            categoria = produtoDomainDTO.categoria?.id?.let {
+                CategoriaDTOImpl(
+                    id = it,
+                    descricao = produtoDomainDTO.categoria?.descricao
+                )
+            }
         )
 
         return repository.save(produtoDTO)
     }
 
-    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDomainDTO> {
+    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {
 
         val produtoDTO: Optional<ProdutoDTOImpl> = repository.findById(id)
 
@@ -47,12 +52,12 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
         return repository.deleteById(produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDomainDTO> {
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
 
         val produtosDTO: MutableList<ProdutoDTOImpl>? = produtosId?.let { repository.findAllById(it) }
 
-        val produtosDomainDTO: MutableList<ProdutoDomainDTO> = produtosDTO?.map { produtoDTO ->
-            object : ProdutoDomainDTO {
+        val produtosDomainDTO: MutableList<ProdutoDTO> = produtosDTO?.map { produtoDTO ->
+            object : ProdutoDTO {
                 override var id: UUID?
                     get() = produtoDTO.id
                     set(value) { produtoDTO.id = value }

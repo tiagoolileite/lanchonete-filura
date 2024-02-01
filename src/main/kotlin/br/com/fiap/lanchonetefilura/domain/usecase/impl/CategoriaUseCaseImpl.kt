@@ -2,11 +2,11 @@ package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.adapter.CategoriaAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper
 import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
@@ -29,15 +29,15 @@ class CategoriaUseCaseImpl(
         return gateway.listarCategorias()
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTOImpl? {
+    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDomainDTOImpl? {
 
         val categoriaDTO: Optional<CategoriaDomainDTO> = gateway.buscarCategoriaPeloId(categoriaId)
 
-        var categoriaDTOImpl: CategoriaDTOImpl? = null
+        var categoriaDTOImpl: CategoriaDomainDTOImpl? = null
 
         if (categoriaDTO.isPresent) {
             categoriaDTO.get().let { categoria ->
-                categoriaDTOImpl = CategoriaDTOImpl(
+                categoriaDTOImpl = CategoriaDomainDTOImpl(
                     id = categoria.id,
                     descricao = categoria.descricao
                 )

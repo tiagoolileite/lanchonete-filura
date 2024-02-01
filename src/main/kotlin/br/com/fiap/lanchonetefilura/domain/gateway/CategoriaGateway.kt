@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import java.util.*
 
 interface CategoriaGateway {
-    fun cadastrarCategoria(categoriaDTO: CategoriaDomainDTO): CategoriaDomainDTO
+    fun cadastrarCategoria(categoriaDomainDTO: CategoriaDomainDTO): CategoriaDomainDTO
 
     fun listarCategorias(): List<CategoriaDomainDTO>
 
