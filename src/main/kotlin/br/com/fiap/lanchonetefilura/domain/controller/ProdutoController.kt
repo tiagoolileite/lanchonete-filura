@@ -1,19 +1,19 @@
 package br.com.fiap.lanchonetefilura.domain.controller
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import java.util.*
 
 interface ProdutoController {
-    fun listarProdutos(): List<ProdutoDTO>
+    fun listarProdutos(): List<ProdutoDomainDTO>
 
-    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
+    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO>
 
     fun cadastrarProduto(
         categoriaId: UUID,
         descricao: String?,
         nome: String?,
         preco: Double?
-    ): ProdutoDTO
+    ): ProdutoDomainDTO
 
     fun atualizaProduto(
         id: UUID,
@@ -21,7 +21,7 @@ interface ProdutoController {
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoDTO
+    ): ProdutoDomainDTO
 
     fun deletarProdutoPeloId(produtoId: UUID)
 

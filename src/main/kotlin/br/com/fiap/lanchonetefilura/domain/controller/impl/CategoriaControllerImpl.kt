@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.controller.impl
 
 import br.com.fiap.lanchonetefilura.domain.controller.CategoriaController
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import org.springframework.stereotype.Component
 
@@ -9,11 +9,11 @@ import org.springframework.stereotype.Component
 class CategoriaControllerImpl(
     val useCase: CategoriaUseCase
 ) : CategoriaController {
-    override fun cadastrarCategoria(descricao: String?): CategoriaDTO {
+    override fun cadastrarCategoria(descricao: String?): CategoriaDomainDTO {
         return useCase.cadastrarCategoria(descricao = descricao)
     }
 
-    override fun listarCategorias(): List<CategoriaDTO> {
+    override fun listarCategorias(): List<CategoriaDomainDTO> {
         return useCase.listarCategorias()
     }
 }

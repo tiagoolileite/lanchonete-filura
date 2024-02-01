@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.controller.impl
 
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
 import org.springframework.stereotype.Component
 import java.util.*
@@ -11,11 +11,11 @@ class ProdutoControllerImpl(
     val useCase: ProdutoUseCase
 ) : ProdutoController {
 
-    override fun listarProdutos(): List<ProdutoDTO> {
+    override fun listarProdutos(): List<ProdutoDomainDTO> {
         return useCase.listarProdutos()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
         return useCase.listarProdutosPorCategoria(categoriaId = categoriaId)
     }
 
@@ -24,7 +24,7 @@ class ProdutoControllerImpl(
         descricao: String?,
         nome: String?,
         preco: Double?
-    ): ProdutoDTO {
+    ): ProdutoDomainDTO {
 
         return useCase.cadastrarProduto(
             categoriaId = categoriaId,
@@ -40,7 +40,7 @@ class ProdutoControllerImpl(
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoDTO {
+    ): ProdutoDomainDTO {
 
         return useCase.atualizarProduto(
             produtoId = id,

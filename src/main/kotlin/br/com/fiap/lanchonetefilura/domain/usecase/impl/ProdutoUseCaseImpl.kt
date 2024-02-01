@@ -1,13 +1,14 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
+import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
@@ -18,11 +19,11 @@ class ProdutoUseCaseImpl(
     val adapter: ProdutoAdapter,
     val categoriaUseCase: CategoriaUseCase
 ) : ProdutoUseCase {
-    override fun listarProdutos(): List<ProdutoDTO> {
+    override fun listarProdutos(): List<ProdutoDomainDTO> {
         return gateway.listarProdutos()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
         return gateway.listarProdutosPorCategoria(categoriaId)
     }
 
@@ -31,18 +32,20 @@ class ProdutoUseCaseImpl(
         descricao: String?,
         nome: String?,
         preco: Double?
-    ): ProdutoDTO {
+    ): ProdutoDomainDTO {
 
         val categoriaDTO: CategoriaDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId)
+
+        val categoria = Categoria(categoriaDTO?.descricao)
 
         val produto = Produto(
             nome = nome,
             descricao = descricao,
             preco = preco,
-            categoria = categoriaDTO,
+            categoria = categoria,
         )
 
-        val produtoDTO: ProdutoDTO = adapter.adaptarProdutoParaProdutoDTO(
+        val produtoDTO: ProdutoDomainDTO = adapter.adaptarProdutoParaProdutoDTO(
             produto = produto,
             categoriaDTO = categoriaDTO
         )
@@ -50,9 +53,9 @@ class ProdutoUseCaseImpl(
         return gateway.cadastrarProduto(produtoDTO)
     }
 
-    override fun buscarProdutoPeloId(id: UUID): ProdutoDTO {
+    override fun buscarProdutoPeloId(id: UUID): ProdutoDomainDTO {
 
-        val produtoDTO: Optional<ProdutoDTO> = gateway.buscarProdutoPeloId(id)
+        val produtoDTO: Optional<ProdutoDomainDTO> = gateway.buscarProdutoPeloId(id)
 
         if (produtoDTO.isEmpty) {
             LoggerHelper.logger.error(
@@ -71,21 +74,23 @@ class ProdutoUseCaseImpl(
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoDTO {
+    ): ProdutoDomainDTO {
 
         val categoriaDTO: CategoriaDTOImpl? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
 
-        val produtoDTO: ProdutoDTO =
+        val categoria = Categoria(categoriaDTO?.descricao)
+
+        val produtoDTO: ProdutoDomainDTO =
             this.buscarProdutoPeloId(id = produtoId)
 
         val produto = Produto(
             nome = nome,
             descricao = descricao,
             preco = preco,
-            categoria = categoriaDTO,
+            categoria = categoria,
         )
 
-        val produtoAtualizadoDTO: ProdutoDTO? = produtoDTO.id?.let {
+        val produtoAtualizadoDTO: ProdutoDomainDTO? = produtoDTO.id?.let {
             adapter.adaptarProdutoParaProdutoDTOExistente(
                 produto = produto,
                 id = it,
@@ -105,9 +110,9 @@ class ProdutoUseCaseImpl(
         gateway.deletarProdutoPeloId(produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDTO> {
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDomainDTO> {
 
-        val produtos: MutableList<ProdutoDTO> = gateway.listarProdutosPorListaDeIds(produtosId)
+        val produtos: MutableList<ProdutoDomainDTO> = gateway.listarProdutosPorListaDeIds(produtosId)
 
         return produtos.toList()
     }

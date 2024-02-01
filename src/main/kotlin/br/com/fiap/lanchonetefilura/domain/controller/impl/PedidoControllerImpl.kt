@@ -3,7 +3,7 @@ package br.com.fiap.lanchonetefilura.domain.controller.impl
 import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
 import br.com.fiap.lanchonetefilura.domain.controller.PedidoController
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
@@ -40,7 +40,7 @@ class PedidoControllerImpl(
             LoggerHelper.logger.info("Cliente não informado ou não localizado")
         }
 
-        val produtosDTO: List<ProdutoDTO> =
+        val produtosDTO: List<ProdutoDomainDTO> =
             produtoUseCase.listarProdutosPorListaDeIds(produtosId)
 
         val pedidoDTO: PedidoDTO = pedidoUseCase.criarPedido(clienteDTO, produtosDTO)

@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
@@ -18,7 +18,7 @@ class PedidoUseCaseImpl(
     }
 
     override fun criarPedido(
-        clienteDTO: ClienteDTO?, produtosDTO: List<ProdutoDTO>
+        clienteDTO: ClienteDTO?, produtosDTO: List<ProdutoDomainDTO>
     ): PedidoDTO {
 
         val pedidoDTO = PedidoDTO(
@@ -30,7 +30,7 @@ class PedidoUseCaseImpl(
         return gateway.criarPedido(pedidoDTO)
     }
 
-    private fun calculaPreco(produtosDTO: List<ProdutoDTO>): Double {
+    private fun calculaPreco(produtosDTO: List<ProdutoDomainDTO>): Double {
 
         val precoTotal = 0.0
 

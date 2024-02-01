@@ -1,6 +1,9 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
@@ -9,33 +12,34 @@ import java.util.*
 
 @Repository
 class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : ProdutoRepository {
-    override fun listarProdutos(): List<ProdutoDTO> {
+    override fun listarProdutos(): List<ProdutoDomainDTO> {
 
         return repository.findAll()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
 
         return repository.findAllByCategoriaId(categoriaId)
     }
 
-    override fun cadastrarProduto(produtoDTO: ProdutoDTO): ProdutoDTO {
+    override fun cadastrarOuAtualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDomainDTO {
 
-        LoggerHelper.logger.info(
-            "Produto ID: ${produtoDTO.id} Nome: ${produtoDTO.nome} \nCategoria ID: ${produtoDTO.categoria?.id} Descricao: ${produtoDTO.categoria?.descricao}"
+        val produtoDTO = ProdutoDTOImpl(
+            id = produtoDomainDTO.id,
+            nome = produtoDomainDTO.nome,
+            descricao = produtoDomainDTO.descricao,
+            preco = produtoDomainDTO.preco,
+            categoria = produtoDomainDTO.categoria
         )
 
         return repository.save(produtoDTO)
     }
 
-    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {
+    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDomainDTO> {
 
-        return repository.findById(id)
-    }
+        val produtoDTO: Optional<ProdutoDTOImpl> = repository.findById(id)
 
-    override fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO {
-
-        return repository.save(produtoDTO)
+        return Optional.of(produtoDTO.get())
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
@@ -43,8 +47,39 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
         return repository.deleteById(produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
-        return produtosId?.let { repository.findAllById(it) } ?:
-        throw Exception("Produtos não localizados ou invalidos")
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDomainDTO> {
+
+        val produtosDTO: MutableList<ProdutoDTOImpl>? = produtosId?.let { repository.findAllById(it) }
+
+        val produtosDomainDTO: MutableList<ProdutoDomainDTO> = produtosDTO?.map { produtoDTO ->
+            object : ProdutoDomainDTO {
+                override var id: UUID?
+                    get() = produtoDTO.id
+                    set(value) { produtoDTO.id = value }
+
+                override var nome: String?
+                    get() = produtoDTO.nome
+                    set(value) { produtoDTO.nome = value }
+
+                override var descricao: String?
+                    get() = produtoDTO.descricao
+                    set(value) { produtoDTO.descricao = value }
+
+                override var preco: Double?
+                    get() = produtoDTO.preco
+                    set(value) { produtoDTO.preco = value }
+
+                override var categoria: CategoriaDTOImpl?
+                    get() = produtoDTO.categoria
+                    set(value) { produtoDTO.categoria = value }
+                override val pedidos: List<PedidoDTO>?
+                    get() = null
+            }
+        }?.toMutableList() ?: also {
+            LoggerHelper.logger.error("${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
+                    "Falha ao converter lista de produtos ou produtos não localizados")
+        }.run { throw Exception("Falha ao converter lista de produtos retornada pelo BD ou Produtos n") }
+
+        return produtosDomainDTO
     }
 }

@@ -3,12 +3,12 @@ package br.com.fiap.lanchonetefilura.api.mapper.impl
 import br.com.fiap.lanchonetefilura.api.mapper.CategoriaMapper
 import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import org.springframework.stereotype.Component
 
 @Component
 class ProdutoMapperImpl(val categoriaMapper: CategoriaMapper) : ProdutoMapper {
-    override fun mapeiaProdutosResponse(produtosDTO: List<ProdutoDTO>): List<ProdutoResponse> {
+    override fun mapeiaProdutosResponse(produtosDTO: List<ProdutoDomainDTO>): List<ProdutoResponse> {
 
         val produtosResponse: ArrayList<ProdutoResponse> = arrayListOf()
 
@@ -21,7 +21,7 @@ class ProdutoMapperImpl(val categoriaMapper: CategoriaMapper) : ProdutoMapper {
         return produtosResponse
     }
 
-    override fun mapeiaProdutoResponse(produtoDTO: ProdutoDTO): ProdutoResponse {
+    override fun mapeiaProdutoResponse(produtoDTO: ProdutoDomainDTO): ProdutoResponse {
         val categoriaResponse = produtoDTO.categoria?.let { categoriaMapper.mapeiaCategoriaResponse(it) }
 
         return ProdutoResponse(

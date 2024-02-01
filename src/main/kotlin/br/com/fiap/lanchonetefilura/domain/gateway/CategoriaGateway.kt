@@ -1,13 +1,12 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import java.util.*
 
 interface CategoriaGateway {
-    fun cadastrarCategoria(categoriaDTO: CategoriaDTOImpl): CategoriaDTO
+    fun cadastrarCategoria(categoriaDTO: CategoriaDomainDTO): CategoriaDomainDTO
 
-    fun listarCategorias(): List<CategoriaDTO>
+    fun listarCategorias(): List<CategoriaDomainDTO>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDTO>
+    fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDomainDTO>
 }

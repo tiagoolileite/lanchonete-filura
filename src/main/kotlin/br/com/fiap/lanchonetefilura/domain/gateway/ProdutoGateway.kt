@@ -1,22 +1,22 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import java.util.*
 
 interface ProdutoGateway {
-    fun listarProdutos(): List<ProdutoDTO>
+    fun listarProdutos(): List<ProdutoDomainDTO>
 
-    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
+    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO>
 
     fun cadastrarProduto(
-        produtoDTO: ProdutoDTO
-    ): ProdutoDTO
+        produtoDTO: ProdutoDomainDTO
+    ): ProdutoDomainDTO
 
-    fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO>
+    fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDomainDTO>
 
-    fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
+    fun atualizarProduto(produtoDTO: ProdutoDomainDTO): ProdutoDomainDTO
 
     fun deletarProdutoPeloId(produtoId: UUID)
 
-    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO>
+    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDomainDTO>
 }

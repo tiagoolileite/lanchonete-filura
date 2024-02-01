@@ -3,7 +3,7 @@ package br.com.fiap.lanchonetefilura.domain.adapter
 import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDomainDTOImpl
 
 interface PedidoAdapter {
     fun adaptarListaDePedidos(
@@ -12,7 +12,7 @@ interface PedidoAdapter {
 
     fun adaptarPedido(
         clienteDTO: ClienteDTO?,
-        produtosDTO: List<ProdutoDTOImpl>,
+        produtosDTO: List<ProdutoDomainDTOImpl>,
         pedidoDTO: PedidoDTO,
     ): PedidoResponse?
 }

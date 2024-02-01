@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.api.mapper.CategoriaMapper
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaRequest
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.domain.controller.CategoriaController
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_APP
 import jakarta.validation.Valid
@@ -25,7 +25,7 @@ class CategoriaRestController(
 
         LoggerHelper.logger.info("${LOG_TAG_APP}: Solicitando cadastro categoria: ${categoriaRequest.descricao}")
 
-        val categoriaDTO: CategoriaDTO = controller.cadastrarCategoria(descricao = categoriaRequest.descricao)
+        val categoriaDTO: CategoriaDomainDTO = controller.cadastrarCategoria(descricao = categoriaRequest.descricao)
 
         val categoriaResponse: CategoriaResponse? = mapper.mapeiaCategoriaResponse(categoriaDTO)
 
@@ -40,7 +40,7 @@ class CategoriaRestController(
 
         LoggerHelper.logger.info("${LOG_TAG_APP}: Solicitando listagem de categorias")
 
-        val categoriasDTO: List<CategoriaDTO> =
+        val categoriasDTO: List<CategoriaDomainDTO> =
             controller.listarCategorias()
 
         val categoriasResponse: List<CategoriaResponse> =

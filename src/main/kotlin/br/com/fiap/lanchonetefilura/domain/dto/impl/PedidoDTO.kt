@@ -31,7 +31,7 @@ data class PedidoDTO (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
+    val produtos: List<ProdutoDomainDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,

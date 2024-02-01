@@ -1,6 +1,6 @@
-package br.com.fiap.lanchonetefilura.domain.dto.impl
+package br.com.fiap.lanchonetefilura.infra.dto.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import jakarta.persistence.*
 import java.util.*
 
@@ -14,4 +14,4 @@ data class CategoriaDTOImpl(
 
     @Column(unique = true, nullable = false)
     override val descricao: String? = null
-) : CategoriaDTO
+) : CategoriaDomainDTO

@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -25,7 +25,7 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos")
 
-        val produtosDTO: List<ProdutoDTO>  =
+        val produtosDTO: List<ProdutoDomainDTO>  =
             controller.listarProdutos()
 
         val produtosResponse: List<ProdutoResponse> =
@@ -45,7 +45,7 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos por categoria")
 
-        val produtosDTO: List<ProdutoDTO>  =
+        val produtosDTO: List<ProdutoDomainDTO>  =
             controller.listarProdutosPorCategoria(categoriaId = categoriaId)
 
         val produtosResponse: List<ProdutoResponse> =
@@ -65,7 +65,7 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando cadastro do produto ${produtoRequest.nome}")
 
-        val produtoDTO: ProdutoDTO = controller.cadastrarProduto(
+        val produtoDTO: ProdutoDomainDTO = controller.cadastrarProduto(
             categoriaId = produtoRequest.categoriaId,
             descricao = produtoRequest.descricao,
             nome = produtoRequest.nome,
@@ -91,7 +91,7 @@ class ProdutoRestController(
             "${LoggerHelper.LOG_TAG_APP}: Solicitando atualização do produto ${produtoRequest.nome}"
         )
 
-        val produtoDTO: ProdutoDTO =
+        val produtoDTO: ProdutoDomainDTO =
             controller.atualizaProduto(
                 id = produtoId,
                 nome = produtoRequest.nome,
