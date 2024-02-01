@@ -2,7 +2,6 @@ package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
 import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
@@ -54,6 +53,6 @@ class ClienteGatewayImpl(
             throw Exception("Falha ao consultar cliente pelo CPF")
         }
 
-        return Optional.of(adapter.adaptarClienteDtoParaDomainDto(clienteDTO.get()))
+        return Optional.of(adapter.adaptarClienteDtoParaDomainDto(clienteDTO = clienteDTO.get()))
     }
 }

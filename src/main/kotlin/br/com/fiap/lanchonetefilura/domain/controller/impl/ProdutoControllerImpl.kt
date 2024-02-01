@@ -52,6 +52,6 @@ class ProdutoControllerImpl(
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
-        useCase.deletarProdutoPeloId(produtoId)
+        useCase.deletarProdutoPeloId(produtoId = produtoId)
     }
 }

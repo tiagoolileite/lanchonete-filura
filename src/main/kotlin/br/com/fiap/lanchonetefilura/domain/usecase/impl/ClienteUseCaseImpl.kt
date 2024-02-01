@@ -2,7 +2,6 @@ package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
@@ -32,7 +31,7 @@ class ClienteUseCaseImpl(
         val clienteDomainDTO: ClienteDomainDTO =
             adapter.adaptarClienteParaClienteDomainDto(cliente = cliente)
 
-        return gateway.cadastrarCliente(clienteDomainDTO)
+        return gateway.cadastrarCliente(clienteDomainDTO = clienteDomainDTO)
     }
 
     override fun buscarClientePeloCpf(cpf: String): ClienteDTOImpl {
@@ -45,7 +44,7 @@ class ClienteUseCaseImpl(
     override fun buscarClientePeloId(clienteId: UUID): ClienteDTOImpl? {
 
         val clienteOptionalDomainDTO: Optional<ClienteDTOImpl> =
-            gateway.buscarClientePeloId(clienteId)
+            gateway.buscarClientePeloId(clienteId = clienteId)
 
         if (clienteOptionalDomainDTO.isEmpty) {
             "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +

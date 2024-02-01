@@ -14,7 +14,7 @@ class ProdutoMapperImpl(val categoriaMapper: CategoriaMapper) : ProdutoMapper {
 
         produtosDTO.forEach { produtoDTO ->
             produtosResponse.add(
-                mapeiaProdutoResponse(produtoDTO)
+                mapeiaProdutoResponse(produtoDTO = produtoDTO)
             )
         }
 
@@ -22,7 +22,9 @@ class ProdutoMapperImpl(val categoriaMapper: CategoriaMapper) : ProdutoMapper {
     }
 
     override fun mapeiaProdutoResponse(produtoDTO: ProdutoDomainDTO): ProdutoResponse {
-        val categoriaResponse = produtoDTO.categoria?.let { categoriaMapper.mapeiaCategoriaResponse(it) }
+        val categoriaResponse = produtoDTO.categoria?.let {
+            categoriaMapper.mapeiaCategoriaResponse(categoriaDomainDTO = it)
+        }
 
         return ProdutoResponse(
             id = produtoDTO.id,

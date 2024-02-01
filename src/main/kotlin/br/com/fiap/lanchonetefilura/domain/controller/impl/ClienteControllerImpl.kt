@@ -1,7 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.controller.impl
 
 import br.com.fiap.lanchonetefilura.domain.controller.ClienteController
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import org.springframework.stereotype.Component
@@ -23,6 +22,6 @@ class ClienteControllerImpl(
     }
 
     override fun buscarClientePeloCpf(cpf: String): ClienteDTOImpl {
-        return useCase.buscarClientePeloCpf(cpf)
+        return useCase.buscarClientePeloCpf(cpf = cpf)
     }
 }

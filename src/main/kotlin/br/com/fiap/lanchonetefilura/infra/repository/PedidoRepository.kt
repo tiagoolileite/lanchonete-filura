@@ -5,15 +5,6 @@ import java.util.*
 
 interface PedidoRepository {
 
-    /*fun getPedidos(): List<PedidoDTO>?
-
-    fun getPedidoById(pedidoId: UUID): PedidoDTO?
-
-    fun savePedido(pedidoModel: PedidoDTO): PedidoDTO?
-
-    fun updateEtapaPedido(pedidoModel: PedidoDTO): PedidoDTO?
-
-    fun updateStatusPagamentoPedido(pedidoModel: PedidoDTO): PedidoDTO?*/
 
     fun listarPedidos(): List<PedidoDTO>
 

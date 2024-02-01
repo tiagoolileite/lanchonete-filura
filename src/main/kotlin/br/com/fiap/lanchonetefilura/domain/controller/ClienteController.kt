@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.domain.controller
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 
 interface ClienteController {

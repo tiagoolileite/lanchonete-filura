@@ -1,7 +1,5 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import java.util.*
 

@@ -108,48 +108,7 @@ class ProdutoAdapterImpl (val categoriaInfraAdapter: CategoriaInfraAdapter) : Pr
     }
 
     override fun adaptarProdutosMutableDtoParaMutableDomainDto(produtosDTO: MutableList<ProdutoDTO>): MutableList<ProdutoDomainDTO> {
-        return produtosDTO.map { produtoDTO ->
-            object : ProdutoDomainDTO {
-                override var id: UUID?
-                    get() = produtoDTO.id
-                    set(value) {
-                        produtoDTO.id = value
-                    }
-
-                override var nome: String?
-                    get() = produtoDTO.nome
-                    set(value) {
-                        produtoDTO.nome = value
-                    }
-
-                override var descricao: String?
-                    get() = produtoDTO.descricao
-                    set(value) {
-                        produtoDTO.descricao = value
-                    }
-
-                override var preco: Double?
-                    get() = produtoDTO.preco
-                    set(value) {
-                        produtoDTO.preco = value
-                    }
-
-                override var categoria: CategoriaDomainDTOImpl?
-                    get() =
-                        produtoDTO.categoria?.id?.let {
-                            CategoriaDomainDTOImpl(
-                                it,
-                                produtoDTO.categoria?.descricao
-                            )
-                        }
-                    set(value) {produtoDTO.categoria = categoriaInfraAdapter.initCategoriaDTO(
-                        value?.id,
-                        value?.descricao
-                    ) }
-                override val pedidos: List<PedidoDTO>?
-                    get() = null
-            }
-        }.toMutableList()
+        return adaptarProdutosDtoParaDomainDto(produtosDTO).toMutableList()
     }
 
     private fun adaptarCategoriaDtoEmCategoriaDomainDto(categoria: CategoriaDTO?): CategoriaDomainDTOImpl {

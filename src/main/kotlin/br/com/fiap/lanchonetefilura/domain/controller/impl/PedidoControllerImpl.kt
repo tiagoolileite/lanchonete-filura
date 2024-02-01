@@ -4,12 +4,10 @@ import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
 import br.com.fiap.lanchonetefilura.domain.controller.PedidoController
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
@@ -37,15 +35,18 @@ class PedidoControllerImpl(
         var clienteDTO: ClienteDTOImpl? = null
 
         try {
-            clienteDTO = clienteId?.let { clienteUseCase.buscarClientePeloId(it) }
+            clienteDTO = clienteId?.let { clienteUseCase.buscarClientePeloId(clienteId = it) }
         } catch (e: Exception) {
             LoggerHelper.logger.info("Cliente não informado ou não localizado")
         }
 
         val produtosDTO: List<ProdutoDomainDTO> =
-            produtoUseCase.listarProdutosPorListaDeIds(produtosId)
+            produtoUseCase.listarProdutosPorListaDeIds(produtosId = produtosId)
 
-        val pedidoDTO: PedidoDTO = pedidoUseCase.criarPedido(clienteDTO, produtosDTO)
+        val pedidoDTO: PedidoDTO = pedidoUseCase.criarPedido(
+            clienteDTO = clienteDTO,
+            produtosDTO = produtosDTO
+        )
 
         return adater.adaptarPedido(
             pedidoDTO = pedidoDTO,
@@ -56,9 +57,9 @@ class PedidoControllerImpl(
 
     override fun pagarPedido(pedidoId: UUID): PedidoResponse? {
 
-        val pedidoDTO: PedidoDTO = pedidoUseCase.buscarPedidoPeloId(pedidoId)
+        val pedidoDTO: PedidoDTO = pedidoUseCase.buscarPedidoPeloId(pedidoId = pedidoId)
 
-        pedidoUseCase.pagarPedido(pedidoDTO)
+        pedidoUseCase.pagarPedido(pedidoDTO = pedidoDTO)
 
         return adater.adaptarPedido(
             pedidoDTO = pedidoDTO,

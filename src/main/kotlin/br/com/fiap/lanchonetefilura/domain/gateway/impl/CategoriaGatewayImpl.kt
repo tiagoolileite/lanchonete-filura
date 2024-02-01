@@ -18,19 +18,19 @@ class CategoriaGatewayImpl(
         val categoriaDTO: CategoriaDTO =
             repository.cadastrarCategoria(categoriaDomainDTO = categoriaDomainDTO)
 
-        return adapter.adaptarCategoriaDtoParaDomainDto(categoriaDTO)
+        return adapter.adaptarCategoriaDtoParaDomainDto(categoriaDTO = categoriaDTO)
     }
 
     override fun listarCategorias(): List<CategoriaDomainDTO> {
 
         val categoriasDTO: List<CategoriaDTO> = repository.listarCategorias()
 
-        return adapter.adaptarCategoriasDtoParaDomainDto(categoriasDTO)
+        return adapter.adaptarCategoriasDtoParaDomainDto(categoriasDTO = categoriasDTO)
     }
 
     override fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDomainDTO> {
 
-        val categoriaDTO: Optional<CategoriaDTO> = repository.buscarCategoriaPeloId(categoriaId)
+        val categoriaDTO: Optional<CategoriaDTO> = repository.buscarCategoriaPeloId(categoriaId = categoriaId)
 
         return Optional.of(adapter.adaptarCategoriaDtoParaDomainDto(
             categoriaDTO = categoriaDTO.get()

@@ -1,7 +1,5 @@
 package br.com.fiap.lanchonetefilura.domain.dto.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties

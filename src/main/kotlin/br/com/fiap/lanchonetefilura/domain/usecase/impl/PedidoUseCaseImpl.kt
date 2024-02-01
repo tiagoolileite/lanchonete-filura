@@ -1,7 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
@@ -28,7 +27,7 @@ class PedidoUseCaseImpl(
             preco = calculaPreco(produtosDTO)
         )
 
-        return gateway.criarPedido(pedidoDTO)
+        return gateway.criarPedido(pedidoDTO = pedidoDTO)
     }
 
     private fun calculaPreco(produtosDTO: List<ProdutoDomainDTO>): Double {

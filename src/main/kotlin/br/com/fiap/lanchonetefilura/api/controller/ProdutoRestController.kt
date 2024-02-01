@@ -29,7 +29,7 @@ class ProdutoRestController(
             controller.listarProdutos()
 
         val produtosResponse: List<ProdutoResponse> =
-            mapper.mapeiaProdutosResponse(produtosDTO)
+            mapper.mapeiaProdutosResponse(produtosDTO = produtosDTO)
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso")
@@ -49,7 +49,7 @@ class ProdutoRestController(
             controller.listarProdutosPorCategoria(categoriaId = categoriaId)
 
         val produtosResponse: List<ProdutoResponse> =
-            mapper.mapeiaProdutosResponse(produtosDTO)
+            mapper.mapeiaProdutosResponse(produtosDTO = produtosDTO)
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso!")

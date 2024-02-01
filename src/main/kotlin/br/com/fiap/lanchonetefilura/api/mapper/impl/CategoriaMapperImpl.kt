@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 class CategoriaMapperImpl : CategoriaMapper {
     override fun mapeiaCategoriaResponse(categoriaDomainDTO: CategoriaDomainDTO): CategoriaResponse {
         return CategoriaResponse(
-            categoriaDomainDTO.id,
-            categoriaDomainDTO.descricao
+            id = categoriaDomainDTO.id,
+            descricao = categoriaDomainDTO.descricao
         )
     }
 

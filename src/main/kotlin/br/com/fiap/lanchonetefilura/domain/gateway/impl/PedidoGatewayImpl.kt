@@ -13,14 +13,14 @@ class PedidoGatewayImpl(val repository: PedidoRepository) : PedidoGateway {
     }
 
     override fun criarPedido(pedidoDTO: PedidoDTO): PedidoDTO {
-        return repository.criarPedido(pedidoDTO)
+        return repository.criarPedido(pedidoDTO = pedidoDTO)
     }
 
     override fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDTO> {
-        return repository.buscarPedidoPeloId(pedidoId)
+        return repository.buscarPedidoPeloId(pedidoId = pedidoId)
     }
 
     override fun pagarPedido(pedidoDTO: PedidoDTO) {
-        return repository.pagarPedido(pedidoDTO)
+        return repository.pagarPedido(pedidoDTO = pedidoDTO)
     }
 }

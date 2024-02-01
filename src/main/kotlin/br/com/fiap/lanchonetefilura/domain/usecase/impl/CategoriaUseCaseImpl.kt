@@ -18,11 +18,11 @@ class CategoriaUseCaseImpl(
 ) : CategoriaUseCase {
     override fun cadastrarCategoria(descricao: String?): CategoriaDomainDTO {
 
-        val categoria = Categoria(descricao)
+        val categoria = Categoria(descricao = descricao)
 
-        val categoriaDTO: CategoriaDomainDTO = adapter.adaptarCategoriaParaCategoriaDto(categoria)
+        val categoriaDTO: CategoriaDomainDTO = adapter.adaptarCategoriaParaCategoriaDto(categoria = categoria)
 
-        return gateway.cadastrarCategoria(categoriaDTO)
+        return gateway.cadastrarCategoria(categoriaDomainDTO = categoriaDTO)
     }
 
     override fun listarCategorias(): List<CategoriaDomainDTO> {
@@ -31,7 +31,7 @@ class CategoriaUseCaseImpl(
 
     override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDomainDTOImpl? {
 
-        val categoriaDTO: Optional<CategoriaDomainDTO> = gateway.buscarCategoriaPeloId(categoriaId)
+        val categoriaDTO: Optional<CategoriaDomainDTO> = gateway.buscarCategoriaPeloId(categoriaId = categoriaId)
 
         var categoriaDTOImpl: CategoriaDomainDTOImpl? = null
 

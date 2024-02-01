@@ -24,7 +24,7 @@ class ProdutoUseCaseImpl(
     }
 
     override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
-        return gateway.listarProdutosPorCategoria(categoriaId)
+        return gateway.listarProdutosPorCategoria(categoriaId = categoriaId)
     }
 
     override fun cadastrarProduto(
@@ -34,9 +34,9 @@ class ProdutoUseCaseImpl(
         preco: Double?
     ): ProdutoDomainDTO {
 
-        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId)
+        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId = categoriaId)
 
-        val categoria = Categoria(categoriaDTO?.descricao)
+        val categoria = Categoria(descricao = categoriaDTO?.descricao)
 
         val produto = Produto(
             nome = nome,
@@ -50,12 +50,12 @@ class ProdutoUseCaseImpl(
             categoriaDomainDTO = categoriaDTO
         )
 
-        return gateway.cadastrarProduto(produtoDTO)
+        return gateway.cadastrarProduto(produtoDomainDTO = produtoDTO)
     }
 
     override fun buscarProdutoPeloId(id: UUID): ProdutoDomainDTO {
 
-        val produtoDTO: Optional<ProdutoDomainDTO> = gateway.buscarProdutoPeloId(id)
+        val produtoDTO: Optional<ProdutoDomainDTO> = gateway.buscarProdutoPeloId(id = id)
 
         if (produtoDTO.isEmpty) {
             LoggerHelper.logger.error(
@@ -76,9 +76,11 @@ class ProdutoUseCaseImpl(
         descricao: String?
     ): ProdutoDomainDTO {
 
-        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
+        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaId?.let {
+            categoriaUseCase.buscarCategoriaPeloId(categoriaId = it)
+        }
 
-        val categoria = Categoria(categoriaDTO?.descricao)
+        val categoria = Categoria(descricao = categoriaDTO?.descricao)
 
         val produtoDTO: ProdutoDomainDTO =
             this.buscarProdutoPeloId(id = produtoId)
@@ -107,12 +109,12 @@ class ProdutoUseCaseImpl(
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
-        gateway.deletarProdutoPeloId(produtoId)
+        gateway.deletarProdutoPeloId(produtoId = produtoId)
     }
 
     override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDomainDTO> {
 
-        val produtos: MutableList<ProdutoDomainDTO> = gateway.listarProdutosPorListaDeIds(produtosId)
+        val produtos: MutableList<ProdutoDomainDTO> = gateway.listarProdutosPorListaDeIds(produtosId = produtosId)
 
         return produtos.toList()
     }

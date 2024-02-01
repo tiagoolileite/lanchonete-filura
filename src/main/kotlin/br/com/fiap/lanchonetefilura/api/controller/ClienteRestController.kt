@@ -4,7 +4,6 @@ import br.com.fiap.lanchonetefilura.api.mapper.ClienteMapper
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteRequest
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ClienteController
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
@@ -39,7 +38,7 @@ class ClienteRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando consulta de cliente")
 
-        val clienteDomainDTO: ClienteDTOImpl = controller.buscarClientePeloCpf(cpf)
+        val clienteDomainDTO: ClienteDTOImpl = controller.buscarClientePeloCpf(cpf = cpf)
 
         val clienteResponse: ClienteResponse = mapper.mapeiaClienteResponse(clienteDomainDTO = clienteDomainDTO)
 
@@ -56,9 +55,9 @@ class ClienteRestController(
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}:  Solicitando cadastro de cliente")
 
         val clienteDomainDTO: ClienteDTOImpl = controller.cadastrarCliente(
-            clienteRequest.email,
-            clienteRequest.nome,
-            clienteRequest.cpf
+            email = clienteRequest.email,
+            nome = clienteRequest.nome,
+            cpf = clienteRequest.cpf
         )
 
         val clienteResponse: ClienteResponse = mapper.mapeiaClienteResponse(clienteDomainDTO = clienteDomainDTO)
