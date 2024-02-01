@@ -22,5 +22,5 @@ interface ProdutoUseCase {
 
     fun deletarProdutoPeloId(produtoId: UUID)
 
-    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDomainDTO>
+    fun listarProdutosPorListaDeIds(produtosId: List<UUID>): List<ProdutoDomainDTO>
 }

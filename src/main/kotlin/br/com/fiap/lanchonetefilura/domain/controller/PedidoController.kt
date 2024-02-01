@@ -1,12 +1,12 @@
 package br.com.fiap.lanchonetefilura.domain.controller
 
-import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
+import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
 import java.util.*
 
 interface PedidoController {
-    fun listarPedidos(): List<PedidoResponse>
+    fun listarPedidos(): List<PedidoDomainDTO>
 
-    fun criarPedido(clienteId: UUID?, produtosId: List<UUID>?): PedidoResponse?
+    fun criarPedido(clienteId: UUID?, produtosId: List<UUID>?): PedidoDomainDTO?
 
-    fun pagarPedido(pedidoId: UUID): PedidoResponse?
+    fun pagarPedido(pedidoId: UUID): PedidoDomainDTO?
 }

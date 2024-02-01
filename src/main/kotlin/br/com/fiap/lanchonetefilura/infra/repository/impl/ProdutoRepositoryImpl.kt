@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl

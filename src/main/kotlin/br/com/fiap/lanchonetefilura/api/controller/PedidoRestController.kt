@@ -1,8 +1,10 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
+import br.com.fiap.lanchonetefilura.api.mapper.PedidoMapper
 import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoRequest
 import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
 import br.com.fiap.lanchonetefilura.domain.controller.PedidoController
+import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -12,17 +14,25 @@ import java.util.*
 
 @RestController
 @RequestMapping("api/pedido")
-class PedidoRestController(val controller: PedidoController) {
+class PedidoRestController(
+    val controller: PedidoController,
+    val mapper: PedidoMapper
+) {
 
     @GetMapping("/pedidos")
     @ResponseStatus(HttpStatus.OK)
     fun listarPedidos(): ResponseEntity<List<PedidoResponse>> {
 
-        LoggerHelper.logger.info("[FILURA]: Listando pedidos")
-        val pedidosResponse: List<PedidoResponse> = controller.listarPedidos()
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de pedidos")
+
+        val pedidosDomainDTO: List<PedidoDomainDTO> =
+            controller.listarPedidos()
+
+        val pedidosResponse: List<PedidoResponse> =
+            mapper.mapeiaPedidosResponse(pedidosDomainDTO = pedidosDomainDTO)
 
         return ResponseEntity.ok(pedidosResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Busca por pedidos realizada com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por pedidos realizada com sucesso!")
             response
         }
     }
@@ -33,14 +43,19 @@ class PedidoRestController(val controller: PedidoController) {
         @RequestBody @Valid pedidoRequest: PedidoRequest
     ): ResponseEntity<PedidoResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Salvando Pedido")
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando criação de pedido")
 
-        val pedidoResponse: PedidoResponse? = controller.criarPedido(
-            pedidoRequest.clienteId, pedidoRequest.produtosId
+        val pedidoDomainDTO: PedidoDomainDTO? = controller.criarPedido(
+            clienteId = pedidoRequest.clienteId,
+            produtosId = pedidoRequest.produtosId
+        )
+
+        val pedidoResponse: PedidoResponse? = mapper.mapeiaPedidoResponse(
+            pedidoDomainDTO = pedidoDomainDTO
         )
 
         return ResponseEntity.ok(pedidoResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Pedido salvo com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Pedido criação com sucesso")
             response
         }
     }
@@ -51,12 +66,14 @@ class PedidoRestController(val controller: PedidoController) {
         @RequestParam("pedido_id") pedidoId: UUID
     ): ResponseEntity<PedidoResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Atualização status do pagamento do pedido")
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Atualizando status do pedido")
 
-        val pedidoResponse: PedidoResponse? = controller.pagarPedido(pedidoId)
+        val pedidoDomainDTO: PedidoDomainDTO? = controller.pagarPedido(pedidoId)
+
+        val pedidoResponse: PedidoResponse? = mapper.mapeiaPedidoResponse(pedidoDomainDTO)
 
         return ResponseEntity.ok(pedidoResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Status do pagamento do pedido atualizado com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Status do pagamento atualizado com sucesso")
             response
         }
     }

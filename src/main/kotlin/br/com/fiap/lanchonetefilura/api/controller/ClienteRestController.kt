@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.api.mapper.ClienteMapper
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteRequest
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ClienteController
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -22,7 +22,7 @@ class ClienteRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de clientes")
 
-        val clientesDomainDTO: List<ClienteDTOImpl> =
+        val clientesDomainDTO: List<ClienteDomainDTO> =
             controller.listarClientes()
 
         val clientesResponse: List<ClienteResponse> = mapper.mapeiaClientesResponse(clientesDomainDTO = clientesDomainDTO)
@@ -38,7 +38,7 @@ class ClienteRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando consulta de cliente")
 
-        val clienteDomainDTO: ClienteDTOImpl = controller.buscarClientePeloCpf(cpf = cpf)
+        val clienteDomainDTO: ClienteDomainDTO = controller.buscarClientePeloCpf(cpf = cpf)
 
         val clienteResponse: ClienteResponse = mapper.mapeiaClienteResponse(clienteDomainDTO = clienteDomainDTO)
 
@@ -54,7 +54,7 @@ class ClienteRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}:  Solicitando cadastro de cliente")
 
-        val clienteDomainDTO: ClienteDTOImpl = controller.cadastrarCliente(
+        val clienteDomainDTO: ClienteDomainDTO = controller.cadastrarCliente(
             email = clienteRequest.email,
             nome = clienteRequest.nome,
             cpf = clienteRequest.cpf

@@ -1,70 +1,25 @@
 package br.com.fiap.lanchonetefilura.domain.controller.impl
 
-import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
-import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
 import br.com.fiap.lanchonetefilura.domain.controller.PedidoController
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
-import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
+import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
-import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class PedidoControllerImpl(
-    val pedidoUseCase: PedidoUseCase,
-    val clienteUseCase: ClienteUseCase,
-    val produtoUseCase: ProdutoUseCase,
-    val adater: PedidoAdapter
+    val useCase: PedidoUseCase
 ) : PedidoController {
 
-    override fun listarPedidos(): List<PedidoResponse> {
-
-        val pedidosDTO: List<PedidoDTO> = pedidoUseCase.listarPedidos()
-
-        return adater.adaptarListaDePedidos(
-            pedidosDTO = pedidosDTO
-        )
+    override fun listarPedidos(): List<PedidoDomainDTO> {
+        return useCase.listarPedidos()
     }
 
-    override fun criarPedido(clienteId: UUID?, produtosId: List<UUID>?): PedidoResponse? {
-
-        var clienteDTO: ClienteDTOImpl? = null
-
-        try {
-            clienteDTO = clienteId?.let { clienteUseCase.buscarClientePeloId(clienteId = it) }
-        } catch (e: Exception) {
-            LoggerHelper.logger.info("Cliente não informado ou não localizado")
-        }
-
-        val produtosDTO: List<ProdutoDomainDTO> =
-            produtoUseCase.listarProdutosPorListaDeIds(produtosId = produtosId)
-
-        val pedidoDTO: PedidoDTO = pedidoUseCase.criarPedido(
-            clienteDTO = clienteDTO,
-            produtosDTO = produtosDTO
-        )
-
-        return adater.adaptarPedido(
-            pedidoDTO = pedidoDTO,
-            clienteDTO = pedidoDTO.cliente,
-            produtosDTO = pedidoDTO.produtos
-        )
+    override fun criarPedido(clienteId: UUID?, produtosId: List<UUID>?): PedidoDomainDTO? {
+        return produtosId?.let { useCase.criarPedido(clienteId = clienteId, produtosId = it) }
     }
 
-    override fun pagarPedido(pedidoId: UUID): PedidoResponse? {
-
-        val pedidoDTO: PedidoDTO = pedidoUseCase.buscarPedidoPeloId(pedidoId = pedidoId)
-
-        pedidoUseCase.pagarPedido(pedidoDTO = pedidoDTO)
-
-        return adater.adaptarPedido(
-            pedidoDTO = pedidoDTO,
-            clienteDTO = pedidoDTO.cliente,
-            produtosDTO = pedidoDTO.produtos
-        )
+    override fun pagarPedido(pedidoId: UUID) : PedidoDomainDTO? {
+        return useCase.pagarPedido(pedidoId = pedidoId)
     }
 }

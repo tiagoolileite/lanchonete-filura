@@ -4,7 +4,6 @@ import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
@@ -16,14 +15,14 @@ class ClienteGatewayImpl(
     val adapter: ClienteAdapter
 ) : ClienteGateway {
 
-    override fun listarClientes(): List<ClienteDTOImpl> {
+    override fun listarClientes(): List<ClienteDomainDTO> {
 
         val clientesDTO: List<ClienteDTO> = repository.listarClientes()
 
         return adapter.adaptarClientesDtoParaDomainDto(clientesDTO = clientesDTO)
     }
 
-    override fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDTOImpl {
+    override fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDomainDTO {
 
         val clienteDTO: ClienteDTO =
             repository.cadastrarCliente(clienteDomainDTO = clienteDomainDTO)
@@ -31,7 +30,7 @@ class ClienteGatewayImpl(
         return adapter.adaptarClienteDtoParaDomainDto(clienteDTO = clienteDTO)
     }
 
-    override fun buscarClientePeloCpf(cpf: String): ClienteDTOImpl? {
+    override fun buscarClientePeloCpf(cpf: String): ClienteDomainDTO? {
 
         val clienteDTO: ClienteDTO? =
             repository.buscarClientePeloCpf(cpf = cpf)
@@ -42,7 +41,7 @@ class ClienteGatewayImpl(
         }.run { throw Exception("Falha ao consultar cliente pelo CPF") }
     }
 
-    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTOImpl> {
+    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDomainDTO> {
 
         val clienteDTO: Optional<ClienteDTO> =
             repository.buscarClientePeloId(clienteId = clienteId)

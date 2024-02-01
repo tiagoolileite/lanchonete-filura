@@ -1,11 +1,11 @@
 package br.com.fiap.lanchonetefilura.domain.dto
 
 import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDomainDTOImpl
 import java.util.*
 
 interface ProdutoDomainDTO {
-    var id: UUID?
+    val id: UUID?
 
     var nome: String?
 
@@ -15,5 +15,5 @@ interface ProdutoDomainDTO {
 
     var categoria: CategoriaDomainDTOImpl?
 
-    val pedidos: List<PedidoDTO>?
+    val pedidos: List<PedidoDomainDTOImpl>?
 }

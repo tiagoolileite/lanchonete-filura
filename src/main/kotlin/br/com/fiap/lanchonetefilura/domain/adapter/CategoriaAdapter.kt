@@ -9,7 +9,9 @@ interface CategoriaAdapter {
 
     fun adaptarCategoriaParaCategoriaDto(categoria: Categoria): CategoriaDomainDTOImpl
 
-    fun adaptarCategoriaDtoParaDomainDto(categoriaDTO: CategoriaDTO): CategoriaDomainDTO
+    fun adaptarCategoriaDtoParaDomainDto(categoriaDTO: CategoriaDTO): CategoriaDomainDTOImpl
 
     fun adaptarCategoriasDtoParaDomainDto(categoriasDTO: List<CategoriaDTO>): List<CategoriaDomainDTO>
+
+    fun adaptarCategoriaDomainDtoParaCategoria(categoria : CategoriaDomainDTOImpl?) : Categoria?
 }

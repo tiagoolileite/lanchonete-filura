@@ -15,7 +15,7 @@ class CategoriaAdapterImpl : CategoriaAdapter {
         return CategoriaDomainDTOImpl(descricao = categoria.descricao)
     }
 
-    override fun adaptarCategoriaDtoParaDomainDto(categoriaDTO: CategoriaDTO): CategoriaDomainDTO {
+    override fun adaptarCategoriaDtoParaDomainDto(categoriaDTO: CategoriaDTO): CategoriaDomainDTOImpl {
         return CategoriaDomainDTOImpl(
             id = categoriaDTO.id,
             descricao = categoriaDTO.descricao
@@ -32,5 +32,11 @@ class CategoriaAdapterImpl : CategoriaAdapter {
                     get() = categoriaDTO.descricao
             }
         }
+    }
+
+    override fun adaptarCategoriaDomainDtoParaCategoria(categoria : CategoriaDomainDTOImpl?) : Categoria? {
+        return Categoria(
+            categoria?.descricao
+        )
     }
 }

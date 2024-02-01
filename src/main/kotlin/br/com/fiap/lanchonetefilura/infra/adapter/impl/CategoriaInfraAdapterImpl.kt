@@ -1,5 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.adapter.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
 import br.com.fiap.lanchonetefilura.infra.adapter.CategoriaInfraAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
@@ -15,5 +16,14 @@ class CategoriaInfraAdapterImpl : CategoriaInfraAdapter {
                     "Falha ao converter CategoriaDTO em CategoriaDomainDTO")
             )
         }.run { throw Exception("Falha ao iniciar CategoriaDTOImpl") }
+    }
+
+    override fun adaptarCategoriaDomainDtoEmDtoImpl(categoria : CategoriaDomainDTO?) : CategoriaDTOImpl? {
+        return categoria?.id?.let {
+            CategoriaDTOImpl(
+                id = it,
+                descricao = categoria.descricao
+            )
+        }
     }
 }

@@ -4,6 +4,4 @@ data class Cliente(
     val cpf : String?,
     val nome : String?,
     val email : String?
-) {
-
-}
+)

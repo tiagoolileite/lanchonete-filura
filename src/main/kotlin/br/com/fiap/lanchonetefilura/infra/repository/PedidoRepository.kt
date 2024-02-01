@@ -1,6 +1,8 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
+import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.PedidoDTOImpl
 import java.util.*
 
 interface PedidoRepository {
@@ -8,9 +10,9 @@ interface PedidoRepository {
 
     fun listarPedidos(): List<PedidoDTO>
 
-    fun criarPedido(pedidoDTO: PedidoDTO): PedidoDTO
+    fun criarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDTO
 
-    fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDTO>
+    fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDTOImpl>
 
-    fun pagarPedido(pedidoDTO: PedidoDTO)
+    fun pagarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDTO
 }

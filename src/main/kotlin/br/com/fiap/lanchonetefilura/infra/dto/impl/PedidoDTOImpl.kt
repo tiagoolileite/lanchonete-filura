@@ -1,7 +1,6 @@
-package br.com.fiap.lanchonetefilura.domain.dto.impl
+package br.com.fiap.lanchonetefilura.infra.dto.impl
 
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
+import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
@@ -9,23 +8,23 @@ import java.util.*
 @Entity
 @Table(name = "pedido")
 @JsonIgnoreProperties
-data class PedidoDTO (
+data class PedidoDTOImpl (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "pedido_id", columnDefinition = "UUID")
-    val id: UUID = UUID.randomUUID(),
+    override val id: UUID = UUID.randomUUID(),
 
     @Column(name = "senha", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val senha: Int = 1, //Código da ordem do pedido, será controlado por SEQUENCE no BD
+    override val senha: Int = 1,
 
     @Column(name = "etapa", nullable = false)
-    val etapa: String = "Pendente pagamento",
+    override val etapa: String = "pendente pagamento",
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteDTOImpl? = null,
+    override val cliente: ClienteDTOImpl? = null,
 
     @ManyToMany
     @JoinTable(
@@ -33,11 +32,11 @@ data class PedidoDTO (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
+    override val produtos: List<ProdutoDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
-    var preco: Double = 0.0,
+    override var preco: Double = 0.0,
 
     @Column(name = "pago", nullable = false)
-    var pago: Boolean = false
-)
+    override var pago: Boolean = false
+) : PedidoDTO

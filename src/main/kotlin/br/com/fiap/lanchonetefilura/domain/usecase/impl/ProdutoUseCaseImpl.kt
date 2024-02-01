@@ -112,8 +112,7 @@ class ProdutoUseCaseImpl(
         gateway.deletarProdutoPeloId(produtoId = produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDomainDTO> {
-
+    override fun listarProdutosPorListaDeIds(produtosId : List<UUID>) : List<ProdutoDomainDTO> {
         val produtos: MutableList<ProdutoDomainDTO> = gateway.listarProdutosPorListaDeIds(produtosId = produtosId)
 
         return produtos.toList()

@@ -1,12 +1,12 @@
 package br.com.fiap.lanchonetefilura.api.mapper
 
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 
 interface ClienteMapper {
 
-    fun mapeiaClientesResponse(clientesDomainDTO: List<ClienteDTOImpl>): List<ClienteResponse>
+    fun mapeiaClientesResponse(clientesDomainDTO: List<ClienteDomainDTO>): List<ClienteResponse>
 
-    fun mapeiaClienteResponse(clienteDomainDTO : ClienteDTOImpl) : ClienteResponse
+    fun mapeiaClienteResponse(clienteDomainDTO : ClienteDomainDTO) : ClienteResponse
 
 }

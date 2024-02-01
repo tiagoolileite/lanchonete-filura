@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.infra.dto.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
@@ -29,5 +28,5 @@ data class ProdutoDTOImpl (
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore
-    override val pedidos: List<PedidoDTO>? = null
+    override val pedidos: List<PedidoDTOImpl>? = null
 ) : ProdutoDTO

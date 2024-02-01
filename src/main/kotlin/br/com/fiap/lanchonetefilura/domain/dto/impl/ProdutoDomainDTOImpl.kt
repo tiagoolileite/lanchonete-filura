@@ -5,15 +5,15 @@ import java.util.*
 
 data class ProdutoDomainDTOImpl(
 
-    override var id: UUID? = UUID.randomUUID(),
+    override var id : UUID? = UUID.randomUUID(),
 
-    override var nome: String? = null,
+    override var nome : String? = null,
 
-    override var descricao: String? = null,
+    override var descricao : String? = null,
 
-    override var preco: Double? = null,
+    override var preco : Double? = null,
 
-    override var categoria: CategoriaDomainDTOImpl? = null,
+    override var categoria : CategoriaDomainDTOImpl? = null,
 
-    override val pedidos: List<PedidoDTO>? = null
+    override val pedidos : List<PedidoDomainDTOImpl>? = null
 ) : ProdutoDomainDTO

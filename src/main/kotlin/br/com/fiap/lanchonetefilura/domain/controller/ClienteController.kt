@@ -1,13 +1,13 @@
 package br.com.fiap.lanchonetefilura.domain.controller
 
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 
 interface ClienteController {
 
-    fun listarClientes(): List<ClienteDTOImpl>
+    fun listarClientes(): List<ClienteDomainDTO>
 
-    fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTOImpl
+    fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDomainDTO
 
-    fun buscarClientePeloCpf(cpf: String): ClienteDTOImpl
+    fun buscarClientePeloCpf(cpf: String): ClienteDomainDTO
 
 }
