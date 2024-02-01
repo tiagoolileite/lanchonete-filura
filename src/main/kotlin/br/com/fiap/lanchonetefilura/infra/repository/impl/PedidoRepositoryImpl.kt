@@ -7,6 +7,8 @@ import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.PedidoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.PedidoJpaRepository
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
+import org.apache.commons.logging.Log
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -24,6 +26,7 @@ class PedidoRepositoryImpl(
     override fun criarPedido(pedidoDomainDTO : PedidoDomainDTO): PedidoDTO {
 
         val pedidoDTO = pedidoDomainDTO.id?.let {
+            LoggerHelper.logger.info("mais calma")
             PedidoDTOImpl(
                 id = it,
                 senha = pedidoDomainDTO.senha,

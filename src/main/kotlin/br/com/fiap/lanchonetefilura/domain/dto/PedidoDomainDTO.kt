@@ -8,7 +8,7 @@ interface PedidoDomainDTO {
 
     val id: UUID?
 
-    val senha: Int
+    var senha: Int?
 
     val etapa: String
 

@@ -27,4 +27,6 @@ interface PedidoAdapter {
     fun adaptarPedidosDtoEmPedidosDomainDto(pedidosDTO : List<PedidoDTO>) : List<PedidoDomainDTO>
 
     fun adaptarPedidoDtoEmPedidoDomainDto(pedidoDTO : PedidoDTO) : PedidoDomainDTO
+
+    fun adaptarPedidoParaPedidoDomainDtoSemSenha(pedido : Pedido) : PedidoDomainDTO
 }

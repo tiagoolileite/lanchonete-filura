@@ -7,7 +7,7 @@ import java.util.*
 interface PedidoDTO {
     val id: UUID?
 
-    val senha: Int
+    var senha: Int?
 
     val etapa: String
 

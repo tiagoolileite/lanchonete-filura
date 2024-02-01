@@ -6,6 +6,7 @@ import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.dto.impl.PedidoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -24,6 +25,8 @@ class PedidoGatewayImpl(
     override fun criarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDomainDTO {
 
         val pedidoDTO: PedidoDTO = repository.criarPedido(pedidoDomainDTO = pedidoDomainDTO)
+
+        LoggerHelper.logger.info("Pouco de calma: " + pedidoDTO.senha)
 
         return adapter.adaptarPedidoDtoEmPedidoDomainDto(pedidoDTO)
     }

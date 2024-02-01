@@ -1,10 +1,14 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
+import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
+import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
 import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
 import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.domain.entity.Pedido
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
@@ -17,6 +21,8 @@ import java.util.*
 class PedidoUseCaseImpl(
     val gateway: PedidoGateway,
     val adapter: PedidoAdapter,
+    val clienteAdapter: ClienteAdapter,
+    val produtoAdapter : ProdutoAdapter,
     val produtoUseCase: ProdutoUseCase,
     val clienteUseCase : ClienteUseCase
 ) : PedidoUseCase {
@@ -33,17 +39,26 @@ class PedidoUseCaseImpl(
 
         val produtosDomainDTO: List<ProdutoDomainDTO> = produtoUseCase.listarProdutosPorListaDeIds(produtosId)
 
-        val pedido: Pedido = adapter.adaptarDadosIniciaisPeidoDomainDtoParaPedido(clienteDomainDTO, produtosDomainDTO)
+        LoggerHelper.logger.info(clienteDomainDTO?.nome)
+        LoggerHelper.logger.info(produtosDomainDTO[0].nome)
 
-        LoggerHelper.logger.info("Failure: " + pedido.etapa)
-        LoggerHelper.logger.info("Failure: " + pedido.preco)
-        LoggerHelper.logger.info("Failure: " + pedido.pago)
-        LoggerHelper.logger.info("Failure: " + pedido.senha)
-        LoggerHelper.logger.info("Failure: " + pedido.produtos[0])
+        val cliente: Cliente = clienteAdapter.adaptarClienteDomainDtoParaCliente(clienteDomainDTO)
 
-        val pedidoDomainDTO: PedidoDomainDTO = adapter.adaptarPedidoParaPedidoDomainDto(pedido)
+        val produtos: List<Produto> = produtoAdapter.adaptarProdutosDomainDtoParaProdutos(produtosDomainDTO)
 
-        return gateway.criarPedido(pedidoDomainDTO = pedidoDomainDTO)
+        val pedido = Pedido(
+            cliente = cliente,
+            produtos = produtos
+        )
+
+        val pedidoParaSalvar: PedidoDomainDTO = adapter.adaptarPedidoParaPedidoDomainDtoSemSenha(pedido)
+
+        LoggerHelper.logger.info("pelo menos adaptou a parada")
+        LoggerHelper.logger.info(pedidoParaSalvar.cliente?.id.toString())
+        LoggerHelper.logger.info(pedidoParaSalvar.produtos[0].id.toString())
+        LoggerHelper.logger.info("pelo menos adaptou a parada")
+
+        return gateway.criarPedido(pedidoDomainDTO = pedidoParaSalvar)
     }
 
     private fun calculaPreco(produtosDTO: List<ProdutoDomainDTO>): Double {

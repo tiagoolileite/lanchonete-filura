@@ -5,7 +5,7 @@ import java.util.*
 
 class PedidoDomainDTOImpl(
     override val id : UUID? = UUID.randomUUID(),
-    override val senha : Int,
+    override var senha : Int? = null,
     override val etapa : String,
     override val cliente : ClienteDomainDTOImpl?,
     override val produtos : List<ProdutoDomainDTOImpl>,

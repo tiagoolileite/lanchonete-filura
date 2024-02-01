@@ -17,7 +17,7 @@ data class PedidoDTOImpl (
 
     @Column(name = "senha", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    override val senha: Int = 1,
+    override var senha: Int? = 0,
 
     @Column(name = "etapa", nullable = false)
     override val etapa: String = "pendente pagamento",

@@ -68,4 +68,14 @@ class PedidoAdapterImpl (
         )
     }
 
+    override fun adaptarPedidoParaPedidoDomainDtoSemSenha(pedido : Pedido) : PedidoDomainDTO {
+        return PedidoDomainDTOImpl(
+            etapa = pedido.etapa,
+            cliente = pedido.cliente?.let { clienteAdapter.adaptarClienteParaClienteDomainDto(it) },
+            produtos = produtoAdapter.adaptarProdutosParaProdutosDomainDto(pedido.produtos),
+            preco = pedido.preco,
+            pago = pedido.pago
+        )
+    }
+
 }
