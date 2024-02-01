@@ -1,5 +1,6 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
+import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
@@ -12,7 +13,10 @@ import java.util.*
 
 @RestController
 @RequestMapping("api/produto")
-class ProdutoRestController(val controller: ProdutoController) {
+class ProdutoRestController(
+    val controller: ProdutoController,
+    val mapper: ProdutoMapper
+) {
 
     @GetMapping("/produtos")
     @ResponseStatus(HttpStatus.OK)

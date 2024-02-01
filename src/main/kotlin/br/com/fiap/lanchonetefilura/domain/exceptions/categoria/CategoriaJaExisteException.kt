@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.exceptions.categoria
 
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
 import jakarta.persistence.EntityExistsException
 
 class CategoriaJaExisteException(categoria: CategoriaDTO? = null) : EntityExistsException() {

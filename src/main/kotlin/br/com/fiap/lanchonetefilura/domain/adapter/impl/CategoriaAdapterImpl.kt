@@ -2,7 +2,9 @@ package br.com.fiap.lanchonetefilura.domain.adapter.impl
 
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.CategoriaAdapter
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import org.springframework.stereotype.Component
 
 @Component
@@ -24,5 +26,9 @@ class CategoriaAdapterImpl : CategoriaAdapter {
         }
 
         return categoriasResponse.toList()
+    }
+
+    override fun adaptarCategoriaParaCategoriaDto(categoria: Categoria): CategoriaDTOImpl {
+        return CategoriaDTOImpl(descricao = categoria.descricao)
     }
 }

@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.infra.dto
+package br.com.fiap.lanchonetefilura.domain.dto.impl
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
@@ -24,7 +24,7 @@ data class ProdutoDTO (
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    var categoria: CategoriaDTO? = null,
+    var categoria: CategoriaDTOImpl? = null,
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore

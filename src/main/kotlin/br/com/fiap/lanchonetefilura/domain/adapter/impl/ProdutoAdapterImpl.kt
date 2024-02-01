@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.CategoriaAdapter
 import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdater
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import org.springframework.stereotype.Component
 
 @Component

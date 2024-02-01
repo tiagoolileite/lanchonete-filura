@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import org.springframework.stereotype.Repository
@@ -52,9 +52,11 @@ class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : Clie
 
     override fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTO {
 
-        return repository.save(ClienteDTO(
+        return repository.save(
+            ClienteDTO(
             email = email, nome = nome, cpf = cpf
-        ))
+        )
+        )
     }
 
     override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {

@@ -1,8 +1,9 @@
 package br.com.fiap.lanchonetefilura.domain.controller
 
-import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
 
 interface CategoriaController {
-    fun cadastrarCategoria(descricao: String): CategoriaResponse
-    fun listarCategorias(): List<CategoriaResponse>
+    fun cadastrarCategoria(descricao: String?): CategoriaDTO
+
+    fun listarCategorias(): List<CategoriaDTO>
 }

@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import org.springframework.stereotype.Component
 import java.util.*

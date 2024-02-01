@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper

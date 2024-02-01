@@ -1,18 +1,17 @@
-package br.com.fiap.lanchonetefilura.infra.dto
+package br.com.fiap.lanchonetefilura.domain.dto.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
 @Table(name="categoria")
-data class CategoriaDTO(
-
+data class CategoriaDTOImpl(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id", columnDefinition = "UUID")
-    var id: UUID = UUID.randomUUID(),
+    override var id: UUID = UUID.randomUUID(),
 
     @Column(unique = true, nullable = false)
-    val descricao: String? = null
-
-)
+    override val descricao: String? = null
+) : CategoriaDTO

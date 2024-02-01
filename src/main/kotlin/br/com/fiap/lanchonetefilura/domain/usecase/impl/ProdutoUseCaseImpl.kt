@@ -1,9 +1,9 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -18,7 +18,7 @@ class ProdutoUseCaseImpl(val gateway: ProdutoGateway) : ProdutoUseCase {
     }
 
     override fun cadastrarProduto(
-        categoria: CategoriaDTO,
+        categoria: CategoriaDTOImpl,
         descricao: String?,
         nome: String?,
         preco: Double?

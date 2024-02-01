@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import org.springframework.stereotype.Component
 import java.util.*
@@ -19,17 +19,19 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
     }
 
     override fun cadastrarProduto(
-        categoria: CategoriaDTO,
+        categoria: CategoriaDTOImpl,
         descricao: String?,
         nome: String?,
         preco: Double?
     ): ProdutoDTO {
-        return repository.cadastrarProduto(ProdutoDTO(
+        return repository.cadastrarProduto(
+            ProdutoDTO(
             nome = nome,
             descricao = descricao,
             preco = preco,
             categoria = categoria
-        ))
+        )
+        )
     }
 
     override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {

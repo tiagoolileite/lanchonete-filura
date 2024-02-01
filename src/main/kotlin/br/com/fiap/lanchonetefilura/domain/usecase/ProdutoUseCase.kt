@@ -1,7 +1,8 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import java.util.*
 
 interface ProdutoUseCase {
@@ -9,7 +10,7 @@ interface ProdutoUseCase {
 
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
 
-    fun cadastrarProduto(categoria: CategoriaDTO, descricao: String?, nome: String?, preco: Double?): ProdutoDTO
+    fun cadastrarProduto(categoria: CategoriaDTOImpl, descricao: String?, nome: String?, preco: Double?): ProdutoDTO
 
     fun buscarProdutoPeloId(id: UUID): ProdutoDTO?
 

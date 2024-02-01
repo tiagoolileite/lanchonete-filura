@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonetefilura.infra.dto
+package br.com.fiap.lanchonetefilura.domain.dto.impl
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*

@@ -1,7 +1,7 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import java.util.*
 
 interface ProdutoGateway {
@@ -10,7 +10,7 @@ interface ProdutoGateway {
     fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
 
     fun cadastrarProduto(
-        categoria: CategoriaDTO,
+        categoria: CategoriaDTOImpl,
         descricao: String?,
         nome: String?,
         preco: Double?

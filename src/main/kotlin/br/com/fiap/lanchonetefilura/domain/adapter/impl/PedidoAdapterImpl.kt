@@ -6,9 +6,9 @@ import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
 import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdater
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import org.springframework.stereotype.Component
 
 @Component

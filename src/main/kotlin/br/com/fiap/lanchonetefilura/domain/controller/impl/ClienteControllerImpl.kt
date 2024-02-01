@@ -3,8 +3,8 @@ package br.com.fiap.lanchonetefilura.domain.controller.impl
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.domain.controller.ClienteController
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import org.springframework.stereotype.Component
 
 @Component

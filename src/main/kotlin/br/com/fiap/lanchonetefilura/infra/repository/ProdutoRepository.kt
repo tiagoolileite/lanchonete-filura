@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import java.util.*
 
 interface ProdutoRepository {

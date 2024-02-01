@@ -3,10 +3,10 @@ package br.com.fiap.lanchonetefilura.domain.controller.impl
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdater
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
@@ -41,7 +41,7 @@ class ProdutoControllerImpl(
 
         LoggerHelper.logger.info("[FILURA]: categoriaId teste: ${categoriaId}")
 
-        val categoriaDTO: CategoriaDTO =
+        val categoriaDTO: CategoriaDTOImpl =
             categoriaUseCase.buscarCategoriaPeloId(categoriaId)
 
         LoggerHelper.logger.info("[FILURA]: categoriaId teste2: ${categoriaDTO.id}")
