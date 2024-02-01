@@ -12,7 +12,7 @@ data class Categoria (
     init {
         check(!this.descricao.isNullOrEmpty()) {
             LoggerHelper.logger.error(
-                "${LOG_TAG_APP}${LOG_TAG_ERROR}: ${ERROR_DESCRICAO_CATEGORIA_VAZIA}"
+                "${LOG_TAG_APP}${LOG_TAG_ERROR}: $ERROR_DESCRICAO_CATEGORIA_VAZIA"
             )
         }
         validaDescricao()
@@ -23,7 +23,7 @@ data class Categoria (
         val descricaoValida = descricoesValidas.contains(this.descricao?.lowercase())
 
         if (!descricaoValida) {
-            throw Error(ERROR_DESCRICAO_CATEGORIA_INVALIDA)
+            throw Exception(ERROR_DESCRICAO_CATEGORIA_INVALIDA)
         }
     }
 

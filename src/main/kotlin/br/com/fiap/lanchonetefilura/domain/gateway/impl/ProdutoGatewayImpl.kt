@@ -1,7 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import org.springframework.stereotype.Component
@@ -19,18 +18,10 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
     }
 
     override fun cadastrarProduto(
-        categoria: CategoriaDTOImpl,
-        descricao: String?,
-        nome: String?,
-        preco: Double?
+        produtoDTO: ProdutoDTO
     ): ProdutoDTO {
         return repository.cadastrarProduto(
-            ProdutoDTO(
-            nome = nome,
-            descricao = descricao,
-            preco = preco,
-            categoria = categoria
-        )
+            produtoDTO
         )
     }
 
@@ -42,8 +33,8 @@ class ProdutoGatewayImpl(val repository: ProdutoRepository) : ProdutoGateway {
         return repository.atualizarProduto(produtoDTO)
     }
 
-    override fun deletarProdutoPeloId(id: UUID) {
-        repository.deletarProdutoPeloId(id)
+    override fun deletarProdutoPeloId(produtoId: UUID) {
+        repository.deletarProdutoPeloId(produtoId)
     }
 
     override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {

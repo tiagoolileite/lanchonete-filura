@@ -1,15 +1,17 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class PedidoUseCaseImpl(val gateway: PedidoGateway) : PedidoUseCase {
+class PedidoUseCaseImpl(
+    val gateway: PedidoGateway
+) : PedidoUseCase {
 
     override fun listarPedidos(): List<PedidoDTO> {
         return gateway.listarPedidos()
@@ -21,7 +23,7 @@ class PedidoUseCaseImpl(val gateway: PedidoGateway) : PedidoUseCase {
 
         val pedidoDTO = PedidoDTO(
             cliente = clienteDTO,
-            produtos = produtosDTO,
+            //TODO produtos = produtosDTO,
             preco = calculaPreco(produtosDTO)
         )
 

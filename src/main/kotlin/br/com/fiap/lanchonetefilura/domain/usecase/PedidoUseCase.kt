@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
 import java.util.*
 
 interface PedidoUseCase {

@@ -4,5 +4,6 @@ import java.util.*
 
 interface CategoriaDTO {
     var id: UUID
+
     val descricao: String?
 }

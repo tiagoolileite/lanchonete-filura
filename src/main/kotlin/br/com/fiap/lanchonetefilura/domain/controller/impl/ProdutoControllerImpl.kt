@@ -1,35 +1,22 @@
 package br.com.fiap.lanchonetefilura.domain.controller.impl
 
-import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdater
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
-import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class ProdutoControllerImpl(
-    val produtoUseCase: ProdutoUseCase,
-    val categoriaUseCase: CategoriaUseCase,
-    val produtoAdapter: ProdutoAdater,
+    val useCase: ProdutoUseCase
 ) : ProdutoController {
 
-    override fun listarProdutos(): List<ProdutoResponse> {
-
-        val produtosDTO: List<ProdutoDTO> = produtoUseCase.listarProdutos()
-
-        return produtoAdapter.adaptarListaDeProdutos(produtosDTO)
+    override fun listarProdutos(): List<ProdutoDTO> {
+        return useCase.listarProdutos()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoResponse> {
-
-        val produtosDTO: List<ProdutoDTO> = produtoUseCase.listarProdutosPorCategoria(categoriaId)
-
-        return produtoAdapter.adaptarListaDeProdutos(produtosDTO)
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
+        return useCase.listarProdutosPorCategoria(categoriaId = categoriaId)
     }
 
     override fun cadastrarProduto(
@@ -37,21 +24,14 @@ class ProdutoControllerImpl(
         descricao: String?,
         nome: String?,
         preco: Double?
-    ): ProdutoResponse {
+    ): ProdutoDTO {
 
-        LoggerHelper.logger.info("[FILURA]: categoriaId teste: ${categoriaId}")
-
-        val categoriaDTO: CategoriaDTOImpl =
-            categoriaUseCase.buscarCategoriaPeloId(categoriaId)
-
-        LoggerHelper.logger.info("[FILURA]: categoriaId teste2: ${categoriaDTO.id}")
-
-        val produtoDTO: ProdutoDTO =
-            categoriaDTO.let { produtoUseCase.cadastrarProduto(it, descricao, nome, preco) }
-
-        LoggerHelper.logger.info("[FILURA]: categoriaId teste3: ${produtoDTO.categoria?.id}")
-
-        return produtoAdapter.adaptarProduto(produtoDTO = produtoDTO)
+        return useCase.cadastrarProduto(
+            categoriaId = categoriaId,
+            descricao = descricao,
+            nome = nome,
+            preco = preco
+        )
     }
 
     override fun atualizaProduto(
@@ -60,21 +40,18 @@ class ProdutoControllerImpl(
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoResponse? {
-        val produtoDTO: ProdutoDTO? =
-            produtoUseCase.buscarProdutoPeloId(id)
+    ): ProdutoDTO {
 
-        if (produtoDTO?.id == null) {
-            throw Exception("Produto não localizado para atualização")
-        }
-
-        val produtoAtualizadoDTO: ProdutoDTO =
-            produtoUseCase.atualizarProduto(produtoDTO, nome, categoriaId, preco, descricao)
-
-        return produtoAdapter.adaptarProduto(produtoAtualizadoDTO)
+        return useCase.atualizarProduto(
+            produtoId = id,
+            nome = nome,
+            categoriaId = categoriaId,
+            preco = preco,
+            descricao = descricao
+        )
     }
 
-    override fun deletarProdutoPeloId(id: UUID) {
-        produtoUseCase.deletarProdutoPeloId(id)
+    override fun deletarProdutoPeloId(produtoId: UUID) {
+        useCase.deletarProdutoPeloId(produtoId)
     }
 }

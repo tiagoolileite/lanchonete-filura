@@ -28,10 +28,10 @@ data class PedidoDTO (
     @ManyToMany
     @JoinTable(
         name = "pedidos_produtos",
-        joinColumns = arrayOf(JoinColumn(name = "pedido_id")),
-        inverseJoinColumns = arrayOf(JoinColumn(name = "produto_id"))
+        joinColumns = [JoinColumn(name = "pedido_id")],
+        inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTO> = arrayListOf(),
+    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,

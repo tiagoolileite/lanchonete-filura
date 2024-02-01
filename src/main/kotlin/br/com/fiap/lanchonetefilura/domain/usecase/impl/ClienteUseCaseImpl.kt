@@ -21,10 +21,7 @@ class ClienteUseCaseImpl(val gateway: ClienteGateway) : ClienteUseCase {
 
     override fun buscarClientePeloCpf(cpf: String): ClienteDTO {
 
-        val cliente: ClienteDTO = gateway.buscarClientePeloCpf(cpf) ?:
-        throw Exception("Cliente näo foi localizado")
-
-        return cliente
+        return gateway.buscarClientePeloCpf(cpf) ?: throw Exception("Cliente näo foi localizado")
     }
 
     override fun buscarClientePeloId(clienteId: UUID): ClienteDTO? {

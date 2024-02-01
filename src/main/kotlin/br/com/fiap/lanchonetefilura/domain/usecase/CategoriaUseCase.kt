@@ -9,5 +9,5 @@ interface CategoriaUseCase {
 
     fun listarCategorias(): List<CategoriaDTO>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTOImpl
+    fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTOImpl?
 }

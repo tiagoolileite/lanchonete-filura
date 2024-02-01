@@ -1,51 +1,36 @@
 package br.com.fiap.lanchonetefilura.domain.adapter.impl
 
-import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
-import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.domain.adapter.CategoriaAdapter
-import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdater
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTOImpl
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
-class ProdutoAdapterImpl(val categoriaAdapter: CategoriaAdapter) : ProdutoAdater {
-    override fun adaptarListaDeProdutos(produtos: List<ProdutoDTO>): List<ProdutoResponse> {
-
-        val produtosResponse: ArrayList<ProdutoResponse> = arrayListOf()
-
-        produtos.forEach { produto ->
-
-            val categoriaAdaptada: CategoriaResponse =
-                categoriaAdapter.adaptarCategoria(
-                    produto.categoria
-                )
-
-            produtosResponse.add(
-                ProdutoResponse(
-                    id = produto.id,
-                    nome = produto.nome,
-                    descricao = produto.descricao,
-                    preco = produto.preco,
-                    categoria = categoriaAdaptada
-                )
-            )
-        }
-
-        return produtosResponse.toList()
-    }
-
-    override fun adaptarProduto(
-        produtoDTO: ProdutoDTO
-    ): ProdutoResponse {
-        val categoriaAdaptada: CategoriaResponse =
-            categoriaAdapter.adaptarCategoria(produtoDTO.categoria)
-
-        return  ProdutoResponse(
-            id = produtoDTO.id,
-            nome = produtoDTO.nome,
-            descricao = produtoDTO.descricao,
-            preco = produtoDTO.preco,
-            categoria = categoriaAdaptada
+class ProdutoAdapterImpl : ProdutoAdapter {
+    override fun adaptarProdutoParaProdutoDTO(produto: Produto, categoriaDTO: CategoriaDTOImpl?): ProdutoDTO {
+        return ProdutoDTOImpl(
+            nome = produto.nome,
+            descricao = produto.descricao,
+            preco = produto.preco,
+            categoria = categoriaDTO
         )
     }
+
+    override fun adaptarProdutoParaProdutoDTOExistente(
+        produto: Produto,
+        id: UUID,
+        categoriaDTO: CategoriaDTOImpl?
+    ): ProdutoDTO {
+        return ProdutoDTOImpl(
+            id = id,
+            nome = produto.nome,
+            descricao = produto.descricao,
+            preco = produto.preco,
+            categoria = categoriaDTO
+        )
+    }
+
 }

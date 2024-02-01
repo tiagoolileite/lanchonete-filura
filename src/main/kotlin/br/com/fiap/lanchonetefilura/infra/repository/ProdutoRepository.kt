@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import java.util.*
 
 interface ProdutoRepository {
@@ -15,7 +15,7 @@ interface ProdutoRepository {
 
     fun atualizarProduto(produtoDTO: ProdutoDTO): ProdutoDTO
 
-    fun deletarProdutoPeloId(id: UUID)
+    fun deletarProdutoPeloId(produtoId: UUID)
 
     fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO>
 }

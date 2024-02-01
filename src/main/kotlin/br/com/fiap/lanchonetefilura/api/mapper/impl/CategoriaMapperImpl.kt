@@ -19,12 +19,7 @@ class CategoriaMapperImpl : CategoriaMapper {
         val categoriasResponse: ArrayList<CategoriaResponse> = arrayListOf()
 
         categoriasDTO.forEach { categoriaDTO ->
-            val categoriaResponse = CategoriaResponse(
-                categoriaDTO.id,
-                categoriaDTO.descricao
-            )
-
-            categoriasResponse.add(categoriaResponse)
+            categoriasResponse.add(mapeiaCategoriaResponse(categoriaDTO = categoriaDTO))
         }
 
         return categoriasResponse.toList()

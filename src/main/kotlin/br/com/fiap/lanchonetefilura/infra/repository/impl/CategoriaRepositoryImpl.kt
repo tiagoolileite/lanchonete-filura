@@ -24,9 +24,9 @@ class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : 
         return repository.findAll()
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDTOImpl {
-        logger.info("${LoggerHelper.LOG_TAG_APP}: Buscando pela categorias na base: ${categoriaId}")
+    override fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDTO> {
+        logger.info("${LoggerHelper.LOG_TAG_APP}: Buscando pela categorias na base: $categoriaId")
 
-        return repository.findCategoriaById(categoriaId)
+        return repository.findById(categoriaId)
     }
 }

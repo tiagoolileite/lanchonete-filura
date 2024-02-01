@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
@@ -38,13 +38,13 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
         return repository.save(produtoDTO)
     }
 
-    override fun deletarProdutoPeloId(id: UUID) {
+    override fun deletarProdutoPeloId(produtoId: UUID) {
 
-        return repository.deleteById(id)
+        return repository.deleteById(produtoId)
     }
 
     override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
         return produtosId?.let { repository.findAllById(it) } ?:
-        throw Error("Produtos não localizados ou invalidos")
+        throw Exception("Produtos não localizados ou invalidos")
     }
 }

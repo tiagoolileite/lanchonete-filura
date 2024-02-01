@@ -1,32 +1,33 @@
 package br.com.fiap.lanchonetefilura.domain.dto.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDTO
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.util.*
 
 @Entity
 @Table(name="produto")
-data class ProdutoDTO (
+data class ProdutoDTOImpl (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "produto_id", columnDefinition = "UUID")
-    var id: UUID? = UUID.randomUUID(),
+    override var id: UUID? = UUID.randomUUID(),
 
     @Column(nullable = false)
-    var nome: String? = null,
+    override var nome: String? = null,
 
     @Column(nullable = false)
-    var descricao: String? = null,
+    override var descricao: String? = null,
 
     @Column(nullable = false)
-    var preco: Double? = null,
+    override var preco: Double? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    var categoria: CategoriaDTOImpl? = null,
+    override var categoria: CategoriaDTOImpl? = null,
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore
-    val pedidos: List<PedidoDTO>? = null
-)
+    override val pedidos: List<PedidoDTO>? = null
+) : ProdutoDTO
