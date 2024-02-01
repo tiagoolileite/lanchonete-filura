@@ -1,9 +1,15 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
-data class Pedido (
-    var senha: Int? = null,
+import jakarta.persistence.Id
+import java.util.UUID
 
-    val etapa: String = "pendente pagamento",
+data class Pedido (
+
+    val id : UUID,
+
+    var senha: Int = 0,
+
+    var etapa: String,
 
     val cliente: Cliente? = null,
 
@@ -13,6 +19,9 @@ data class Pedido (
 
     var pago: Boolean = false
 ) {
+    init {
+        etapa = "em preparação"
+    }
     companion object {
         val etapasValidas: ArrayList<String> = arrayListOf(
             "recebido", "em preparação", "pronto", "finalizado", "pendente pagamento"

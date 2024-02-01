@@ -7,10 +7,10 @@ import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_APP
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_ERROR
 
 data class Categoria (
-    val descricao: String? = null
+    val descricao: String
 ) {
     init {
-        check(!this.descricao.isNullOrEmpty()) {
+        check(this.descricao.isNotEmpty()) {
             LoggerHelper.logger.error(
                 "${LOG_TAG_APP}${LOG_TAG_ERROR}: $ERROR_DESCRICAO_CATEGORIA_VAZIA"
             )
