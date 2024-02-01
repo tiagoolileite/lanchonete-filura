@@ -1,5 +1,8 @@
 package br.com.fiap.lanchonetefilura.domain.dto.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
@@ -24,7 +27,7 @@ data class PedidoDTO (
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteDTO? = null,
+    val cliente: ClienteDTOImpl? = null,
 
     @ManyToMany
     @JoinTable(

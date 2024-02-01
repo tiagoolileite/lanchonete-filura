@@ -7,19 +7,19 @@ import org.springframework.stereotype.Component
 
 @Component
 class CategoriaMapperImpl : CategoriaMapper {
-    override fun mapeiaCategoriaResponse(categoriaDTO: CategoriaDomainDTO): CategoriaResponse {
+    override fun mapeiaCategoriaResponse(categoriaDomainDTO: CategoriaDomainDTO): CategoriaResponse {
         return CategoriaResponse(
-            categoriaDTO.id,
-            categoriaDTO.descricao
+            categoriaDomainDTO.id,
+            categoriaDomainDTO.descricao
         )
     }
 
-    override fun mapeiaCategoriasResponse(categoriasDTO: List<CategoriaDomainDTO>): List<CategoriaResponse> {
+    override fun mapeiaCategoriasResponse(categoriasDomainDTO: List<CategoriaDomainDTO>): List<CategoriaResponse> {
 
         val categoriasResponse: ArrayList<CategoriaResponse> = arrayListOf()
 
-        categoriasDTO.forEach { categoriaDTO ->
-            categoriasResponse.add(mapeiaCategoriaResponse(categoriaDTO = categoriaDTO))
+        categoriasDomainDTO.forEach { categoriaDTO ->
+            categoriasResponse.add(mapeiaCategoriaResponse(categoriaDomainDTO = categoriaDTO))
         }
 
         return categoriasResponse.toList()

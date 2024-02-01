@@ -1,10 +1,11 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
 import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -18,7 +19,7 @@ class PedidoUseCaseImpl(
     }
 
     override fun criarPedido(
-        clienteDTO: ClienteDTO?, produtosDTO: List<ProdutoDomainDTO>
+        clienteDTO: ClienteDTOImpl?, produtosDTO: List<ProdutoDomainDTO>
     ): PedidoDTO {
 
         val pedidoDTO = PedidoDTO(

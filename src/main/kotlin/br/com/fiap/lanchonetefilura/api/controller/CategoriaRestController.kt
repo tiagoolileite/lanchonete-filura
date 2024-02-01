@@ -25,12 +25,12 @@ class CategoriaRestController(
 
         LoggerHelper.logger.info("${LOG_TAG_APP}: Solicitando cadastro categoria: ${categoriaRequest.descricao}")
 
-        val categoriaDTO: CategoriaDomainDTO = controller.cadastrarCategoria(descricao = categoriaRequest.descricao)
+        val categoriaDomainDTO: CategoriaDomainDTO = controller.cadastrarCategoria(descricao = categoriaRequest.descricao)
 
-        val categoriaResponse: CategoriaResponse? = mapper.mapeiaCategoriaResponse(categoriaDTO)
+        val categoriaResponse: CategoriaResponse? = mapper.mapeiaCategoriaResponse(categoriaDomainDTO = categoriaDomainDTO)
 
         return ResponseEntity.ok(categoriaResponse).let { response ->
-            LoggerHelper.logger.info("${LOG_TAG_APP}: Categoria ${categoriaRequest.descricao} Salva com sucesso!")
+            LoggerHelper.logger.info("${LOG_TAG_APP}: Categoria ${response.body?.descricao} Salva com sucesso!")
             response
         }
     }
@@ -40,11 +40,11 @@ class CategoriaRestController(
 
         LoggerHelper.logger.info("${LOG_TAG_APP}: Solicitando listagem de categorias")
 
-        val categoriasDTO: List<CategoriaDomainDTO> =
+        val categoriasDomainDTO: List<CategoriaDomainDTO> =
             controller.listarCategorias()
 
         val categoriasResponse: List<CategoriaResponse> =
-            mapper.mapeiaCategoriasResponse(categoriasDTO)
+            mapper.mapeiaCategoriasResponse(categoriasDomainDTO = categoriasDomainDTO)
 
         return ResponseEntity.ok(categoriasResponse).let { response ->
             LoggerHelper.logger.info("${LOG_TAG_APP}: Categorias listadas com sucesso")

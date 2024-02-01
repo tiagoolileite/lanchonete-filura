@@ -1,7 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.dto.impl
 
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.persistence.*
 import java.util.*
 
