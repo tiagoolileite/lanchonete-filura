@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.api.model.pedido.PedidoResponse
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.dto.impl.ProdutoDomainDTOImpl
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 
 interface PedidoAdapter {
     fun adaptarListaDePedidos(
@@ -12,7 +13,7 @@ interface PedidoAdapter {
 
     fun adaptarPedido(
         clienteDTO: ClienteDTO?,
-        produtosDTO: List<ProdutoDomainDTOImpl>,
+        produtosDTO: List<ProdutoDTOImpl>,
         pedidoDTO: PedidoDTO,
     ): PedidoResponse?
 }

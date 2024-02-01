@@ -1,5 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.dto.impl
 
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
@@ -31,7 +32,7 @@ data class PedidoDTO (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDomainDTOImpl> = arrayListOf(),
+    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,
