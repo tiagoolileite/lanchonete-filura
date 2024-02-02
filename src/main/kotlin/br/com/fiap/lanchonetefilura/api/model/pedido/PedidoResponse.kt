@@ -6,7 +6,7 @@ import java.util.*
 
 data class PedidoResponse (
     val id: UUID,
-    val senha: Int,
+    val senha: Int?,
     val etapa: String,
     val cliente: ClienteResponse? = null,
     val produtos: List<ProdutoResponse>,

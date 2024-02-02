@@ -21,7 +21,6 @@ class PedidoAdapterImpl (
     override fun adaptarPedidoParaPedidoDTO(pedido : Pedido) : PedidoDTO {
         return PedidoDTO(
             id = pedido.id,
-            senha = pedido.senha,
             etapa = pedido.etapa,
             cliente = pedido.cliente?.let { clienteAdapter.adaptarClienteParaClienteDTO(cliente = it) },
             produtos = produtoAdapter.adaptarProdutosParaProdutosDTO(pedido.produtos),
@@ -31,16 +30,14 @@ class PedidoAdapterImpl (
     }
 
     override fun adaptarPedidoDTOParaPedido(pedidoDTO : PedidoDTO) : Pedido {
-        return pedidoDTO.senha?.let {
-            Pedido(
-                id = pedidoDTO.id,
-                senha = it,
-                etapa = pedidoDTO.etapa,
-                cliente = pedidoDTO.cliente?.let { clienteAdapter.adaptarClienteDTOParaCliente(it) },
-                produtos = produtoAdapter.adaptarProdutosDTOParaProdutos(produtosDTO = pedidoDTO.produtos),
-                preco = pedidoDTO.preco,
-                pago = pedidoDTO.pago
-            )
-        } ?: throw Exception("Falha ao adaptar Pedido")
+        return Pedido(
+            id = pedidoDTO.id,
+            senha = pedidoDTO.senha,
+            etapa = pedidoDTO.etapa,
+            cliente = pedidoDTO.cliente?.let { clienteAdapter.adaptarClienteDTOParaCliente(it) },
+            produtos = produtoAdapter.adaptarProdutosDTOParaProdutos(produtosDTO = pedidoDTO.produtos),
+            preco = pedidoDTO.preco,
+            pago = pedidoDTO.pago
+        )
     }
 }

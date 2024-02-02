@@ -4,7 +4,6 @@ import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.exceptions.pedido.PedidoNaoEncontradoException
-import br.com.fiap.lanchonetefilura.domain.exceptions.produto.ProdutoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
@@ -30,10 +29,6 @@ class PedidoUseCaseImpl(
         val cliente: Cliente? = clienteId?.let { clienteUseCase.buscarClientePeloId(it) }
 
         val produtos: List<Produto> = produtoUseCase.listarProdutosPorListaDeIds(produtosId)
-
-        if (produtos.isEmpty()) {
-            throw ProdutoNaoEncontradoException()
-        }
 
         val pedido = Pedido(
             etapa = Pedido.Companion.EtapasValidas.PENDENTE_PAGAMENTO.toString(),
