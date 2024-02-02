@@ -6,7 +6,6 @@ import br.com.fiap.lanchonetefilura.infra.adapter.PedidoAdapter
 import br.com.fiap.lanchonetefilura.infra.adapter.ProdutoAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import org.springframework.stereotype.Component
-import java.lang.Exception
 
 @Component
 class PedidoAdapterImpl (

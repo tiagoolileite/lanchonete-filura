@@ -7,6 +7,6 @@ interface PedidoMapper {
 
     fun mapeiaPedidosResponse(pedidos : List<Pedido>) : List<PedidoResponse>
 
-    fun mapeiaPedidoResponse(pedido : Pedido?) : PedidoResponse?
+    fun mapeiaPedidoResponse(pedido : Pedido?) : PedidoResponse
 
 }

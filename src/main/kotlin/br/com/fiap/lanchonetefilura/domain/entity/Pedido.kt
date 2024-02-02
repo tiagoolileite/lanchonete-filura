@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import java.util.*
 
 data class Pedido(

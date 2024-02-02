@@ -1,6 +1,5 @@
 package br.com.fiap.lanchonetefilura.infra.adapter.impl
 
-import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.infra.adapter.CategoriaAdapter
 import br.com.fiap.lanchonetefilura.infra.adapter.ProdutoAdapter

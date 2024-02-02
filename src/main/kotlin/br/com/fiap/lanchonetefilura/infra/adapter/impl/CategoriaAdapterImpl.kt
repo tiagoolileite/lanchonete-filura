@@ -4,7 +4,6 @@ import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.infra.adapter.CategoriaAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 import org.springframework.stereotype.Component
-import java.lang.Exception
 
 @Component
 class CategoriaAdapterImpl : CategoriaAdapter {

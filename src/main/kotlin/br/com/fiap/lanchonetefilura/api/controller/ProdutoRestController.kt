@@ -4,6 +4,7 @@ import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
+import br.com.fiap.lanchonetefilura.domain.exceptions.produto.ProdutoInvalidaException
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
@@ -65,20 +66,23 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando cadastro do produto ${produtoRequest.nome}")
 
-        val produto: Produto? = produtoRequest.descricao?.let {
-            produtoRequest.nome?.let { it1 ->
-                produtoRequest.preco?.let { it2 ->
-                    useCase.cadastrarProduto(
-                        categoriaId = produtoRequest.categoriaId,
-                        descricao = it,
-                        nome = it1,
-                        preco = it2
-                    )
-                }
-            }
-        }
+        val produto: Produto =
+            produtoRequest.categoriaId?.let { categoria ->
+                produtoRequest.nome?.let { nome ->
+                    produtoRequest.descricao?.let { descricao ->
+                        produtoRequest.preco?.let { preco ->
+                            useCase.cadastrarProduto(
+                                categoriaId = categoria,
+                                descricao = descricao,
+                                nome = nome,
+                                preco = preco
+                            )
+                        } ?: throw ProdutoInvalidaException()
+                    } ?: throw ProdutoInvalidaException()
+                } ?: throw ProdutoInvalidaException()
+            } ?: throw ProdutoInvalidaException()
 
-        val produtoResponse: ProdutoResponse? = produto?.let { mapper.mapeiaProdutoResponse(produto = it) }
+        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produto)
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto cadastrado com sucesso!")
