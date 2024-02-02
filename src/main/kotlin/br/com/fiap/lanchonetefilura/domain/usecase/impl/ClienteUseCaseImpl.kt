@@ -1,27 +1,25 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Cliente
+import br.com.fiap.lanchonetefilura.domain.exceptions.cliente.ClienteNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.gateway.ClienteGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class ClienteUseCaseImpl(
-    val gateway: ClienteGateway,
-    val adapter: ClienteAdapter
+    val gateway: ClienteGateway
 ) : ClienteUseCase {
 
-    override fun listarClientes(): List<ClienteDTOImpl> {
+    override fun listarClientes(): List<Cliente> {
+
         return gateway.listarClientes()
     }
 
-    override fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDTOImpl {
+    override fun cadastrarCliente(
+        cpf: String?, nome: String?, email: String?
+    ): Cliente {
 
         val cliente = Cliente(
             cpf = cpf,
@@ -29,30 +27,25 @@ class ClienteUseCaseImpl(
             email = email
         )
 
-        val clienteDomainDTO: ClienteDomainDTO =
-            adapter.adaptarClienteParaClienteDomainDto(cliente = cliente)
-
-        return gateway.cadastrarCliente(clienteDomainDTO)
+        return gateway.cadastrarCliente(cliente)
     }
 
-    override fun buscarClientePeloCpf(cpf: String): ClienteDTOImpl {
-        return gateway.buscarClientePeloCpf(cpf) ?: also {
-            "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                    "Cliente não foi localizado"
-        }.run { throw Exception("Cliente näo foi localizado") }
+    override fun buscarClientePeloCpf(cpf: String): Cliente {
+
+        val cliente = gateway.buscarClientePeloCpf(cpf)
+
+        return cliente ?: throw ClienteNaoEncontradoException()
     }
 
-    override fun buscarClientePeloId(clienteId: UUID): ClienteDTOImpl? {
+    override fun buscarClientePeloId(clienteId: UUID): Cliente? {
 
-        val clienteOptionalDomainDTO: Optional<ClienteDTOImpl> =
-            gateway.buscarClientePeloId(clienteId)
+        val cliente: Optional<Cliente> =
+            gateway.buscarClientePeloId(clienteId = clienteId)
 
-        if (clienteOptionalDomainDTO.isEmpty) {
-            "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                    "Cliente não foi localizado"
-            throw Exception("Cliente näo foi localizado")
+        if (cliente.isEmpty) {
+            throw ClienteNaoEncontradoException()
         }
 
-        return clienteOptionalDomainDTO.get()
+        return cliente.get()
     }
 }

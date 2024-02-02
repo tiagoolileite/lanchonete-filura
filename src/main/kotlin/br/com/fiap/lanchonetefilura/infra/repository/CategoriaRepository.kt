@@ -1,14 +1,13 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import java.util.*
 
 interface CategoriaRepository {
-    fun cadastrarCategoria(categoriaDomainDTO: CategoriaDomainDTO): CategoriaDTO
+    fun cadastrarCategoria(categoria: Categoria): Categoria
 
-    fun listarCategorias(): List<CategoriaDTO>
+    fun listarCategorias(): List<Categoria>
 
-    fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDTO>
+    fun buscarCategoriaPeloId(categoriaId: UUID): Optional<Categoria>
 
 }

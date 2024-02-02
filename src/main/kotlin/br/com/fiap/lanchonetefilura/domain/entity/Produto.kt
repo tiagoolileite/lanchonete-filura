@@ -1,8 +1,11 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
+import java.util.*
+
 class Produto (
-    var nome: String? = null,
-    var descricao: String? = null,
-    var preco: Double? = null,
-    var categoria: Categoria? = null
+    val id: UUID = UUID.randomUUID(),
+    var nome: String,
+    var descricao: String,
+    var preco: Double,
+    var categoria: Categoria
 )

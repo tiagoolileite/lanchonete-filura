@@ -1,50 +1,44 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
+import br.com.fiap.lanchonetefilura.infra.adapter.ProdutoAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ProdutoJpaRepository
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : ProdutoRepository {
-    override fun listarProdutos(): List<ProdutoDTO> {
-        return repository.findAll()
+class ProdutoRepositoryImpl(
+    private val repository: ProdutoJpaRepository,
+    private val adapter: ProdutoAdapter
+) : ProdutoRepository {
+    override fun listarProdutos(): List<Produto> {
+
+        val produtosDTO: List<ProdutoDTO> = repository.findAll()
+
+        return adapter.adaptarProdutosDTOParaProdutos(produtosDTO)
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<Produto> {
 
-        return repository.findAllByCategoriaId(categoriaId).toList()
+        val produtosDTO: List<ProdutoDTO> = repository.findAllByCategoriaId(categoriaId).toList()
+
+        return adapter.adaptarProdutosDTOParaProdutos(produtosDTO)
     }
 
-    override fun cadastrarOuAtualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDTO {
+    override fun cadastrarOuAtualizarProduto(produto: Produto): Produto {
 
-        val produtoDTO = ProdutoDTOImpl(
-            id = produtoDomainDTO.id,
-            nome = produtoDomainDTO.nome,
-            descricao = produtoDomainDTO.descricao,
-            preco = produtoDomainDTO.preco,
-            categoria = produtoDomainDTO.categoria?.id?.let {
-                CategoriaDTOImpl(
-                    id = it,
-                    descricao = produtoDomainDTO.categoria?.descricao
-                )
-            }
-        )
+        val produtoDTO: ProdutoDTO = adapter.adaptarProdutoParaProdutoDTO(produto)
 
-        return repository.save(produtoDTO)
+        return adapter.adaptarProdutoDTOParaProduto(repository.save(produtoDTO))
     }
 
-    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO> {
+    override fun buscarProdutoPeloId(id: UUID): Optional<Produto> {
 
-        val produtoDTO: Optional<ProdutoDTOImpl> = repository.findById(id)
+        val produtoDTO: Optional<ProdutoDTO> = repository.findById(id)
 
-        return Optional.of(produtoDTO.get())
+        return Optional.of(adapter.adaptarProdutoDTOParaProduto(produtoDTO.get()))
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
@@ -52,39 +46,14 @@ class ProdutoRepositoryImpl(private val repository: ProdutoJpaRepository) : Prod
         return repository.deleteById(produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO> {
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<Produto> {
 
-        val produtosDTO: MutableList<ProdutoDTOImpl>? = produtosId?.let { repository.findAllById(it) }
+        val produtos: MutableList<ProdutoDTO>? = produtosId?.let { repository.findAllById(it) }
 
-        val produtosDomainDTO: MutableList<ProdutoDTO> = produtosDTO?.map { produtoDTO ->
-            object : ProdutoDTO {
-                override var id: UUID?
-                    get() = produtoDTO.id
-                    set(value) { produtoDTO.id = value }
-
-                override var nome: String?
-                    get() = produtoDTO.nome
-                    set(value) { produtoDTO.nome = value }
-
-                override var descricao: String?
-                    get() = produtoDTO.descricao
-                    set(value) { produtoDTO.descricao = value }
-
-                override var preco: Double?
-                    get() = produtoDTO.preco
-                    set(value) { produtoDTO.preco = value }
-
-                override var categoria: CategoriaDTOImpl?
-                    get() = produtoDTO.categoria
-                    set(value) { produtoDTO.categoria = value }
-                override val pedidos: List<PedidoDTO>?
-                    get() = null
-            }
-        }?.toMutableList() ?: also {
-            LoggerHelper.logger.error("${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                    "Falha ao converter lista de produtos ou produtos não localizados")
-        }.run { throw Exception("Falha ao converter lista de produtos retornada pelo BD ou Produtos n") }
-
-        return produtosDomainDTO
+        if (produtos != null) {
+            return adapter.adaptarProdutosDTOParaProdutos(produtos.toList()).toMutableList()
+        } else {
+            throw Exception("Falha ao configurar lista de Produtos")
+        }
     }
 }

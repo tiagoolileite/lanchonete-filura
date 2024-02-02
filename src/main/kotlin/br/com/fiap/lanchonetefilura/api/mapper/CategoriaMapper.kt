@@ -1,10 +1,10 @@
 package br.com.fiap.lanchonetefilura.api.mapper
 
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 
 interface CategoriaMapper {
-    fun mapeiaCategoriaResponse(categoriaDomainDTO: CategoriaDomainDTO): CategoriaResponse?
+    fun mapeiaCategoriaResponse(categoria: Categoria): CategoriaResponse?
 
-    fun mapeiaCategoriasResponse(categoriasDomainDTO: List<CategoriaDomainDTO>): List<CategoriaResponse>
+    fun mapeiaCategoriasResponse(categorias: List<Categoria>): List<CategoriaResponse>
 }

@@ -1,42 +1,39 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
-import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper
+import br.com.fiap.lanchonetefilura.domain.exceptions.categoria.CategoriaNaoEncontradaException
+import br.com.fiap.lanchonetefilura.domain.exceptions.produto.ProdutoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class ProdutoUseCaseImpl(
     val gateway: ProdutoGateway,
-    val adapter: ProdutoAdapter,
     val categoriaUseCase: CategoriaUseCase
 ) : ProdutoUseCase {
-    override fun listarProdutos(): List<ProdutoDomainDTO> {
+    override fun listarProdutos(): List<Produto> {
+
         return gateway.listarProdutos()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
-        return gateway.listarProdutosPorCategoria(categoriaId)
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<Produto> {
+
+        return gateway.listarProdutosPorCategoria(categoriaId = categoriaId)
     }
 
     override fun cadastrarProduto(
         categoriaId: UUID,
-        descricao: String?,
-        nome: String?,
-        preco: Double?
-    ): ProdutoDomainDTO {
+        descricao: String,
+        nome: String,
+        preco: Double
+    ): Produto {
 
-        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaUseCase.buscarCategoriaPeloId(categoriaId)
-
-        val categoria = Categoria(categoriaDTO?.descricao)
+        val categoria: Categoria = categoriaUseCase.buscarCategoriaPeloId(categoriaId = categoriaId)
+            ?: throw CategoriaNaoEncontradaException()
 
         val produto = Produto(
             nome = nome,
@@ -45,27 +42,18 @@ class ProdutoUseCaseImpl(
             categoria = categoria,
         )
 
-        val produtoDTO: ProdutoDomainDTO = adapter.adaptarProdutoParaProdutoDTO(
-            produto = produto,
-            categoriaDomainDTO = categoriaDTO
-        )
-
-        return gateway.cadastrarProduto(produtoDTO)
+        return gateway.cadastrarProduto(produto = produto)
     }
 
-    override fun buscarProdutoPeloId(id: UUID): ProdutoDomainDTO {
+    override fun buscarProdutoPeloId(id: UUID): Produto {
 
-        val produtoDTO: Optional<ProdutoDomainDTO> = gateway.buscarProdutoPeloId(id)
+        val produto: Optional<Produto> = gateway.buscarProdutoPeloId(id = id)
 
-        if (produtoDTO.isEmpty) {
-            LoggerHelper.logger.error(
-                "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                        DomainExceptionHelper.ERROR_PRODUTO_NAO_LOCALIZADO
-            )
-            throw Exception(DomainExceptionHelper.ERROR_PRODUTO_NAO_LOCALIZADO)
+        if (produto.isEmpty) {
+            throw ProdutoNaoEncontradoException()
         }
 
-        return produtoDTO.get()
+        return produto.get()
     }
 
     override fun atualizarProduto(
@@ -74,45 +62,38 @@ class ProdutoUseCaseImpl(
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoDomainDTO {
+    ): Produto {
 
-        val categoriaDTO: CategoriaDomainDTOImpl? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
+        val categoria: Categoria? = categoriaId?.let { categoriaUseCase.buscarCategoriaPeloId(it) }
 
-        val categoria = Categoria(categoriaDTO?.descricao)
+        val produtoEncontrado = this.buscarProdutoPeloId(produtoId)
 
-        val produtoDTO: ProdutoDomainDTO =
-            this.buscarProdutoPeloId(id = produtoId)
-
-        val produto = Produto(
-            nome = nome,
-            descricao = descricao,
-            preco = preco,
-            categoria = categoria,
-        )
-
-        val produtoAtualizadoDTO: ProdutoDomainDTO? = produtoDTO.id?.let {
-            adapter.adaptarProdutoParaProdutoDTOExistente(
-                produto = produto,
-                id = it,
-                categoriaDomainDTO = categoriaDTO
-            )
+        nome?.let {
+            produtoEncontrado.nome = it
         }
 
-        return produtoAtualizadoDTO?.let { gateway.atualizarProduto(it) } ?: also {
-            "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                    DomainExceptionHelper.ERROR_PRODUTO_NAO_FOI_POSSIVEL_LOCALIZAR
-        }.run {
-            throw Exception(DomainExceptionHelper.ERROR_PRODUTO_NAO_FOI_POSSIVEL_LOCALIZAR)
+        categoria?.let {
+            produtoEncontrado.categoria = it
         }
+
+        preco?.let {
+            produtoEncontrado.preco = it
+        }
+
+        descricao?.let {
+            produtoEncontrado.descricao = it
+        }
+
+        return gateway.atualizarProduto(produtoEncontrado)
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
-        gateway.deletarProdutoPeloId(produtoId)
+
+        gateway.deletarProdutoPeloId(produtoId = produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): List<ProdutoDomainDTO> {
-
-        val produtos: MutableList<ProdutoDomainDTO> = gateway.listarProdutosPorListaDeIds(produtosId)
+    override fun listarProdutosPorListaDeIds(produtosId : List<UUID>) : List<Produto> {
+        val produtos: MutableList<Produto> = gateway.listarProdutosPorListaDeIds(produtosId = produtosId)
 
         return produtos.toList()
     }

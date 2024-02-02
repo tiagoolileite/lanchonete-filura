@@ -1,9 +1,5 @@
-package br.com.fiap.lanchonetefilura.domain.dto.impl
+package br.com.fiap.lanchonetefilura.infra.dto
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
@@ -20,14 +16,14 @@ data class PedidoDTO (
 
     @Column(name = "senha", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    val senha: Int = 1, //Código da ordem do pedido, será controlado por SEQUENCE no BD
+    var senha: Int? = 0,
 
     @Column(name = "etapa", nullable = false)
-    val etapa: String = "Pendente pagamento",
+    val etapa: String = "pendente pagamento",
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteDTOImpl? = null,
+    val cliente: ClienteDTO? = null,
 
     @ManyToMany
     @JoinTable(
@@ -35,7 +31,7 @@ data class PedidoDTO (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
+    val produtos: List<ProdutoDTO> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,

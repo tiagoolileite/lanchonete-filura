@@ -3,8 +3,8 @@ package br.com.fiap.lanchonetefilura.api.controller
 import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
+import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -15,7 +15,7 @@ import java.util.*
 @RestController
 @RequestMapping("api/produto")
 class ProdutoRestController(
-    val controller: ProdutoController,
+    val useCase: ProdutoUseCase,
     val mapper: ProdutoMapper
 ) {
 
@@ -25,11 +25,11 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos")
 
-        val produtosDTO: List<ProdutoDomainDTO>  =
-            controller.listarProdutos()
+        val produto: List<Produto>  =
+            useCase.listarProdutos()
 
         val produtosResponse: List<ProdutoResponse> =
-            mapper.mapeiaProdutosResponse(produtosDTO)
+            mapper.mapeiaProdutosResponse(produtos = produto)
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso")
@@ -45,11 +45,11 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos por categoria")
 
-        val produtosDTO: List<ProdutoDomainDTO>  =
-            controller.listarProdutosPorCategoria(categoriaId = categoriaId)
+        val produtos: List<Produto>  =
+            useCase.listarProdutosPorCategoria(categoriaId = categoriaId)
 
         val produtosResponse: List<ProdutoResponse> =
-            mapper.mapeiaProdutosResponse(produtosDTO)
+            mapper.mapeiaProdutosResponse(produtos = produtos)
 
         return ResponseEntity.ok(produtosResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso!")
@@ -65,14 +65,20 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando cadastro do produto ${produtoRequest.nome}")
 
-        val produtoDTO: ProdutoDomainDTO = controller.cadastrarProduto(
-            categoriaId = produtoRequest.categoriaId,
-            descricao = produtoRequest.descricao,
-            nome = produtoRequest.nome,
-            preco = produtoRequest.preco
-        )
+        val produto: Produto? = produtoRequest.descricao?.let {
+            produtoRequest.nome?.let { it1 ->
+                produtoRequest.preco?.let { it2 ->
+                    useCase.cadastrarProduto(
+                        categoriaId = produtoRequest.categoriaId,
+                        descricao = it,
+                        nome = it1,
+                        preco = it2
+                    )
+                }
+            }
+        }
 
-        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produtoDTO = produtoDTO)
+        val produtoResponse: ProdutoResponse? = produto?.let { mapper.mapeiaProdutoResponse(produto = it) }
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto cadastrado com sucesso!")
@@ -91,16 +97,16 @@ class ProdutoRestController(
             "${LoggerHelper.LOG_TAG_APP}: Solicitando atualização do produto ${produtoRequest.nome}"
         )
 
-        val produtoDTO: ProdutoDomainDTO =
-            controller.atualizaProduto(
-                id = produtoId,
+        val produto: Produto =
+            useCase.atualizarProduto(
+                produtoId = produtoId,
                 nome = produtoRequest.nome,
                 categoriaId = produtoRequest.categoriaId,
                 preco = produtoRequest.preco,
                 descricao = produtoRequest.descricao
             )
 
-        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produtoDTO)
+        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produto)
 
         return ResponseEntity.ok(produtoResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto atualizado com sucesso!")
@@ -116,7 +122,7 @@ class ProdutoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando exclusão do produto")
 
-        controller.deletarProdutoPeloId(produtoId = id)
+        useCase.deletarProdutoPeloId(produtoId = id)
 
         return ResponseEntity.ok("Produto deletado com sucesso").let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto deletado com sucesso!")
