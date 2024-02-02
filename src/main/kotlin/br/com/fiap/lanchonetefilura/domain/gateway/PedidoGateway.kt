@@ -11,5 +11,5 @@ interface PedidoGateway {
 
     fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido>
 
-    fun pagarPedido(pedidoDomainDTO: Pedido): Pedido
+    fun pagarPedido(pedido: Pedido): Pedido
 }
