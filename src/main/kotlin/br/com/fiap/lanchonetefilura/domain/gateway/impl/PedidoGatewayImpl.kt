@@ -17,7 +17,7 @@ class PedidoGatewayImpl(
 
     override fun criarPedido(pedido: Pedido): Pedido {
 
-        return repository.criarPedido(pedido)
+        return repository.criarOuAtualizarPedido(pedido)
     }
 
     override fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido> {
@@ -27,6 +27,6 @@ class PedidoGatewayImpl(
 
     override fun pagarPedido(pedido : Pedido): Pedido {
 
-        return repository.pagarPedido(pedido)
+        return repository.criarOuAtualizarPedido(pedido)
     }
 }

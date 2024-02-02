@@ -50,7 +50,7 @@ class PedidoUseCaseImpl(
         var precoTotal = 0.0
 
         produtos.forEach { produto ->
-            precoTotal.plus(produto.preco)
+            precoTotal = precoTotal.plus(produto.preco)
         }
 
         return precoTotal

@@ -8,9 +8,7 @@ interface PedidoRepository {
 
     fun listarPedidos(): List<Pedido>
 
-    fun criarPedido(pedido: Pedido): Pedido
+    fun criarOuAtualizarPedido(pedido: Pedido): Pedido
 
     fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido>
-
-    fun pagarPedido(pedido: Pedido): Pedido
 }

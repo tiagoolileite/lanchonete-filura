@@ -7,7 +7,7 @@ import java.util.*
 @Entity
 @Table(name = "pedido")
 @JsonIgnoreProperties
-data class PedidoDTOImpl (
+data class PedidoDTO (
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -23,7 +23,7 @@ data class PedidoDTOImpl (
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteDTOImpl? = null,
+    val cliente: ClienteDTO? = null,
 
     @ManyToMany
     @JoinTable(
@@ -31,7 +31,7 @@ data class PedidoDTOImpl (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
+    val produtos: List<ProdutoDTO> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,

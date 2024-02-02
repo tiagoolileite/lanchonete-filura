@@ -1,6 +1,8 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
 import br.com.fiap.lanchonetefilura.domain.entity.Pedido
+import br.com.fiap.lanchonetefilura.infra.adapter.PedidoAdapter
+import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.PedidoJpaRepository
 import org.springframework.stereotype.Repository
@@ -9,25 +11,27 @@ import java.util.*
 @Repository
 class PedidoRepositoryImpl(
     private val repository: PedidoJpaRepository,
+    private val adapter: PedidoAdapter
 ) : PedidoRepository {
 
     override fun listarPedidos(): List<Pedido> {
-        return repository.findAll()
+
+        val pedidosDTO: List<PedidoDTO> = repository.findAll()
+
+        return adapter.adaptarPedidosDTOParaPedidos(pedidosDTO)
     }
 
-    override fun criarPedido(pedido: Pedido): Pedido {
+    override fun criarOuAtualizarPedido(pedido: Pedido): Pedido {
 
+        val pedidoDTO: PedidoDTO = adapter.adaptarPedidoParaPedidoDTO(pedido)
 
-        return pedido.let { repository.save(it) } ?: throw Exception("Falha ao criar pedido")
+        return adapter.adaptarPedidoDTOParaPedido(repository.save(pedidoDTO))
     }
 
     override fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido> {
-        return repository.findById(pedidoId)
-    }
 
-    override fun pagarPedido(pedido : Pedido): Pedido {
+        val pedidoDTO: Optional<PedidoDTO> = repository.findById(pedidoId)
 
-
-        return pedido?.let { repository.save(it) } ?: throw Exception("Falha ao registrar pagamento do pedido")
+        return Optional.of(adapter.adaptarPedidoDTOParaPedido(pedidoDTO = pedidoDTO.get()))
     }
 }

@@ -6,7 +6,7 @@ import java.util.*
 
 @Entity
 @Table(name="produto")
-data class ProdutoDTOImpl (
+data class ProdutoDTO (
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "produto_id", columnDefinition = "UUID")
@@ -23,9 +23,9 @@ data class ProdutoDTOImpl (
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    var categoria: CategoriaDTOImpl? = null,
+    var categoria: CategoriaDTO? = null,
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore
-    val pedidos: List<PedidoDTOImpl>? = null
+    val pedidos: List<PedidoDTO>? = null
 )

@@ -5,7 +5,7 @@ import java.util.*
 
 @Entity
 @Table(name = "cliente")
-data class ClienteDTOImpl(
+data class ClienteDTO(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "cliente_id", columnDefinition = "UUID")

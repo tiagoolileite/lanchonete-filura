@@ -1,38 +1,45 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
 import br.com.fiap.lanchonetefilura.domain.entity.Cliente
+import br.com.fiap.lanchonetefilura.infra.adapter.ClienteAdapter
+import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
+class ClienteRepositoryImpl(
+    private val repository: ClienteJpaRepository,
+    private val adapter: ClienteAdapter
+) : ClienteRepository {
     override fun listarClientes(): List<Cliente> {
-        return repository.findAll()
+
+        val clientesDTO: List<ClienteDTO> = repository.findAll()
+
+        return adapter.adaptarClientesDtoParaClientes(clientesDTO)
     }
 
-    override fun cadastrarCliente(clienteDomainDTO : Cliente): Cliente {
+    override fun cadastrarCliente(cliente : Cliente): Cliente {
 
-        val cliente = Cliente(
-            id = clienteDomainDTO.id,
-            cpf = clienteDomainDTO.cpf,
-            nome = clienteDomainDTO.nome,
-            email = clienteDomainDTO.email
+        val clienteDTO: ClienteDTO = adapter.adaptarClienteParaClienteDTO(cliente)
+
+        return adapter.adaptarClienteDTOParaCliente(
+            repository.save(clienteDTO)
         )
-
-        return repository.save(cliente)
     }
 
     override fun buscarClientePeloCpf(cpf: String): Cliente? {
 
-        return repository.findClienteByCpf(cpf)
+        val clienteDTO: ClienteDTO? = repository.findClienteByCpf(cpf)
+
+        return clienteDTO?.let { adapter.adaptarClienteDTOParaCliente(it) }
     }
 
     override fun buscarClientePeloId(clienteId: UUID): Optional<Cliente> {
 
-        val clienteOptionalDTOImpl: Optional<Cliente> = repository.findById(clienteId)
+        val clienteDTO: Optional<ClienteDTO> = repository.findById(clienteId)
 
-        return Optional.of(clienteOptionalDTOImpl.get())
+        return Optional.of(adapter.adaptarClienteDTOParaCliente(clienteDTO.get()))
     }
 }
