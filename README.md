@@ -38,10 +38,7 @@ docker-compose up
 
 # Desenho da arquitetura
 
-![img.png](img.png)
-
-
-![img_1.png](img_1.png)
+https://www.notion.so/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
 
 # Swagger
 
