@@ -7,6 +7,26 @@ Projeto para lanchonete fictícia para simular um sistema de autoatendimento - P
 Documenteção principal do projeto: https://rightful-jupiter-cbe.notion.site/Fase-1-96dd6270102b49ddb963bcee5758acba?pvs=25
 
 # Getting Started
+---------------- K8S ----------------------
+
+Para rodar o projeto com o K8S, o primeiro pré requisito é ter baixado o minikube https://minikube.sigs.k8s.io/docs/handbook/accessing/
+
+rode o comando minikube start e aguarde ele iniciar
+
+Navege até a pasta com os deployments do K8S:
+
+cd src/main/kotlin/br/com/fiap/lanchonetefilura/infra/k8s/
+
+na sequencia rode os dois comandos para executar os deployments:
+
+kubectl apply -f app/.
+kubectl apply -f db/.
+
+para expor o loadBalancer e acessar via localhost, rode o comando (ele travará seu terminal):
+
+minikube tunnel
+
+-------- DOCKER COMPOSE --------------------
 
 Pre-requisito: Ter o docker instalado na mácina e estar com o serviço em execução - https://www.docker.com/get-started/
 
@@ -15,6 +35,13 @@ Pre-requisito: Ter o docker instalado na mácina e estar com o serviço em execu
 Com seu terminal, navegue até a raiz desse projeto e rode o comando:
 
 docker-compose up
+
+# Desenho da arquitetura
+
+![img.png](img.png)
+
+
+![img_1.png](img_1.png)
 
 # Swagger
 

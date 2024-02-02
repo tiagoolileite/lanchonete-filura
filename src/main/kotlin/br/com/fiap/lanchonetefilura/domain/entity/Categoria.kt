@@ -1,16 +1,18 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
-import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper.ERROR_DESCRICAO_CATEGORIA_INVALIDA
 import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper.ERROR_DESCRICAO_CATEGORIA_VAZIA
+import br.com.fiap.lanchonetefilura.domain.exceptions.categoria.CategoriaInvalidaException
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_APP
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_ERROR
+import java.util.*
 
 data class Categoria (
-    val descricao: String? = null
+    val id: UUID = UUID.randomUUID(),
+    val descricao: String
 ) {
     init {
-        check(!this.descricao.isNullOrEmpty()) {
+        check(this.descricao.isNotEmpty()) {
             LoggerHelper.logger.error(
                 "${LOG_TAG_APP}${LOG_TAG_ERROR}: $ERROR_DESCRICAO_CATEGORIA_VAZIA"
             )
@@ -20,10 +22,10 @@ data class Categoria (
 
     private fun validaDescricao() {
 
-        val descricaoValida = descricoesValidas.contains(this.descricao?.lowercase())
+        val descricaoValida = descricoesValidas.contains(this.descricao.lowercase())
 
         if (!descricaoValida) {
-            throw Exception(ERROR_DESCRICAO_CATEGORIA_INVALIDA)
+            throw CategoriaInvalidaException()
         }
     }
 

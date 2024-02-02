@@ -1,17 +1,12 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import java.util.*
 
 interface PedidoUseCase {
-    fun listarPedidos(): List<PedidoDTO>
+    fun listarPedidos(): List<Pedido>
 
-    fun criarPedido(clienteDTO: ClienteDTOImpl?, produtosDTO: List<ProdutoDomainDTO>): PedidoDTO
+    fun criarPedido(clienteId: UUID?, produtosId: List<UUID>): Pedido
 
-    fun buscarPedidoPeloId(pedidoId: UUID): PedidoDTO
-
-    fun pagarPedido(pedidoDTO: PedidoDTO)
+    fun pagarPedido(pedidoId: UUID): Pedido?
 }

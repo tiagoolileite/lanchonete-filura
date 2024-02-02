@@ -2,26 +2,21 @@ package br.com.fiap.lanchonetefilura.api.mapper.impl
 
 import br.com.fiap.lanchonetefilura.api.mapper.CategoriaMapper
 import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import org.springframework.stereotype.Component
 
 @Component
 class CategoriaMapperImpl : CategoriaMapper {
-    override fun mapeiaCategoriaResponse(categoriaDomainDTO: CategoriaDomainDTO): CategoriaResponse {
+    override fun mapeiaCategoriaResponse(categoria: Categoria): CategoriaResponse {
         return CategoriaResponse(
-            categoriaDomainDTO.id,
-            categoriaDomainDTO.descricao
+            id = categoria.id,
+            descricao = categoria.descricao
         )
     }
 
-    override fun mapeiaCategoriasResponse(categoriasDomainDTO: List<CategoriaDomainDTO>): List<CategoriaResponse> {
-
-        val categoriasResponse: ArrayList<CategoriaResponse> = arrayListOf()
-
-        categoriasDomainDTO.forEach { categoriaDTO ->
-            categoriasResponse.add(mapeiaCategoriaResponse(categoriaDomainDTO = categoriaDTO))
+    override fun mapeiaCategoriasResponse(categorias: List<Categoria>): List<CategoriaResponse> {
+        return categorias.map { categoria: Categoria ->
+            mapeiaCategoriaResponse(categoria)
         }
-
-        return categoriasResponse.toList()
     }
 }

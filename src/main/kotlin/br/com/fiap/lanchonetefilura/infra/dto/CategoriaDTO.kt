@@ -1,9 +1,16 @@
 package br.com.fiap.lanchonetefilura.infra.dto
 
+import jakarta.persistence.*
 import java.util.*
 
-interface CategoriaDTO {
-    var id: UUID
+@Entity
+@Table(name="categoria")
+data class CategoriaDTO(
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "categoria_id", columnDefinition = "UUID")
+    var id: UUID = UUID.randomUUID(),
 
-    val descricao: String?
-}
+    @Column(unique = true, nullable = false)
+    val descricao: String? = null
+)

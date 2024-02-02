@@ -1,25 +1,14 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import java.util.*
 
 interface PedidoRepository {
 
-    /*fun getPedidos(): List<PedidoDTO>?
 
-    fun getPedidoById(pedidoId: UUID): PedidoDTO?
+    fun listarPedidos(): List<Pedido>
 
-    fun savePedido(pedidoModel: PedidoDTO): PedidoDTO?
+    fun criarOuAtualizarPedido(pedido: Pedido): Pedido
 
-    fun updateEtapaPedido(pedidoModel: PedidoDTO): PedidoDTO?
-
-    fun updateStatusPagamentoPedido(pedidoModel: PedidoDTO): PedidoDTO?*/
-
-    fun listarPedidos(): List<PedidoDTO>
-
-    fun criarPedido(pedidoDTO: PedidoDTO): PedidoDTO
-
-    fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDTO>
-
-    fun pagarPedido(pedidoDTO: PedidoDTO)
+    fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido>
 }

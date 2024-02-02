@@ -1,8 +1,8 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
+import br.com.fiap.lanchonetefilura.infra.adapter.CategoriaAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.CategoriaDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.CategoriaRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.CategoriaJpaRepository
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
@@ -11,30 +11,34 @@ import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class CategoriaRepositoryImpl(private val repository: CategoriaJpaRepository) : CategoriaRepository {
+class CategoriaRepositoryImpl(
+    private val repository: CategoriaJpaRepository,
+    private val adapter: CategoriaAdapter
+) : CategoriaRepository {
 
-    override fun cadastrarCategoria(categoriaDomainDTO: CategoriaDomainDTO): CategoriaDTO {
-        logger.info("${LoggerHelper.LOG_TAG_APP}: Cadastrando categoria na base: ${categoriaDomainDTO.descricao}")
+    override fun cadastrarCategoria(categoria: Categoria): Categoria {
+        logger.info("${LoggerHelper.LOG_TAG_APP}: Cadastrando categoria na base: ${categoria.descricao}")
 
-        val categoriaDTO = CategoriaDTOImpl(
-            id = categoriaDomainDTO.id,
-            descricao = categoriaDomainDTO.descricao
+        val categoriaDTO: CategoriaDTO = adapter.adaptarCategoriaParaCategoriaDto(categoria)
+
+        return adapter.adaptarCategoriaDtoParaCategoria(
+            repository.save(categoriaDTO)
         )
-
-        return repository.save(categoriaDTO)
     }
 
-    override fun listarCategorias(): List<CategoriaDTO> {
+    override fun listarCategorias(): List<Categoria> {
         logger.info("${LoggerHelper.LOG_TAG_APP}: Listando categorias da base")
 
-        return repository.findAll()
+        val categoriasDTO: List<CategoriaDTO> = repository.findAll()
+
+        return adapter.adaptarCategoriasDtoParaCategorias(categoriasDTO)
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID): Optional<CategoriaDTO> {
+    override fun buscarCategoriaPeloId(categoriaId: UUID): Optional<Categoria> {
         logger.info("${LoggerHelper.LOG_TAG_APP}: Buscando pela categorias na base: $categoriaId")
 
-        val categoriaDTO: Optional<CategoriaDTOImpl> = repository.findById(categoriaId)
+        val categoriaDTO: Optional<CategoriaDTO> = repository.findById(categoriaId)
 
-        return Optional.of(categoriaDTO.get())
+        return Optional.of(adapter.adaptarCategoriaDtoParaCategoria(categoriaDTO.get()))
     }
 }

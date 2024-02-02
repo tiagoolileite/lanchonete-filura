@@ -1,40 +1,45 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
+import br.com.fiap.lanchonetefilura.infra.adapter.ClienteAdapter
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import org.springframework.stereotype.Repository
 import java.util.*
 
 @Repository
-class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
-    override fun listarClientes(): List<ClienteDTO> {
-        return repository.findAll()
+class ClienteRepositoryImpl(
+    private val repository: ClienteJpaRepository,
+    private val adapter: ClienteAdapter
+) : ClienteRepository {
+    override fun listarClientes(): List<Cliente> {
+
+        val clientesDTO: List<ClienteDTO> = repository.findAll()
+
+        return adapter.adaptarClientesDtoParaClientes(clientesDTO)
     }
 
-    override fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDTO {
+    override fun cadastrarCliente(cliente : Cliente): Cliente {
 
-        val clienteDTO = ClienteDTOImpl(
-            id = clienteDomainDTO.id,
-            cpf = clienteDomainDTO.cpf,
-            nome = clienteDomainDTO.nome,
-            email = clienteDomainDTO.email
+        val clienteDTO: ClienteDTO = adapter.adaptarClienteParaClienteDTO(cliente)
+
+        return adapter.adaptarClienteDTOParaCliente(
+            repository.save(clienteDTO)
         )
-
-        return repository.save(clienteDTO)
     }
 
-    override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {
+    override fun buscarClientePeloCpf(cpf: String): Cliente? {
 
-        return repository.findClienteByCpf(cpf)
+        val clienteDTO: ClienteDTO? = repository.findClienteByCpf(cpf)
+
+        return clienteDTO?.let { adapter.adaptarClienteDTOParaCliente(it) }
     }
 
-    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO> {
+    override fun buscarClientePeloId(clienteId: UUID): Optional<Cliente> {
 
-        val clienteOptionalDTOImpl: Optional<ClienteDTOImpl> = repository.findById(clienteId)
+        val clienteDTO: Optional<ClienteDTO> = repository.findById(clienteId)
 
-        return Optional.of(clienteOptionalDTOImpl.get())
+        return Optional.of(adapter.adaptarClienteDTOParaCliente(clienteDTO.get()))
     }
 }

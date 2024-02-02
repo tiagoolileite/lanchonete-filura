@@ -5,11 +5,11 @@ import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import java.util.*
 
 data class PedidoResponse (
-    val id: UUID,
+    val id: UUID = UUID.randomUUID(),
     val senha: Int? = null,
-    val etapa: String,
+    val etapa: String?,
     val cliente: ClienteResponse? = null,
-    val produtos: List<ProdutoResponse>,
+    val produtos: List<ProdutoResponse>?,
     val preco: Double? = 0.0,
-    val pago: Boolean
+    val pago: Boolean?
 )

@@ -1,64 +1,49 @@
 package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class ProdutoGatewayImpl(
-    val repository: ProdutoRepository,
-    val adapter: ProdutoAdapter
+    val repository: ProdutoRepository
 ) : ProdutoGateway {
 
-    override fun listarProdutos(): List<ProdutoDomainDTO> {
+    override fun listarProdutos(): List<Produto> {
 
-        val produtosDTO: List<ProdutoDTO> = repository.listarProdutos()
-
-        return adapter.adaptarProdutosDtoParaDomainDto(produtosDTO)
+        return repository.listarProdutos()
     }
 
-    override fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO> {
+    override fun listarProdutosPorCategoria(categoriaId: UUID): List<Produto> {
 
-        val produtosDTO: List<ProdutoDTO> = repository.listarProdutosPorCategoria(categoriaId)
-
-        return adapter.adaptarProdutosDtoParaDomainDto(produtosDTO)
+        return repository.listarProdutosPorCategoria(categoriaId)
     }
 
     override fun cadastrarProduto(
-        produtoDomainDTO: ProdutoDomainDTO
-    ): ProdutoDomainDTO {
+        produto: Produto
+    ): Produto {
 
-        val produtoDTO: ProdutoDTO = repository.cadastrarOuAtualizarProduto(produtoDomainDTO)
-
-        return adapter.adaptarProdutoDtoParaDomainDto(produtoDTO)
+        return repository.cadastrarOuAtualizarProduto(produto)
     }
 
-    override fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDomainDTO> {
+    override fun buscarProdutoPeloId(id: UUID): Optional<Produto> {
 
-        val produtoDTO: Optional<ProdutoDTO> = repository.buscarProdutoPeloId(id)
-
-        return adapter.adaptarProdutoDtoParaOptionalDomainDto(produtoDTO)
+        return repository.buscarProdutoPeloId(id)
     }
 
-    override fun atualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDomainDTO {
+    override fun atualizarProduto(produto: Produto): Produto {
 
-        val produtoDTO: ProdutoDTO = repository.cadastrarOuAtualizarProduto(produtoDomainDTO)
-
-        return adapter.adaptarProdutoDtoParaDomainDto(produtoDTO)
+        return repository.cadastrarOuAtualizarProduto(produto)
     }
 
     override fun deletarProdutoPeloId(produtoId: UUID) {
-        repository.deletarProdutoPeloId(produtoId)
+        repository.deletarProdutoPeloId(produtoId = produtoId)
     }
 
-    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDomainDTO> {
+    override fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<Produto> {
 
-        val produtosDTO: MutableList<ProdutoDTO> = repository.listarProdutosPorListaDeIds(produtosId)
-
-        return  adapter.adaptarProdutosMutableDtoParaMutableDomainDto(produtosDTO)
+        return repository.listarProdutosPorListaDeIds(produtosId).toMutableList()
     }
 }

@@ -1,10 +1,10 @@
 package br.com.fiap.lanchonetefilura.api.mapper
 
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 
 interface ProdutoMapper {
-    fun mapeiaProdutosResponse(produtosDTO: List<ProdutoDomainDTO>): List<ProdutoResponse>
+    fun mapeiaProdutosResponse(produtos : List<Produto>): List<ProdutoResponse>
 
-    fun mapeiaProdutoResponse(produtoDTO: ProdutoDomainDTO): ProdutoResponse
+    fun mapeiaProdutoResponse(produto: Produto): ProdutoResponse
 }
