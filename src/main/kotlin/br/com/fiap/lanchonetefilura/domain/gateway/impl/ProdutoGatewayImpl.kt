@@ -2,7 +2,7 @@ package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import br.com.fiap.lanchonetefilura.domain.gateway.ProdutoGateway
-import br.com.fiap.lanchonetefilura.infra.repository.ProdutoRepository
+import br.com.fiap.lanchonetefilura.persistence.repository.ProdutoRepository
 import org.springframework.stereotype.Component
 import java.util.*
 

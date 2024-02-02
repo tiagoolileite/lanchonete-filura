@@ -13,11 +13,11 @@ Para rodar o projeto com o K8S, o primeiro pré requisito é ter baixado o minik
 
 rode o comando minikube start e aguarde ele iniciar
 
-Navege até a pasta com os deployments do K8S:
+Com o terminal na sua IDE, já na pasta raiz do projeto, navege até a pasta com os arquivos do K8S:
 
-cd src/main/kotlin/br/com/fiap/lanchonetefilura/infra/k8s/
+cd infra/k8s/
 
-na sequencia rode os dois comandos para executar os deployments:
+na sequencia rode os dois comandos para executar os arquivos:
 
 kubectl apply -f app/.
 kubectl apply -f db/.
@@ -37,6 +37,10 @@ Com seu terminal, navegue até a raiz desse projeto e rode o comando:
 docker-compose up
 
 # Desenho da arquitetura
+
+![Diagrama Arq.png](Diagrama%20Arq.png)
+
+![Arquitetura_k8s.png](Arquitetura_k8s.png)
 
 https://www.notion.so/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
 
