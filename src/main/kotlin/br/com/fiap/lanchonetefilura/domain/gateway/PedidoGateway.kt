@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import java.util.*
 
 interface PedidoGateway {

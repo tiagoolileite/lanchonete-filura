@@ -1,34 +1,37 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.ClienteDomainDTOImpl
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
-class PedidoUseCaseImpl(val gateway: PedidoGateway) : PedidoUseCase {
+class PedidoUseCaseImpl(
+    val gateway: PedidoGateway
+) : PedidoUseCase {
 
     override fun listarPedidos(): List<PedidoDTO> {
         return gateway.listarPedidos()
     }
 
     override fun criarPedido(
-        clienteDTO: ClienteDTO?, produtosDTO: List<ProdutoDTO>
+        clienteDTO: ClienteDTOImpl?, produtosDTO: List<ProdutoDomainDTO>
     ): PedidoDTO {
 
         val pedidoDTO = PedidoDTO(
             cliente = clienteDTO,
-            produtos = produtosDTO,
+            //TODO produtos = produtosDTO,
             preco = calculaPreco(produtosDTO)
         )
 
         return gateway.criarPedido(pedidoDTO)
     }
 
-    private fun calculaPreco(produtosDTO: List<ProdutoDTO>): Double {
+    private fun calculaPreco(produtosDTO: List<ProdutoDomainDTO>): Double {
 
         val precoTotal = 0.0
 

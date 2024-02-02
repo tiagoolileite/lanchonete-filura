@@ -1,16 +1,35 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
-class Categoria {
-    val descricao: CategoriaDescricaoEnum? = null
+import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper.ERROR_DESCRICAO_CATEGORIA_INVALIDA
+import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper.ERROR_DESCRICAO_CATEGORIA_VAZIA
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_APP
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_ERROR
 
-    fun validaDescricao(descicao: String) {
-
-        val descricaoValida = CategoriaDescricaoEnum.values().any {
-            it.descricaoCategoria.lowercase() == descicao.lowercase()
+data class Categoria (
+    val descricao: String? = null
+) {
+    init {
+        check(!this.descricao.isNullOrEmpty()) {
+            LoggerHelper.logger.error(
+                "${LOG_TAG_APP}${LOG_TAG_ERROR}: $ERROR_DESCRICAO_CATEGORIA_VAZIA"
+            )
         }
+        validaDescricao()
+    }
+
+    private fun validaDescricao() {
+
+        val descricaoValida = descricoesValidas.contains(this.descricao?.lowercase())
 
         if (!descricaoValida) {
-            throw Error("Descrição da categoria inválida")
+            throw Exception(ERROR_DESCRICAO_CATEGORIA_INVALIDA)
         }
+    }
+
+    companion object {
+        val descricoesValidas: ArrayList<String> = arrayListOf(
+            "acompanhamento", "bebida", "lanche"
+        )
     }
 }

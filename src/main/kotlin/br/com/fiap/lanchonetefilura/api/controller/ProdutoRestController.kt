@@ -1,8 +1,10 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
+import br.com.fiap.lanchonetefilura.api.mapper.ProdutoMapper
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoRequest
 import br.com.fiap.lanchonetefilura.api.model.produto.ProdutoResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ProdutoController
+import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -12,18 +14,25 @@ import java.util.*
 
 @RestController
 @RequestMapping("api/produto")
-class ProdutoRestController(val controller: ProdutoController) {
+class ProdutoRestController(
+    val controller: ProdutoController,
+    val mapper: ProdutoMapper
+) {
 
     @GetMapping("/produtos")
     @ResponseStatus(HttpStatus.OK)
     fun listarProdutos(): ResponseEntity<List<ProdutoResponse>> {
 
-        LoggerHelper.logger.info("[FILURA]: Listando produtos")
-        val produtosResponse: List<ProdutoResponse>  =
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos")
+
+        val produtosDTO: List<ProdutoDomainDTO>  =
             controller.listarProdutos()
 
+        val produtosResponse: List<ProdutoResponse> =
+            mapper.mapeiaProdutosResponse(produtosDTO)
+
         return ResponseEntity.ok(produtosResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Busca por produtos realizada com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso")
             response
         }
     }
@@ -34,12 +43,16 @@ class ProdutoRestController(val controller: ProdutoController) {
         @RequestParam("categoria_id") categoriaId: UUID
     ): ResponseEntity<List<ProdutoResponse>> {
 
-        LoggerHelper.logger.info("[FILURA]: Iniciando Busca de produtos por categoria")
-        val produtosResponse: List<ProdutoResponse> =
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de produtos por categoria")
+
+        val produtosDTO: List<ProdutoDomainDTO>  =
             controller.listarProdutosPorCategoria(categoriaId = categoriaId)
 
+        val produtosResponse: List<ProdutoResponse> =
+            mapper.mapeiaProdutosResponse(produtosDTO)
+
         return ResponseEntity.ok(produtosResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Busca de produtos por categoria realizada com sucesso!")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Busca por produtos realizada com sucesso!")
             response
         }
     }
@@ -50,21 +63,19 @@ class ProdutoRestController(val controller: ProdutoController) {
         @RequestBody @Valid produtoRequest: ProdutoRequest
     ): ResponseEntity<ProdutoResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Salvando Produto")
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando cadastro do produto ${produtoRequest.nome}")
 
-        LoggerHelper.logger.info(
-            "[FILURA]: Requisição: ${produtoRequest.nome}\nID_CATEGORIA: ${produtoRequest.categoriaId}"
-        )
-
-        val produtoResponse: ProdutoResponse = controller.cadastrarProduto(
+        val produtoDTO: ProdutoDomainDTO = controller.cadastrarProduto(
             categoriaId = produtoRequest.categoriaId,
             descricao = produtoRequest.descricao,
             nome = produtoRequest.nome,
             preco = produtoRequest.preco
         )
 
+        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produtoDTO = produtoDTO)
+
         return ResponseEntity.ok(produtoResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Produto salvo com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto cadastrado com sucesso!")
             response
         }
     }
@@ -76,8 +87,11 @@ class ProdutoRestController(val controller: ProdutoController) {
         @RequestParam("produto_id") produtoId: UUID
     ): ResponseEntity<ProdutoResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Atualização do produto iniciado")
-        val produtoResponse: ProdutoResponse? =
+        LoggerHelper.logger.info(
+            "${LoggerHelper.LOG_TAG_APP}: Solicitando atualização do produto ${produtoRequest.nome}"
+        )
+
+        val produtoDTO: ProdutoDomainDTO =
             controller.atualizaProduto(
                 id = produtoId,
                 nome = produtoRequest.nome,
@@ -86,8 +100,10 @@ class ProdutoRestController(val controller: ProdutoController) {
                 descricao = produtoRequest.descricao
             )
 
+        val produtoResponse: ProdutoResponse = mapper.mapeiaProdutoResponse(produtoDTO)
+
         return ResponseEntity.ok(produtoResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Produto atualizado com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto atualizado com sucesso!")
             response
         }
     }
@@ -98,11 +114,12 @@ class ProdutoRestController(val controller: ProdutoController) {
         @RequestParam id: UUID
     ): ResponseEntity<String> {
 
-        LoggerHelper.logger.info("[FILURA]: Apagando Produto")
-        controller.deletarProdutoPeloId(id = id)
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando exclusão do produto")
+
+        controller.deletarProdutoPeloId(produtoId = id)
 
         return ResponseEntity.ok("Produto deletado com sucesso").let { response ->
-            LoggerHelper.logger.info("[FILURA]: Produto Apagado com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Produto deletado com sucesso!")
             response
         }
     }

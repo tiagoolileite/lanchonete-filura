@@ -1,24 +1,13 @@
 package br.com.fiap.lanchonetefilura.infra.dto
 
-import jakarta.persistence.*
 import java.util.*
 
-@Entity
-@Table(name = "cliente")
-data class ClienteDTO(
+interface ClienteDTO {
+    val id: UUID
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "cliente_id", columnDefinition = "UUID")
-    val id: UUID = UUID.randomUUID(),
+    val cpf: String?
 
-    @Column(unique = true)
-    val cpf: String? = null,
+    val nome: String?
 
-    @Column(nullable = false)
-    val nome: String? = null,
-
-    @Column(nullable = false)
-    val email: String? = null
-
-)
+    val email: String?
+}

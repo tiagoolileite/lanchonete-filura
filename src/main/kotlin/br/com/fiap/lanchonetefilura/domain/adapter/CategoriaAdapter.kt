@@ -1,10 +1,15 @@
 package br.com.fiap.lanchonetefilura.domain.adapter
 
-import br.com.fiap.lanchonetefilura.api.model.categoria.CategoriaResponse
+import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
+import br.com.fiap.lanchonetefilura.domain.entity.Categoria
 import br.com.fiap.lanchonetefilura.infra.dto.CategoriaDTO
 
 interface CategoriaAdapter {
-    fun adaptarCategoria(categoriaDTO: CategoriaDTO?): CategoriaResponse
 
-    fun adaptarListaDeCategoria(categoriasDTO: List<CategoriaDTO?>): List<CategoriaResponse>
+    fun adaptarCategoriaParaCategoriaDto(categoria: Categoria): CategoriaDomainDTOImpl
+
+    fun adaptarCategoriaDtoParaDomainDto(categoriaDTO: CategoriaDTO): CategoriaDomainDTO
+
+    fun adaptarCategoriasDtoParaDomainDto(categoriasDTO: List<CategoriaDTO>): List<CategoriaDomainDTO>
 }

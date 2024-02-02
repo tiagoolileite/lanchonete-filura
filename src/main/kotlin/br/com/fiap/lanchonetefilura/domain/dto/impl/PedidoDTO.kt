@@ -1,5 +1,9 @@
-package br.com.fiap.lanchonetefilura.infra.dto
+package br.com.fiap.lanchonetefilura.domain.dto.impl
 
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ProdutoDTOImpl
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*
@@ -23,15 +27,15 @@ data class PedidoDTO (
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    val cliente: ClienteDTO? = null,
+    val cliente: ClienteDTOImpl? = null,
 
     @ManyToMany
     @JoinTable(
         name = "pedidos_produtos",
-        joinColumns = arrayOf(JoinColumn(name = "pedido_id")),
-        inverseJoinColumns = arrayOf(JoinColumn(name = "produto_id"))
+        joinColumns = [JoinColumn(name = "pedido_id")],
+        inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    val produtos: List<ProdutoDTO> = arrayListOf(),
+    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
     var preco: Double = 0.0,

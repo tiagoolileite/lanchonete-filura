@@ -1,6 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
+import br.com.fiap.lanchonetefilura.domain.dto.impl.PedidoDTO
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.PedidoJpaRepository
 import org.springframework.stereotype.Repository

@@ -1,8 +1,11 @@
 package br.com.fiap.lanchonetefilura.api.controller
 
+import br.com.fiap.lanchonetefilura.api.mapper.ClienteMapper
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteRequest
 import br.com.fiap.lanchonetefilura.api.model.cliente.ClienteResponse
 import br.com.fiap.lanchonetefilura.domain.controller.ClienteController
+import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
@@ -11,14 +14,19 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("api/cliente")
-class ClienteRestController(val controller: ClienteController) {
+class ClienteRestController(
+    val controller: ClienteController,
+    val mapper: ClienteMapper
+) {
     @GetMapping("/clientes")
     fun listarClientes(): ResponseEntity<List<ClienteResponse>> {
 
-        LoggerHelper.logger.info("[FILURA]: Listando clientes")
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando listagem de clientes")
 
-        val clientesResponse: List<ClienteResponse> =
+        val clientesDomainDTO: List<ClienteDTOImpl> =
             controller.listarClientes()
+
+        val clientesResponse: List<ClienteResponse> = mapper.mapeiaClientesResponse(clientesDomainDTO = clientesDomainDTO)
 
         return ResponseEntity.ok(clientesResponse).let { response ->
             LoggerHelper.logger.info("[FILURA]: Busca por clientes realizada com sucesso")
@@ -29,11 +37,14 @@ class ClienteRestController(val controller: ClienteController) {
     @GetMapping
     fun buscarClientePeloCpf(@RequestParam cpf: String): ResponseEntity<ClienteResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Buscando cliente pelo CPF")
-        val clienteResponse = controller.buscarClientePeloCpf(cpf)
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando consulta de cliente")
+
+        val clienteDomainDTO: ClienteDTOImpl = controller.buscarClientePeloCpf(cpf)
+
+        val clienteResponse: ClienteResponse = mapper.mapeiaClienteResponse(clienteDomainDTO = clienteDomainDTO)
 
         return ResponseEntity.ok(clienteResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Busca por cliente pelo CPF realizada com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}:  Consulta de cliente realizada com sucesso!")
             response
         }
     }
@@ -42,15 +53,18 @@ class ClienteRestController(val controller: ClienteController) {
     @ResponseStatus(HttpStatus.CREATED)
     fun cadastrarCliente(@RequestBody @Valid clienteRequest: ClienteRequest): ResponseEntity<ClienteResponse> {
 
-        LoggerHelper.logger.info("[FILURA]: Salvando Cliente")
-        val clienteResponse: ClienteResponse = controller.cadastrarCliente(
+        LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}:  Solicitando cadastro de cliente")
+
+        val clienteDomainDTO: ClienteDTOImpl = controller.cadastrarCliente(
             clienteRequest.email,
             clienteRequest.nome,
             clienteRequest.cpf
         )
 
+        val clienteResponse: ClienteResponse = mapper.mapeiaClienteResponse(clienteDomainDTO = clienteDomainDTO)
+
         return ResponseEntity.ok(clienteResponse).let { response ->
-            LoggerHelper.logger.info("[FILURA]: Cliente salvo com sucesso")
+            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}:  Cliente cadastrado com sucesso!")
             response
         }
     }
