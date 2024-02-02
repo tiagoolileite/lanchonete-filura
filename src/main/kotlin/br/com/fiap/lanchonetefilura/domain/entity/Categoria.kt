@@ -8,7 +8,7 @@ import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_ERROR
 import java.util.*
 
 data class Categoria (
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
     val descricao: String
 ) {
     init {

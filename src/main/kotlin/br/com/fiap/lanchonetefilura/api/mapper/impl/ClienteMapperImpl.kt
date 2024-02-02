@@ -13,12 +13,12 @@ class ClienteMapperImpl : ClienteMapper {
         }
     }
 
-    override fun mapeiaClienteResponse(cliente : Cliente) : ClienteResponse {
+    override fun mapeiaClienteResponse(cliente : Cliente?) : ClienteResponse {
         return ClienteResponse(
-            id = cliente.id,
-            cpf = cliente.cpf,
-            nome = cliente.nome,
-            email = cliente.email
+            id = cliente?.id,
+            cpf = cliente?.cpf,
+            nome = cliente?.nome,
+            email = cliente?.email
         )
     }
 

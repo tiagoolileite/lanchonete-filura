@@ -4,9 +4,9 @@ import java.util.*
 
 data class Pedido(
 
-    val id: UUID = UUID.randomUUID(),
+    var id: UUID = UUID.randomUUID(),
 
-    var senha : Int = 0,
+    var senha : Int? = null,
 
     var etapa : String,
 
@@ -19,8 +19,17 @@ data class Pedido(
     var pago : Boolean = false
 ) {
     init {
-        etapa = "em preparação"
+        etapa = EtapasValidas.PENDENTE_PAGAMENTO.etapaDescricao
+
+        check(preco >= 0.0) {
+            throw Exception("Preço não pode ser negativo")
+        }
+
+        check(produtos.isNotEmpty()) {
+            throw Exception("Lista de produtos para um pedido não pode estar vazia")
+        }
     }
+
     companion object {
         enum class EtapasValidas(val etapaDescricao: String) {
             PENDENTE_PAGAMENTO("pendente pagamento"),

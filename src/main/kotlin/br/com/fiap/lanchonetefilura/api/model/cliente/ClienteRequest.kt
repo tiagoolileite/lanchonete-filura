@@ -1,16 +1,22 @@
 package br.com.fiap.lanchonetefilura.api.model.cliente
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
 import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.NotNull
 
-class ClienteRequest {
-    val cpf: String? = null
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class ClienteRequest (
+    @JsonProperty("cpf")
+    val cpf: String,
 
     @NotNull(message = "nome não pode estar vazio")
     @NotEmpty(message = "nome não pode estar vazio")
-    val nome: String? = null
+    @JsonProperty("nome")
+    val nome: String,
 
     @NotNull(message = "email não pode estar vazio")
     @NotEmpty(message = "email não pode estar vazio")
-    val email: String? = null
-}
+    @JsonProperty("email")
+    val email: String
+)

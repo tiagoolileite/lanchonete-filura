@@ -23,9 +23,11 @@ class PedidoRepositoryImpl(
 
     override fun criarOuAtualizarPedido(pedido: Pedido): Pedido {
 
-        val pedidoDTO: PedidoDTO = adapter.adaptarPedidoParaPedidoDTO(pedido)
+        var pedidoDTO: PedidoDTO = adapter.adaptarPedidoParaPedidoDTO(pedido)
 
-        return adapter.adaptarPedidoDTOParaPedido(repository.save(pedidoDTO))
+        pedidoDTO = repository.save(pedidoDTO)
+
+        return adapter.adaptarPedidoDTOParaPedido(pedidoDTO)
     }
 
     override fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido> {

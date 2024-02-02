@@ -45,14 +45,12 @@ class PedidoRestController(
 
         LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Solicitando criação de pedido")
 
-        val pedido: Pedido? = pedidoRequest.produtosId?.let {
-            useCase.criarPedido(
-                clienteId = pedidoRequest.clienteId,
-                produtosId = it
-            )
-        }
+        val pedido: Pedido = useCase.criarPedido(
+            clienteId = pedidoRequest.clienteId,
+            produtosId = pedidoRequest.produtosId
+        )
 
-        val pedidoResponse: PedidoResponse? = mapper.mapeiaPedidoResponse(
+        val pedidoResponse: PedidoResponse = mapper.mapeiaPedidoResponse(
             pedido = pedido
         )
 
@@ -72,7 +70,7 @@ class PedidoRestController(
 
         val pedido: Pedido? = useCase.pagarPedido(pedidoId)
 
-        val pedidoResponse: PedidoResponse? = mapper.mapeiaPedidoResponse(pedido)
+        val pedidoResponse: PedidoResponse = mapper.mapeiaPedidoResponse(pedido)
 
         return ResponseEntity.ok(pedidoResponse).let { response ->
             LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}: Status do pagamento atualizado com sucesso")
