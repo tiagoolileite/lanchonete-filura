@@ -7,15 +7,29 @@ import org.springframework.stereotype.Component
 
 @Component
 class ClienteAdapterImpl : ClienteAdapter {
-    override fun adaptarClientesDtoParaClientes(findAll : List<ClienteDTO>) : List<Cliente> {
-        TODO("Not yet implemented")
+    override fun adaptarClientesDtoParaClientes(clientesDTO : List<ClienteDTO>) : List<Cliente> {
+        return clientesDTO.map { clienteDTO ->
+            adaptarClienteDTOParaCliente(clienteDTO = clienteDTO)
+        }
     }
 
     override fun adaptarClienteParaClienteDTO(cliente : Cliente) : ClienteDTO {
-        TODO("Not yet implemented")
+        return cliente.id?.let {
+            ClienteDTO(
+                id = it,
+                cpf = cliente.cpf,
+                nome = cliente.nome,
+                email = cliente.email
+            )
+        } ?: throw Exception("Falha ao adaptar lista de clientes")
     }
 
     override fun adaptarClienteDTOParaCliente(clienteDTO : ClienteDTO) : Cliente {
-        TODO("Not yet implemented")
+        return Cliente(
+            id = clienteDTO.id,
+            cpf = clienteDTO.cpf,
+            nome = clienteDTO.nome,
+            email = clienteDTO.email
+        )
     }
 }

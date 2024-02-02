@@ -1,10 +1,11 @@
 package br.com.fiap.lanchonetefilura.domain.entity
 
+import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
 import java.util.*
 
 data class Pedido(
 
-    val id: UUID = UUID.randomUUID(),
+    val id : UUID = UUID.randomUUID(),
 
     var senha : Int = 0,
 
