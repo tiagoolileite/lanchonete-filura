@@ -4,7 +4,7 @@ import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
 
 interface ClienteAdapter {
-    fun adaptarClientesDtoParaClientes(findAll : List<ClienteDTO>) : List<Cliente>
+    fun adaptarClientesDtoParaClientes(clientesDTO : List<ClienteDTO>) : List<Cliente>
 
     fun adaptarClienteParaClienteDTO(cliente: Cliente) : ClienteDTO
 

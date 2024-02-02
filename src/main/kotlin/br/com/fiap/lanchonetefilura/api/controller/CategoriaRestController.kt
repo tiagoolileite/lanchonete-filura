@@ -25,9 +25,9 @@ class CategoriaRestController(
 
         LoggerHelper.logger.info("${LOG_TAG_APP}: Solicitando cadastro categoria: ${categoriaRequest.descricao}")
 
-        val categoria: Categoria? = categoriaRequest.descricao?.let { useCase.cadastrarCategoria(it) }
+        val categoria: Categoria = categoriaRequest.descricao.let { useCase.cadastrarCategoria(it) }
 
-        val categoriaResponse: CategoriaResponse? = categoria?.let { mapper.mapeiaCategoriaResponse(categoria = it) }
+        val categoriaResponse: CategoriaResponse = categoria.let { mapper.mapeiaCategoriaResponse(categoria = it) }
 
         return ResponseEntity.ok(categoriaResponse).let { response ->
             LoggerHelper.logger.info("${LOG_TAG_APP}: Categoria ${response.body?.descricao} Salva com sucesso!")

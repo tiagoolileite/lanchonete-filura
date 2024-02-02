@@ -10,4 +10,6 @@ interface ProdutoAdapter {
 
     fun adaptarProdutoDTOParaProduto(produtoDTO : ProdutoDTO) : Produto
 
+    fun adaptarProdutosParaProdutosDTO(produtos : List<Produto>) : List<ProdutoDTO>
+
 }

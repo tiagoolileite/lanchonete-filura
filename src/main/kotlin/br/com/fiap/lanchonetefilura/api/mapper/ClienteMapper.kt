@@ -7,6 +7,6 @@ interface ClienteMapper {
 
     fun mapeiaClientesResponse(clientes: List<Cliente>): List<ClienteResponse>
 
-    fun mapeiaClienteResponse(cliente : Cliente) : ClienteResponse
+    fun mapeiaClienteResponse(cliente : Cliente?) : ClienteResponse
 
 }

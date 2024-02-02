@@ -14,9 +14,9 @@ data class PedidoDTO (
     @Column(name = "pedido_id", columnDefinition = "UUID")
     val id: UUID = UUID.randomUUID(),
 
-    @Column(name = "senha", nullable = false)
+    @Column(name = "senha", nullable = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    var senha: Int? = 0,
+    var senha: Int? = null,
 
     @Column(name = "etapa", nullable = false)
     val etapa: String = "pendente pagamento",
