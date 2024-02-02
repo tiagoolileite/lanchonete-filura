@@ -59,6 +59,7 @@ class PedidoUseCaseImpl(
 
         if (fakeCheckout) {
             pedido.pago = true
+            pedido.etapa = Pedido.Companion.EtapasValidas.RECEBIDO.etapaDescricao
             gateway.pagarPedido(pedido)
         }
 
