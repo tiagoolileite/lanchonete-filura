@@ -12,18 +12,18 @@ data class PedidoDTOImpl (
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "pedido_id", columnDefinition = "UUID")
-    override val id: UUID = UUID.randomUUID(),
+    val id: UUID = UUID.randomUUID(),
 
     @Column(name = "senha", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    override var senha: Int? = 0,
+    var senha: Int? = 0,
 
     @Column(name = "etapa", nullable = false)
-    override val etapa: String = "pendente pagamento",
+    val etapa: String = "pendente pagamento",
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = true)
-    override val cliente: ClienteDTOImpl? = null,
+    val cliente: ClienteDTOImpl? = null,
 
     @ManyToMany
     @JoinTable(
@@ -31,11 +31,11 @@ data class PedidoDTOImpl (
         joinColumns = [JoinColumn(name = "pedido_id")],
         inverseJoinColumns = [JoinColumn(name = "produto_id")]
     )
-    override val produtos: List<ProdutoDTOImpl> = arrayListOf(),
+    val produtos: List<ProdutoDTOImpl> = arrayListOf(),
 
     @Column(name = "preco", nullable = false)
-    override var preco: Double = 0.0,
+    var preco: Double = 0.0,
 
     @Column(name = "pago", nullable = false)
-    override var pago: Boolean = false
-) : PedidoDTO
+    var pago: Boolean = false
+)

@@ -9,14 +9,14 @@ data class ClienteDTOImpl(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "cliente_id", columnDefinition = "UUID")
-    override val id: UUID = UUID.randomUUID(),
+    val id: UUID = UUID.randomUUID(),
 
     @Column(unique = true)
-    override val cpf: String? = null,
+    val cpf: String? = null,
 
     @Column(nullable = false)
-    override val nome: String? = null,
+    val nome: String? = null,
 
     @Column(nullable = false)
-    override val email: String? = null
-) : ClienteDTO
+    val email: String? = null
+)

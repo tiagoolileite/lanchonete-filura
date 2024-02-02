@@ -10,22 +10,22 @@ data class ProdutoDTOImpl (
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "produto_id", columnDefinition = "UUID")
-    override var id: UUID? = UUID.randomUUID(),
+    var id: UUID? = UUID.randomUUID(),
 
     @Column(nullable = false)
-    override var nome: String? = null,
+    var nome: String? = null,
 
     @Column(nullable = false)
-    override var descricao: String? = null,
+    var descricao: String? = null,
 
     @Column(nullable = false)
-    override var preco: Double? = null,
+    var preco: Double? = null,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "categoria_id")
-    override var categoria: CategoriaDTOImpl? = null,
+    var categoria: CategoriaDTOImpl? = null,
 
     @ManyToMany(mappedBy = "produtos")
     @JsonIgnore
-    override val pedidos: List<PedidoDTOImpl>? = null
-) : ProdutoDTO
+    val pedidos: List<PedidoDTOImpl>? = null
+)
