@@ -1,8 +1,6 @@
 package br.com.fiap.lanchonetefilura.infra.repository.impl
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.ClienteDTOImpl
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.infra.repository.ClienteRepository
 import br.com.fiap.lanchonetefilura.infra.repository.jpa.ClienteJpaRepository
 import org.springframework.stereotype.Repository
@@ -10,30 +8,30 @@ import java.util.*
 
 @Repository
 class ClienteRepositoryImpl(private val repository: ClienteJpaRepository) : ClienteRepository {
-    override fun listarClientes(): List<ClienteDTO> {
+    override fun listarClientes(): List<Cliente> {
         return repository.findAll()
     }
 
-    override fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDTO {
+    override fun cadastrarCliente(clienteDomainDTO : Cliente): Cliente {
 
-        val clienteDTO = ClienteDTOImpl(
+        val cliente = Cliente(
             id = clienteDomainDTO.id,
             cpf = clienteDomainDTO.cpf,
             nome = clienteDomainDTO.nome,
             email = clienteDomainDTO.email
         )
 
-        return repository.save(clienteDTO)
+        return repository.save(cliente)
     }
 
-    override fun buscarClientePeloCpf(cpf: String): ClienteDTO? {
+    override fun buscarClientePeloCpf(cpf: String): Cliente? {
 
         return repository.findClienteByCpf(cpf)
     }
 
-    override fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO> {
+    override fun buscarClientePeloId(clienteId: UUID): Optional<Cliente> {
 
-        val clienteOptionalDTOImpl: Optional<ClienteDTOImpl> = repository.findById(clienteId)
+        val clienteOptionalDTOImpl: Optional<Cliente> = repository.findById(clienteId)
 
         return Optional.of(clienteOptionalDTOImpl.get())
     }

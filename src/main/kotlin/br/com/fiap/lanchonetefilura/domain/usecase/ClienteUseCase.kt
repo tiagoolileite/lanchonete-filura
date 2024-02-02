@@ -1,14 +1,14 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import java.util.*
 
 interface ClienteUseCase {
-    fun listarClientes(): List<ClienteDomainDTO>
+    fun listarClientes(): List<Cliente>
 
-    fun cadastrarCliente(email: String?, nome: String?, cpf: String?): ClienteDomainDTO
+    fun cadastrarCliente(cpf: String?, nome: String?, email: String?): Cliente?
 
-    fun buscarClientePeloCpf(cpf: String): ClienteDomainDTO
+    fun buscarClientePeloCpf(cpf: String): Cliente?
 
-    fun buscarClientePeloId(clienteId: UUID): ClienteDomainDTO?
+    fun buscarClientePeloId(clienteId: UUID): Cliente?
 }

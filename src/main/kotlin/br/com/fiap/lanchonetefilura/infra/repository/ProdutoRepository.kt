@@ -1,20 +1,19 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ProdutoDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import java.util.*
 
 interface ProdutoRepository {
 
-    fun listarProdutos(): List<ProdutoDTO>
+    fun listarProdutos(): List<Produto>
 
-    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDTO>
+    fun listarProdutosPorCategoria(categoriaId: UUID): List<Produto>
 
-    fun cadastrarOuAtualizarProduto(produtoDomainDTO: ProdutoDomainDTO): ProdutoDTO
+    fun cadastrarOuAtualizarProduto(produto: Produto): Produto
 
-    fun buscarProdutoPeloId(id: UUID): Optional<ProdutoDTO>
+    fun buscarProdutoPeloId(id: UUID): Optional<Produto>
 
     fun deletarProdutoPeloId(produtoId: UUID)
 
-    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<ProdutoDTO>
+    fun listarProdutosPorListaDeIds(produtosId: List<UUID>?): MutableList<Produto>
 }

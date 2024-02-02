@@ -1,6 +1,5 @@
-package br.com.fiap.lanchonetefilura.infra.dto.impl
+package br.com.fiap.lanchonetefilura.infra.dto
 
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.util.*

@@ -1,101 +1,83 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.ClienteAdapter
-import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
-import br.com.fiap.lanchonetefilura.domain.adapter.ProdutoAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
 import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import br.com.fiap.lanchonetefilura.domain.entity.Produto
+import br.com.fiap.lanchonetefilura.domain.exceptions.pedido.PedidoNaoEncontradoException
+import br.com.fiap.lanchonetefilura.domain.exceptions.produto.ProdutoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.ClienteUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.PedidoUseCase
 import br.com.fiap.lanchonetefilura.domain.usecase.ProdutoUseCase
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class PedidoUseCaseImpl(
     val gateway: PedidoGateway,
-    val adapter: PedidoAdapter,
-    val clienteAdapter: ClienteAdapter,
-    val produtoAdapter : ProdutoAdapter,
-    val produtoUseCase: ProdutoUseCase,
-    val clienteUseCase : ClienteUseCase
+    val clienteUseCase : ClienteUseCase,
+    val produtoUseCase : ProdutoUseCase
 ) : PedidoUseCase {
 
-    override fun listarPedidos(): List<PedidoDomainDTO> {
+    override fun listarPedidos(): List<Pedido> {
         return gateway.listarPedidos()
     }
 
     override fun criarPedido(
         clienteId: UUID?, produtosId: List<UUID>
-    ): PedidoDomainDTO {
+    ): Pedido {
 
-        val clienteDomainDTO: ClienteDomainDTO? = clienteId?.let { clienteUseCase.buscarClientePeloId(it) }
+        val cliente: Cliente? = clienteId?.let { clienteUseCase.buscarClientePeloId(it) }
 
-        val produtosDomainDTO: List<ProdutoDomainDTO> = produtoUseCase.listarProdutosPorListaDeIds(produtosId)
+        val produtos: List<Produto> = produtoUseCase.listarProdutosPorListaDeIds(produtosId)
 
-        LoggerHelper.logger.info(clienteDomainDTO?.nome)
-        LoggerHelper.logger.info(produtosDomainDTO[0].nome)
-
-        val cliente: Cliente = clienteAdapter.adaptarClienteDomainDtoParaCliente(clienteDomainDTO)
-
-        val produtos: List<Produto> = produtoAdapter.adaptarProdutosDomainDtoParaProdutos(produtosDomainDTO)
+        if (produtos.isEmpty()) {
+            throw ProdutoNaoEncontradoException()
+        }
 
         val pedido = Pedido(
+            etapa = Pedido.Companion.EtapasValidas.PENDENTE_PAGAMENTO.toString(),
             cliente = cliente,
-            produtos = produtos
+            produtos = produtos,
+            preco = calculaPreco(produtos)
         )
 
-        val pedidoParaSalvar: PedidoDomainDTO = adapter.adaptarPedidoParaPedidoDomainDtoSemSenha(pedido)
-
-        LoggerHelper.logger.info("pelo menos adaptou a parada")
-        LoggerHelper.logger.info(pedidoParaSalvar.cliente?.id.toString())
-        LoggerHelper.logger.info(pedidoParaSalvar.produtos[0].id.toString())
-        LoggerHelper.logger.info("pelo menos adaptou a parada")
-
-        return gateway.criarPedido(pedidoDomainDTO = pedidoParaSalvar)
+        return gateway.criarPedido(pedido = pedido)
     }
 
-    private fun calculaPreco(produtosDTO: List<ProdutoDomainDTO>): Double {
+    private fun calculaPreco(produtos: List<Produto>): Double {
 
-        val precoTotal = 0.0
+        var precoTotal = 0.0
 
-        produtosDTO.forEach { produto ->
-            produto.preco?.let { precoProduto -> precoTotal.plus(precoProduto) }
+        produtos.forEach { produto ->
+            precoTotal.plus(produto.preco)
         }
 
         return precoTotal
     }
 
-    override fun pagarPedido(pedidoId: UUID): PedidoDomainDTO? {
+    override fun pagarPedido(pedidoId: UUID): Pedido? {
 
-        val pedidoDomainDTO: PedidoDomainDTO = buscarPedidoPeloId(pedidoId)
-
-        var pedidoASerPagoDTO: PedidoDomainDTO? = null
+        val pedido: Pedido = buscarPedidoPeloId(pedidoId)
 
         val fakeCheckout = true
 
-        if (fakeCheckout)
-            pedidoASerPagoDTO = gateway.pagarPedido(pedidoDomainDTO)
-
-        return pedidoASerPagoDTO
-    }
-
-    fun buscarPedidoPeloId(pedidoId : UUID): PedidoDomainDTO {
-
-        val pedidoDomainDTO: Optional<PedidoDomainDTO> = gateway.buscarPedidoPeloId(pedidoId)
-
-        if (pedidoDomainDTO.isEmpty) {
-            LoggerHelper.logger.info("${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: " +
-                    "Não foi possivel localizar seu pedido")
-            throw Exception("Não foi possivel localizar seu pedido")
+        if (fakeCheckout) {
+            pedido.pago = true
+            gateway.pagarPedido(pedido)
         }
 
-        return pedidoDomainDTO.get()
+        return pedido
+    }
+
+    fun buscarPedidoPeloId(pedidoId : UUID): Pedido {
+
+        val pedido: Optional<Pedido> = gateway.buscarPedidoPeloId(pedidoId)
+
+        if (pedido.isEmpty) {
+            throw PedidoNaoEncontradoException()
+        }
+
+        return pedido.get()
     }
 }

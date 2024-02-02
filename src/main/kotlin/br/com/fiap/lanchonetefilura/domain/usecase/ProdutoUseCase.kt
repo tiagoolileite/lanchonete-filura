@@ -1,16 +1,16 @@
 package br.com.fiap.lanchonetefilura.domain.usecase
 
-import br.com.fiap.lanchonetefilura.domain.dto.ProdutoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Produto
 import java.util.*
 
 interface ProdutoUseCase {
-    fun listarProdutos(): List<ProdutoDomainDTO>
+    fun listarProdutos(): List<Produto>
 
-    fun listarProdutosPorCategoria(categoriaId: UUID): List<ProdutoDomainDTO>
+    fun listarProdutosPorCategoria(categoriaId: UUID): List<Produto>
 
-    fun cadastrarProduto(categoriaId: UUID, descricao: String?, nome: String?, preco: Double?): ProdutoDomainDTO
+    fun cadastrarProduto(categoriaId: UUID, descricao: String, nome: String, preco: Double): Produto
 
-    fun buscarProdutoPeloId(id: UUID): ProdutoDomainDTO
+    fun buscarProdutoPeloId(id: UUID): Produto
 
     fun atualizarProduto(
         produtoId: UUID,
@@ -18,9 +18,9 @@ interface ProdutoUseCase {
         categoriaId: UUID?,
         preco: Double?,
         descricao: String?
-    ): ProdutoDomainDTO
+    ): Produto
 
     fun deletarProdutoPeloId(produtoId: UUID)
 
-    fun listarProdutosPorListaDeIds(produtosId: List<UUID>): List<ProdutoDomainDTO>
+    fun listarProdutosPorListaDeIds(produtosId: List<UUID>): List<Produto>
 }

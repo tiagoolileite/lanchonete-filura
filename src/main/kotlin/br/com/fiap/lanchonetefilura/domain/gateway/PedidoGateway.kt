@@ -1,15 +1,15 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import java.util.*
 
 interface PedidoGateway {
 
-    fun listarPedidos(): List<PedidoDomainDTO>
+    fun listarPedidos(): List<Pedido>
 
-    fun criarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDomainDTO
+    fun criarPedido(pedido: Pedido): Pedido
 
-    fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDomainDTO>
+    fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido>
 
-    fun pagarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDomainDTO
+    fun pagarPedido(pedidoDomainDTO: Pedido): Pedido
 }

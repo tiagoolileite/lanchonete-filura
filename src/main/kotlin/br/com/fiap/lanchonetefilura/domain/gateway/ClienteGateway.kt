@@ -1,14 +1,14 @@
 package br.com.fiap.lanchonetefilura.domain.gateway
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import java.util.*
 
 interface ClienteGateway {
-    fun listarClientes(): List<ClienteDomainDTO>
+    fun listarClientes(): List<Cliente>
 
-    fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDomainDTO
+    fun cadastrarCliente(cliente : Cliente): Cliente
 
-    fun buscarClientePeloCpf(cpf: String): ClienteDomainDTO?
+    fun buscarClientePeloCpf(cpf: String): Cliente?
 
-    fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDomainDTO>
+    fun buscarClientePeloId(clienteId: UUID): Optional<Cliente>
 }

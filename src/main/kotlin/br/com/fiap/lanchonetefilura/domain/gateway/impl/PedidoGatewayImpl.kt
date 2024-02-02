@@ -1,49 +1,32 @@
 package br.com.fiap.lanchonetefilura.domain.gateway.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.PedidoAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.PedidoDomainDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Pedido
 import br.com.fiap.lanchonetefilura.domain.gateway.PedidoGateway
-import br.com.fiap.lanchonetefilura.infra.dto.PedidoDTO
-import br.com.fiap.lanchonetefilura.infra.dto.impl.PedidoDTOImpl
 import br.com.fiap.lanchonetefilura.infra.repository.PedidoRepository
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class PedidoGatewayImpl(
-    val repository: PedidoRepository,
-    val adapter: PedidoAdapter
+    val repository: PedidoRepository
 ) : PedidoGateway {
-    override fun listarPedidos(): List<PedidoDomainDTO> {
+    override fun listarPedidos(): List<Pedido> {
 
-        val pedidosDTO: List<PedidoDTO> = repository.listarPedidos()
-
-        return adapter.adaptarPedidosDtoEmPedidosDomainDto(pedidosDTO)
+        return repository.listarPedidos()
     }
 
-    override fun criarPedido(pedidoDomainDTO: PedidoDomainDTO): PedidoDomainDTO {
+    override fun criarPedido(pedido: Pedido): Pedido {
 
-        val pedidoDTO: PedidoDTO = repository.criarPedido(pedidoDomainDTO = pedidoDomainDTO)
-
-        LoggerHelper.logger.info("Pouco de calma: " + pedidoDTO.senha)
-
-        return adapter.adaptarPedidoDtoEmPedidoDomainDto(pedidoDTO)
+        return repository.criarPedido(pedido)
     }
 
-    override fun buscarPedidoPeloId(pedidoId: UUID): Optional<PedidoDomainDTO> {
+    override fun buscarPedidoPeloId(pedidoId: UUID): Optional<Pedido> {
 
-        val pedidoDTO: Optional<PedidoDTOImpl> = repository.buscarPedidoPeloId(pedidoId = pedidoId)
-
-        return Optional.of(
-            adapter.adaptarPedidoDtoEmPedidoDomainDto(pedidoDTO.get())
-        )
+        return repository.buscarPedidoPeloId(pedidoId)
     }
 
-    override fun pagarPedido(pedidoDomainDTO : PedidoDomainDTO): PedidoDomainDTO {
+    override fun pagarPedido(pedido : Pedido): Pedido {
 
-        val pedidoDTO: PedidoDTO = repository.pagarPedido(pedidoDomainDTO = pedidoDomainDTO)
-
-        return adapter.adaptarPedidoDtoEmPedidoDomainDto(pedidoDTO)
+        return repository.pagarPedido(pedido)
     }
 }

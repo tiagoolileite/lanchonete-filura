@@ -1,16 +1,15 @@
 package br.com.fiap.lanchonetefilura.infra.repository
 
-import br.com.fiap.lanchonetefilura.domain.dto.ClienteDomainDTO
-import br.com.fiap.lanchonetefilura.infra.dto.ClienteDTO
+import br.com.fiap.lanchonetefilura.domain.entity.Cliente
 import java.util.*
 
 interface ClienteRepository {
 
-    fun listarClientes(): List<ClienteDTO>
+    fun listarClientes(): List<Cliente>
 
-    fun cadastrarCliente(clienteDomainDTO : ClienteDomainDTO): ClienteDTO
+    fun cadastrarCliente(cliente : Cliente): Cliente
 
-    fun buscarClientePeloCpf(cpf: String): ClienteDTO?
+    fun buscarClientePeloCpf(cpf: String): Cliente?
 
-    fun buscarClientePeloId(clienteId: UUID): Optional<ClienteDTO>
+    fun buscarClientePeloId(clienteId: UUID): Optional<Cliente>
 }

@@ -1,55 +1,35 @@
 package br.com.fiap.lanchonetefilura.domain.usecase.impl
 
-import br.com.fiap.lanchonetefilura.domain.adapter.CategoriaAdapter
-import br.com.fiap.lanchonetefilura.domain.dto.CategoriaDomainDTO
-import br.com.fiap.lanchonetefilura.domain.dto.impl.CategoriaDomainDTOImpl
 import br.com.fiap.lanchonetefilura.domain.entity.Categoria
-import br.com.fiap.lanchonetefilura.domain.exceptions.DomainExceptionHelper
+import br.com.fiap.lanchonetefilura.domain.exceptions.categoria.CategoriaNaoEncontradaException
 import br.com.fiap.lanchonetefilura.domain.gateway.CategoriaGateway
 import br.com.fiap.lanchonetefilura.domain.usecase.CategoriaUseCase
-import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper
 import org.springframework.stereotype.Component
 import java.util.*
 
 @Component
 class CategoriaUseCaseImpl(
-    val adapter: CategoriaAdapter,
     val gateway: CategoriaGateway
 ) : CategoriaUseCase {
-    override fun cadastrarCategoria(descricao: String?): CategoriaDomainDTO {
+    override fun cadastrarCategoria(descricao: String): Categoria {
 
         val categoria = Categoria(descricao = descricao)
 
-        val categoriaDTO: CategoriaDomainDTO = adapter.adaptarCategoriaParaCategoriaDto(categoria = categoria)
-
-        return gateway.cadastrarCategoria(categoriaDomainDTO = categoriaDTO)
+        return gateway.cadastrarCategoria(categoria = categoria)
     }
 
-    override fun listarCategorias(): List<CategoriaDomainDTO> {
+    override fun listarCategorias(): List<Categoria> {
         return gateway.listarCategorias()
     }
 
-    override fun buscarCategoriaPeloId(categoriaId: UUID): CategoriaDomainDTOImpl? {
+    override fun buscarCategoriaPeloId(categoriaId: UUID): Categoria? {
 
-        val categoriaDTO: Optional<CategoriaDomainDTO> = gateway.buscarCategoriaPeloId(categoriaId = categoriaId)
+        val categoria: Optional<Categoria> = gateway.buscarCategoriaPeloId(categoriaId = categoriaId)
 
-        var categoriaDTOImpl: CategoriaDomainDTOImpl? = null
-
-        if (categoriaDTO.isPresent) {
-            categoriaDTO.get().let { categoria ->
-                categoriaDTOImpl = CategoriaDomainDTOImpl(
-                    id = categoria.id,
-                    descricao = categoria.descricao
-                )
-            }
+        if (categoria.isEmpty) {
+            throw CategoriaNaoEncontradaException()
         }
 
-        return categoriaDTOImpl ?: also {
-            LoggerHelper.logger.error(
-                "${LoggerHelper.LOG_TAG_APP}${LoggerHelper.LOG_TAG_ERROR}: ${DomainExceptionHelper.ERROR_DESCRICAO_CATEGORIA_VAZIA}"
-            )
-        }.run {
-            throw Exception(DomainExceptionHelper.ERROR_CATEGORIA_NAO_LOCALIZADA)
-        }
+        return categoria.get()
     }
 }
