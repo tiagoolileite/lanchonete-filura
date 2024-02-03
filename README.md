@@ -44,6 +44,8 @@ docker-compose up
 
 https://rightful-jupiter-cbe.notion.site/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
 
+Vídeo Youtube explicando a arq - https://www.youtube.com/watch?v=RhMcNFofVKU
+
 # Postman
 
 Collection para requisicoes
