@@ -42,7 +42,13 @@ docker-compose up
 
 ![Arquitetura_k8s.png](Arquitetura_k8s.png)
 
-https://www.notion.so/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
+https://rightful-jupiter-cbe.notion.site/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
+
+# Postman
+
+Collection para requisicoes
+
+https://rightful-jupiter-cbe.notion.site/Fase-2-7de6bcb43ab6425e83932ba0e27dc41d?pvs=4
 
 # Swagger
 
