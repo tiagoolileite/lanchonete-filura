@@ -6,6 +6,7 @@ import br.com.fiap.lanchonetefilura.domain.exceptions.cliente.ClienteJaExisteExc
 import br.com.fiap.lanchonetefilura.domain.exceptions.cliente.ClienteNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.exceptions.pedido.PedidoNaoEncontradoException
 import br.com.fiap.lanchonetefilura.domain.exceptions.produto.ProdutoNaoEncontradoException
+import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.LOG_TAG_APP_EXCEPTION
 import br.com.fiap.lanchonetefilura.shared.helper.LoggerHelper.logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,7 +24,7 @@ class GlobalExceptionHandlerAdvice {
     @ExceptionHandler
     fun genericError(exception: HttpMessageNotReadableException): ResponseEntity<ApiError> {
 
-        logger.error("[Filura]: Exception", exception)
+        logger.error(LOG_TAG_APP_EXCEPTION, exception)
 
         return ResponseEntity(
             ApiError(status = HttpStatus.BAD_REQUEST.value(), message = "Verifique se informou todos os campos obrigatório"),
@@ -34,7 +35,7 @@ class GlobalExceptionHandlerAdvice {
     @ExceptionHandler
     fun genericNullPointerError(exception: NullPointerException): ResponseEntity<ApiError> {
 
-        logger.error("[Filura]: Exception", exception)
+        logger.error(LOG_TAG_APP_EXCEPTION, exception)
 
         return ResponseEntity(
             ApiError(status = HttpStatus.BAD_REQUEST.value(), message = "Verifique se informou todos os campos obrigatório"),
@@ -45,7 +46,7 @@ class GlobalExceptionHandlerAdvice {
     @ExceptionHandler
     fun genericError(exception: Exception): ResponseEntity<ApiError> {
 
-        logger.error("[Filura]: Exception", exception)
+        logger.error(LOG_TAG_APP_EXCEPTION, exception)
 
         return ResponseEntity(
             ApiError(status = HttpStatus.BAD_GATEWAY.value(), message = "Erro ao processar solicitação"),
