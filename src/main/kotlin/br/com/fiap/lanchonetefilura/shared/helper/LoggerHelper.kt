@@ -8,5 +8,6 @@ object LoggerHelper {
     val logger: Logger = LoggerFactory.getLogger(LanchonetefiluraApplication::class.java)
 
     const val LOG_TAG_APP = "[FILURA]"
+    const val LOG_TAG_APP_EXCEPTION = "[FILURA]: Exception"
     const val LOG_TAG_ERROR = "[ERROR]"
 }
